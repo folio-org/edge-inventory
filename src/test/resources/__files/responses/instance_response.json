@@ -1,0 +1,129 @@
+{
+  "@context": "http://localhost:9130/inventory/instances/context",
+  "id": "e6bc03c6-c137-4221-b679-a7c5c31f986c",
+  "hrid": "inst000000000027",
+  "source": "FOLIO",
+  "title": "Organisations- und Prozessentwicklung Harald Augustin (Hrsg.)",
+  "parentInstances": [
+    {
+      "id": "34ec984a-4384-4088-bc58-5d5721c7b9d6",
+      "superInstanceId": "a317b304-528c-424f-961c-39174933b454",
+      "instanceRelationshipTypeId": "a17daf0a-f057-43b3-9997-13d0724cdf51"
+    }
+  ],
+  "childInstances": [],
+  "alternativeTitles": [],
+  "editions": [],
+  "series": [
+    "Umsetzung der DIN EN ISO 9001:2015  / Harald Augustin (Hrsg.) ; Band 1",
+    "Berichte aus der Betriebswirtschaft",
+    "Umsetzung der DIN EN ISO 9001:2015 Band 1"
+  ],
+  "identifiers": [
+    {
+      "identifierTypeId": "8261054f-be78-422d-bd51-4ed9f33c3422",
+      "value": "3844057420"
+    },
+    {
+      "identifierTypeId": "8261054f-be78-422d-bd51-4ed9f33c3422",
+      "value": "9783844057423"
+    },
+    {
+      "identifierTypeId": "2e8b3b6c-0e7d-4e48-bca2-b0b23b376af5",
+      "value": "9783844057423"
+    },
+    {
+      "identifierTypeId": "7e591197-f335-4afb-bc6d-a6d76ca3bace",
+      "value": "(OCoLC)1024095011"
+    },
+    {
+      "identifierTypeId": "7e591197-f335-4afb-bc6d-a6d76ca3bace",
+      "value": "(DE-101)1150175923"
+    },
+    {
+      "identifierTypeId": "7e591197-f335-4afb-bc6d-a6d76ca3bace",
+      "value": "(DE-599)DNB1150175923"
+    }
+  ],
+  "contributors": [
+    {
+      "contributorNameTypeId": "2b94c631-fca9-4892-a730-03ee529ffe2a",
+      "name": "Augustin, Harald",
+      "contributorTypeId": null,
+      "contributorTypeText": null,
+      "primary": null
+    },
+    {
+      "contributorNameTypeId": "2e48e713-17f3-4c13-a9f8-23845bb210aa",
+      "name": "Shaker Verlag GmbH",
+      "contributorTypeId": null,
+      "contributorTypeText": null,
+      "primary": null
+    }
+  ],
+  "subjects": [
+    "DIN EN ISO 9001:2015",
+    "Standard",
+    "Organisatorischer Wandel",
+    "Prozessmanagement",
+    "Einführung",
+    "Industrie",
+    "Deutschland"
+  ],
+  "classifications": [
+    {
+      "classificationNumber": "658.4013",
+      "classificationTypeId": "42471af9-7d25-4f3a-bf78-60d29dcf463b"
+    },
+    {
+      "classificationNumber": "650",
+      "classificationTypeId": "42471af9-7d25-4f3a-bf78-60d29dcf463b"
+    }
+  ],
+  "publication": [
+    {
+      "publisher": "Shaker Verlag",
+      "place": "Aachen",
+      "dateOfPublication": "2017",
+      "role": null
+    }
+  ],
+  "publicationFrequency": [],
+  "publicationRange": [],
+  "electronicAccess": [
+    {
+      "uri": "http://d-nb.info/1150175923/04",
+      "linkText": "Electronic resource (PDF)",
+      "materialsSpecification": null,
+      "publicNote": "Address for accessing the table of content. PDF file",
+      "relationshipId": null
+    }
+  ],
+  "instanceTypeId": "6312d172-f0cf-40f6-b27d-9fa8feaf332f",
+  "instanceFormatIds": [],
+  "physicalDescriptions": [
+    "x, 113 Seiten Illustrationen 21 cm, 223 g"
+  ],
+  "languages": [
+    "ger"
+  ],
+  "notes": [],
+  "discoverySuppress": false,
+  "statisticalCodeIds": [],
+  "statusUpdatedDate": "2021-03-01T20:28:36.486+0000",
+  "metadata": {
+    "createdDate": "2021-03-01T20:28:36.485+00:00",
+    "createdByUserId": null,
+    "updatedDate": "2021-03-01T20:28:36.485+00:00",
+    "updatedByUserId": null
+  },
+  "tags": {
+    "tagList": []
+  },
+  "natureOfContentTermIds": [],
+  "precedingTitles": [],
+  "succeedingTitles": [],
+  "links": {
+    "self": "http://localhost:9130/inventory/instances/e6bc03c6-c137-4221-b679-a7c5c31f986c"
+  }
+}

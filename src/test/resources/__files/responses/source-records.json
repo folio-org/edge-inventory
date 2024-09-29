@@ -1,0 +1,571 @@
+{
+  "id": "e6bc03c6-c137-4221-b679-a7c5c31f986c",
+  "snapshotId": "11a796d5-923d-42a6-b9ad-733a4a10b2d9",
+  "recordType": "MARC_BIB",
+  "rawRecord": {
+    "id": "e6bc03c6-c137-4221-b679-a7c5c31f986c",
+    "content": "01968nam a2200505Li 4500001001200000003000800012005001700020006001900037007000700056008004100063020003200104020003500136020002500171020002200196035002500218040002100243043001200264045000900276049001500285050002600300082002500326100003900351245009700390264006300487300005600550336002600606337002300632338003200655490002800687504005100715533007300766588004700839650005300886650006000939650005100999651004101050650004301091710001401134776013101148830002901279856009401308980003301402981002001435983000701455ybp12330069NhCcYBP20150528172204.2m     o  d        cr |n|150406s2015    onca    ob    001 0 eng d  a1442621192 (electronic bk.)  a9781442621190 (electronic bk.)  z9781442649675qbound  z1442649674qbound  aNhCcYBPb99963883199  aNhCcYBPcNhCcYBP  ae-it---0 ax2x4  aUVAEDH12-3 4aHQ1236.5.I8bC43 201504a305.42094509/0432231 aChang, Natasha V.d1971-,eauthor.14aThe crisis-woman :bbody politics and the modern woman in fascist Italy /cNatasha V. Chang. 1aToronto ;aBuffalo :bUniversity of Toronto Press,c[2015]  a1 online resource ( x, 166 pages) :billustrations.  atextbtxt2rdacontent  acomputer2rdamedia  aonline resource2rdacarrier1 aToronto Italian studies  aIncludes bibliographical references and index.  aElectronic reproduction.bIpswich, MAnAvailable via World Wide Web.  aDescription based on print version record. 0aFascism and womenzItalyxHistoryy20th century. 0aWomen in popular culturezItalyxHistoryy20th century. 0aWomenzItalyxSocial conditionsy20th century. 0aItalyxSocial conditionsy1918-1945. 0aFascismzItalyxHistoryy20th century.2 aDOChost08iPrint version:aChang, Natasha V. 1971-tCrisis-woman.dToronto ; Buffalo : University of Toronto Press, [2015]z9781442649675 0aToronto Italian studies.40uhttp://search.DOChost.com/login.aspx?direct=true&scope=site&db=nlebk&db=nlabk&AN=961833  a150813b4483f99963883199g1  bH12-3-2015e502  a1U"
+  },
+  "parsedRecord": {
+    "id": "e6bc03c6-c137-4221-b679-a7c5c31f986c",
+    "content": {
+      "leader": "02078nam a2200517Li 4500",
+      "fields": [
+        {
+          "001": "in00006226541"
+        },
+        {
+          "006": "m     o  d        "
+        },
+        {
+          "007": "cr |n|"
+        },
+        {
+          "008": "150406s2015    onca    ob    001 0 eng d"
+        },
+        {
+          "005": "20211001214133.6"
+        },
+        {
+          "020": {
+            "ind1": " ",
+            "ind2": " ",
+            "subfields": [
+              {
+                "a": "1442621192 (electronic bk.)"
+              }
+            ]
+          }
+        },
+        {
+          "020": {
+            "ind1": " ",
+            "ind2": " ",
+            "subfields": [
+              {
+                "a": "9781442621190 (electronic bk.)"
+              }
+            ]
+          }
+        },
+        {
+          "020": {
+            "ind1": " ",
+            "ind2": " ",
+            "subfields": [
+              {
+                "z": "9781442649675"
+              },
+              {
+                "q": "bound"
+              }
+            ]
+          }
+        },
+        {
+          "020": {
+            "ind1": " ",
+            "ind2": " ",
+            "subfields": [
+              {
+                "z": "1442649674"
+              },
+              {
+                "q": "bound"
+              }
+            ]
+          }
+        },
+        {
+          "035": {
+            "ind1": " ",
+            "ind2": " ",
+            "subfields": [
+              {
+                "a": "NhCcYBP"
+              },
+              {
+                "b": "99963883199"
+              }
+            ]
+          }
+        },
+        {
+          "035": {
+            "ind1": " ",
+            "ind2": " ",
+            "subfields": [
+              {
+                "a": "(NhCcYBP)ybp12330069"
+              }
+            ]
+          }
+        },
+        {
+          "040": {
+            "ind1": " ",
+            "ind2": " ",
+            "subfields": [
+              {
+                "a": "NhCcYBP"
+              },
+              {
+                "c": "NhCcYBP"
+              }
+            ]
+          }
+        },
+        {
+          "043": {
+            "ind1": " ",
+            "ind2": " ",
+            "subfields": [
+              {
+                "a": "e-it---"
+              }
+            ]
+          }
+        },
+        {
+          "045": {
+            "ind1": "0",
+            "ind2": " ",
+            "subfields": [
+              {
+                "a": "x2x4"
+              }
+            ]
+          }
+        },
+        {
+          "049": {
+            "ind1": " ",
+            "ind2": " ",
+            "subfields": [
+              {
+                "a": "UVAEDH12-3"
+              }
+            ]
+          }
+        },
+        {
+          "050": {
+            "ind1": " ",
+            "ind2": "4",
+            "subfields": [
+              {
+                "a": "HQ1236.5.I8"
+              },
+              {
+                "b": "C43 2015"
+              }
+            ]
+          }
+        },
+        {
+          "082": {
+            "ind1": "0",
+            "ind2": "4",
+            "subfields": [
+              {
+                "a": "305.42094509/043"
+              },
+              {
+                "2": "23"
+              }
+            ]
+          }
+        },
+        {
+          "100": {
+            "ind1": "1",
+            "ind2": " ",
+            "subfields": [
+              {
+                "a": "Chang, Natasha V."
+              },
+              {
+                "d": "1971-,"
+              },
+              {
+                "e": "author."
+              }
+            ]
+          }
+        },
+        {
+          "245": {
+            "ind1": "1",
+            "ind2": "4",
+            "subfields": [
+              {
+                "a": "The crisis-woman :"
+              },
+              {
+                "b": "body politics and the modern woman in fascist Italy /"
+              },
+              {
+                "c": "Natasha V. Chang."
+              }
+            ]
+          }
+        },
+        {
+          "264": {
+            "ind1": " ",
+            "ind2": "1",
+            "subfields": [
+              {
+                "a": "Toronto ;"
+              },
+              {
+                "a": "Buffalo :"
+              },
+              {
+                "b": "University of Toronto Press,"
+              },
+              {
+                "c": "[2015]"
+              }
+            ]
+          }
+        },
+        {
+          "300": {
+            "ind1": " ",
+            "ind2": " ",
+            "subfields": [
+              {
+                "a": "1 online resource ( x, 166 pages) :"
+              },
+              {
+                "b": "illustrations."
+              }
+            ]
+          }
+        },
+        {
+          "336": {
+            "ind1": " ",
+            "ind2": " ",
+            "subfields": [
+              {
+                "a": "text"
+              },
+              {
+                "b": "txt"
+              },
+              {
+                "2": "rdacontent"
+              }
+            ]
+          }
+        },
+        {
+          "337": {
+            "ind1": " ",
+            "ind2": " ",
+            "subfields": [
+              {
+                "a": "computer"
+              },
+              {
+                "2": "rdamedia"
+              }
+            ]
+          }
+        },
+        {
+          "338": {
+            "ind1": " ",
+            "ind2": " ",
+            "subfields": [
+              {
+                "a": "online resource"
+              },
+              {
+                "2": "rdacarrier"
+              }
+            ]
+          }
+        },
+        {
+          "490": {
+            "ind1": "1",
+            "ind2": " ",
+            "subfields": [
+              {
+                "a": "Toronto Italian studies"
+              }
+            ]
+          }
+        },
+        {
+          "504": {
+            "ind1": " ",
+            "ind2": " ",
+            "subfields": [
+              {
+                "a": "Includes bibliographical references and index."
+              }
+            ]
+          }
+        },
+        {
+          "533": {
+            "ind1": " ",
+            "ind2": " ",
+            "subfields": [
+              {
+                "a": "Electronic reproduction."
+              },
+              {
+                "b": "Ipswich, MA"
+              },
+              {
+                "n": "Available via World Wide Web."
+              }
+            ]
+          }
+        },
+        {
+          "588": {
+            "ind1": " ",
+            "ind2": " ",
+            "subfields": [
+              {
+                "a": "Description based on print version record."
+              }
+            ]
+          }
+        },
+        {
+          "650": {
+            "ind1": " ",
+            "ind2": "0",
+            "subfields": [
+              {
+                "a": "Fascism and women"
+              },
+              {
+                "z": "Italy"
+              },
+              {
+                "x": "History"
+              },
+              {
+                "y": "20th century."
+              }
+            ]
+          }
+        },
+        {
+          "650": {
+            "ind1": " ",
+            "ind2": "0",
+            "subfields": [
+              {
+                "a": "Women in popular culture"
+              },
+              {
+                "z": "Italy"
+              },
+              {
+                "x": "History"
+              },
+              {
+                "y": "20th century."
+              }
+            ]
+          }
+        },
+        {
+          "650": {
+            "ind1": " ",
+            "ind2": "0",
+            "subfields": [
+              {
+                "a": "Women"
+              },
+              {
+                "z": "Italy"
+              },
+              {
+                "x": "Social conditions"
+              },
+              {
+                "y": "20th century."
+              }
+            ]
+          }
+        },
+        {
+          "651": {
+            "ind1": " ",
+            "ind2": "0",
+            "subfields": [
+              {
+                "a": "Italy"
+              },
+              {
+                "x": "Social conditions"
+              },
+              {
+                "y": "1918-1945."
+              }
+            ]
+          }
+        },
+        {
+          "650": {
+            "ind1": " ",
+            "ind2": "0",
+            "subfields": [
+              {
+                "a": "Fascism"
+              },
+              {
+                "z": "Italy"
+              },
+              {
+                "x": "History"
+              },
+              {
+                "y": "20th century."
+              }
+            ]
+          }
+        },
+        {
+          "710": {
+            "ind1": "2",
+            "ind2": " ",
+            "subfields": [
+              {
+                "a": "DOCHost"
+              }
+            ]
+          }
+        },
+        {
+          "776": {
+            "ind1": "0",
+            "ind2": "8",
+            "subfields": [
+              {
+                "i": "Print version:"
+              },
+              {
+                "a": "Chang, Natasha V. 1971-"
+              },
+              {
+                "t": "Crisis-woman."
+              },
+              {
+                "d": "Toronto ; Buffalo : University of Toronto Press, [2015]"
+              },
+              {
+                "z": "9781442649675"
+              }
+            ]
+          }
+        },
+        {
+          "830": {
+            "ind1": " ",
+            "ind2": "0",
+            "subfields": [
+              {
+                "a": "Toronto Italian studies."
+              }
+            ]
+          }
+        },
+        {
+          "856": {
+            "ind1": "4",
+            "ind2": "0",
+            "subfields": [
+              {
+                "u": "http://search.dochost.com/login.aspx?direct=true&scope=site&db=nlebk&db=makat&AN=961833"
+              }
+            ]
+          }
+        },
+        {
+          "980": {
+            "ind1": " ",
+            "ind2": " ",
+            "subfields": [
+              {
+                "a": "150813"
+              },
+              {
+                "b": "4483"
+              },
+              {
+                "f": "99963883199"
+              },
+              {
+                "g": "1"
+              }
+            ]
+          }
+        },
+        {
+          "981": {
+            "ind1": " ",
+            "ind2": " ",
+            "subfields": [
+              {
+                "b": "H12-3-2015"
+              },
+              {
+                "e": "502"
+              }
+            ]
+          }
+        },
+        {
+          "983": {
+            "ind1": " ",
+            "ind2": " ",
+            "subfields": [
+              {
+                "a": "1U"
+              }
+            ]
+          }
+        },
+        {
+          "999": {
+            "ind1": "f",
+            "ind2": "f",
+            "subfields": [
+              {
+                "s": "49d06721-2c29-419a-a7f7-aebafb32643c"
+              },
+              {
+                "i": "49d06721-2c29-419a-a7f7-aebafb32643c"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "formattedContent": "LEADER 02042nma a2200349 c 4500\n001 inst000000000019\n003 DE-601\n005 20180122150003.0\n007 cuuuu---uuuuu\n008 180122s2017\n035 1011273942\n020   $a9781450351430$9978-1-4503-5143-0\n035   $a(DE-599)GBV1011273942\n040   $bger$cGBVCP$erda\n041 0 $aeng\n110 2 $aACM Workshop on Millimeter Wave Networks and Sensing Systems$n1.$d2017$cSnowbird, Utah$eVerfasserIn$4aut\n245 00$aMobiCom'17$n5$pmmNets'17, October 16, 2017, Snowbird, UT, USA / general chairs: Haitham Hassanieh (University of Illinois at Urbana Champaign, USA), Xinyu Zhang (University of California San Diego, USA)\n246 30$a1st First ACM Workshop Millimeter Wave Networks Sensing Systems\n336   $aText$btxt$2rdacontent\n337   $aComputermedien$bc$2rdamedia\n338   $aComputerdisk$bcd$2rdacarrier\n700 1 $aHassanieh, Haitham$eVeranstalterIn$4orm\n700 1 $aZhang, Xinyu$eVeranstalterIn$4orm\n710 2 $aMobiCom$n23.$d2017$cSnowbird, Utah$eVeranstalterIn$4orm\n710 2 $aAssociation for Computing Machinery$bSpecial Interest Group on Mobility of Systems Users, Data, and Computing$eSponsorIn$4spn$0(DE-601)499677137$0(DE-588)10113390-X\n711 2 $aACM Workshop on Millimeter Wave Networks and Sensing Systems$n1$d2017.10.16$cSnowbird, Utah\n711 2 $ammNets$n1$d2017.10.16$cSnowbird, Utah\n711 2 $aAnnual International Conference on Mobile Computing and Networking (ACM MobiCom)$n23$d2017.10.16-20$cSnowbird, Utah\n773 0 $w(DE-601)1011270897$tMobiCom'17, MobiCom'17, proceedings and co-located workshops of the 23rd Annual International Conference on Mobile Computing and Networking : October 16-20, 2017, Snowbird, UT, USA, MobiCom, Snowbird, Utah. - New York, NY : ACM, Association for Computing Machinery\n900   $aGBV$bTIB/UB Hannover <89>\n954   $0TIB/UB Hannover <89>$a70$b1743063695$c01$x0089\n999 ff$se6bc03c6-c137-4221-b679-a7c5c31f986c$i6b4ae089-e1ee-431f-af83-e1133f8e3da0\n\n"
+  },
+  "deleted": false,
+  "order": 0,
+  "externalIdsHolder": {
+    "instanceId": "e6bc03c6-c137-4221-b679-a7c5c31f986c",
+    "instanceHrid": "in00006226541"
+  },
+  "additionalInfo": {
+    "suppressDiscovery": false
+  },
+  "metadata": {
+    "createdDate": "2021-10-18T18:05:48.353+00:00",
+    "updatedDate": "2021-10-18T18:15:28.229+00:00"
+  }
+}

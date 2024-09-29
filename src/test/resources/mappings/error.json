@@ -1,0 +1,42 @@
+{
+  "mappings": [
+    {
+      "request": {
+        "method": "GET",
+        "url": "/inventory/instances/36055839-c8b0-44af-ba5e-1b7dd2b7d296?lang=en"
+      },
+      "response": {
+        "status": 404,
+        "bodyFileName": "errors/not_found.json",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/inventory/instances/7ca21665-1b61-44e4-a49a-549a7947d387?lang=en"
+      },
+      "response": {
+        "status": 403,
+        "bodyFileName": "errors/forbidden.json",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/inventory/instances/3bad75d2-763e-4959-876d-4b29fea72b02?lang=en"
+      },
+      "response": {
+        "status": 401,
+        "bodyFileName": "errors/unauthorized.json",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    }]
+}

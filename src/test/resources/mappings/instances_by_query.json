@@ -1,0 +1,30 @@
+{
+  "mappings": [
+    {
+      "request": {
+        "method": "GET",
+        "url": "/inventory/instances?offset=0&query=id%3D%3D5b1eb450-ff9f-412d-a9e7-887f6eaeb5b4&limit=10&lang=en"
+      },
+      "response": {
+        "status": 200,
+        "bodyFileName": "responses/instances_by_query_response.json",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/inventory/instances?offset=0&query=id%3D%3D5b1eb450-ff9f-412d-a9e7-887f6eaeb5b0&limit=10&lang=en"
+      },
+      "response": {
+        "status": 200,
+        "bodyFileName": "responses/instances_by_query_empty_response.json",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    }
+  ]
+}

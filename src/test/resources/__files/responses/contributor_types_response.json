@@ -1,0 +1,125 @@
+{
+  "contributorTypes": [
+    {
+      "id": "7131e7b8-84fa-48bd-a725-14050be38f9f",
+      "name": "Actor",
+      "code": "act",
+      "source": "consortium",
+      "metadata": {
+        "createdDate": "2023-10-19T16:24:56.917+00:00",
+        "createdByUserId": "3843bbaa-983e-4412-8cff-eb947963cd2f",
+        "updatedDate": "2023-10-19T16:24:56.917+00:00",
+        "updatedByUserId": "3843bbaa-983e-4412-8cff-eb947963cd2f"
+      }
+    },
+    {
+      "id": "28de45ae-f0ca-46fe-9f89-283313b3255b",
+      "name": "Abridger",
+      "code": "abr",
+      "source": "consortium",
+      "metadata": {
+        "createdDate": "2023-10-19T16:24:57.211+00:00",
+        "createdByUserId": "3843bbaa-983e-4412-8cff-eb947963cd2f",
+        "updatedDate": "2023-10-19T16:24:57.211+00:00",
+        "updatedByUserId": "3843bbaa-983e-4412-8cff-eb947963cd2f"
+      }
+    },
+    {
+      "id": "35a3feaf-1c13-4221-8cfa-d6879faf714c",
+      "name": "Adapter",
+      "code": "adp",
+      "source": "consortium",
+      "metadata": {
+        "createdDate": "2023-10-19T16:24:57.507+00:00",
+        "createdByUserId": "3843bbaa-983e-4412-8cff-eb947963cd2f",
+        "updatedDate": "2023-10-19T16:24:57.507+00:00",
+        "updatedByUserId": "3843bbaa-983e-4412-8cff-eb947963cd2f"
+      }
+    },
+    {
+      "id": "94e6a5a8-b84f-44f7-b900-71cd10ea954e",
+      "name": "Addressee",
+      "code": "rcp",
+      "source": "consortium",
+      "metadata": {
+        "createdDate": "2023-10-19T16:24:57.800+00:00",
+        "createdByUserId": "3843bbaa-983e-4412-8cff-eb947963cd2f",
+        "updatedDate": "2023-10-19T16:24:57.800+00:00",
+        "updatedByUserId": "3843bbaa-983e-4412-8cff-eb947963cd2f"
+      }
+    },
+    {
+      "id": "396f4b4d-5b0a-4fb4-941b-993ebf63db2e",
+      "name": "Analyst",
+      "code": "anl",
+      "source": "consortium",
+      "metadata": {
+        "createdDate": "2023-10-19T16:24:58.095+00:00",
+        "createdByUserId": "3843bbaa-983e-4412-8cff-eb947963cd2f",
+        "updatedDate": "2023-10-19T16:24:58.095+00:00",
+        "updatedByUserId": "3843bbaa-983e-4412-8cff-eb947963cd2f"
+      }
+    },
+    {
+      "id": "b998a229-68e7-4a3d-8cfd-b73c10844e96",
+      "name": "Animator",
+      "code": "anm",
+      "source": "consortium",
+      "metadata": {
+        "createdDate": "2023-10-19T16:24:58.390+00:00",
+        "createdByUserId": "3843bbaa-983e-4412-8cff-eb947963cd2f",
+        "updatedDate": "2023-10-19T16:24:58.390+00:00",
+        "updatedByUserId": "3843bbaa-983e-4412-8cff-eb947963cd2f"
+      }
+    },
+    {
+      "id": "06b2cbd8-66bf-4956-9d90-97c9776365a4",
+      "name": "Annotator",
+      "code": "ann",
+      "source": "consortium",
+      "metadata": {
+        "createdDate": "2023-10-19T16:24:58.685+00:00",
+        "createdByUserId": "3843bbaa-983e-4412-8cff-eb947963cd2f",
+        "updatedDate": "2023-10-19T16:24:58.685+00:00",
+        "updatedByUserId": "3843bbaa-983e-4412-8cff-eb947963cd2f"
+      }
+    },
+    {
+      "id": "7d0a897c-4f83-493a-a0c5-5e040cdce75b",
+      "name": "Appellant",
+      "code": "apl",
+      "source": "consortium",
+      "metadata": {
+        "createdDate": "2023-10-19T16:24:58.976+00:00",
+        "createdByUserId": "3843bbaa-983e-4412-8cff-eb947963cd2f",
+        "updatedDate": "2023-10-19T16:24:58.976+00:00",
+        "updatedByUserId": "3843bbaa-983e-4412-8cff-eb947963cd2f"
+      }
+    },
+    {
+      "id": "ca3b9559-f178-41e8-aa88-6b2c367025f9",
+      "name": "Applicant",
+      "code": "app",
+      "source": "consortium",
+      "metadata": {
+        "createdDate": "2023-10-19T16:24:59.279+00:00",
+        "createdByUserId": "3843bbaa-983e-4412-8cff-eb947963cd2f",
+        "updatedDate": "2023-10-19T16:24:59.279+00:00",
+        "updatedByUserId": "3843bbaa-983e-4412-8cff-eb947963cd2f"
+      }
+    },
+    {
+      "id": "f0061c4b-df42-432f-9d1a-3873bb27c8e6",
+      "name": "Appellee",
+      "code": "ape",
+      "source": "consortium",
+      "metadata": {
+        "createdDate": "2023-10-19T16:24:59.564+00:00",
+        "createdByUserId": "3843bbaa-983e-4412-8cff-eb947963cd2f",
+        "updatedDate": "2023-10-19T16:24:59.564+00:00",
+        "updatedByUserId": "3843bbaa-983e-4412-8cff-eb947963cd2f"
+      }
+    }
+  ],
+  "totalRecords": 268
+}

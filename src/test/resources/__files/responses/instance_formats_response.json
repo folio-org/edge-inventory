@@ -1,0 +1,25 @@
+{
+  "instanceFormats": [
+    {
+      "id": "88f58dc0-4243-4c6b-8321-70244ff34a83",
+      "name": "computer -- computer chip cartridge",
+      "code": "cb",
+      "source": "rdacarrier",
+      "metadata": {
+        "createdDate": "2021-03-01T20:28:30.776+00:00",
+        "updatedDate": "2021-03-01T20:28:30.776+00:00"
+      }
+    },
+    {
+      "id": "7fde4e21-00b5-4de4-a90a-08a84a601aeb",
+      "name": "audio -- audio roll",
+      "code": "sq",
+      "source": "rdacarrier",
+      "metadata": {
+        "createdDate": "2021-03-01T20:28:30.787+00:00",
+        "updatedDate": "2021-03-01T20:28:30.787+00:00"
+      }
+    }
+  ],
+  "totalRecords": 2
+}

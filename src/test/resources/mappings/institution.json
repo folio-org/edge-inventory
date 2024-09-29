@@ -1,0 +1,30 @@
+{
+  "mappings": [
+    {
+      "request": {
+        "method": "GET",
+        "url": "/location-units/institutions/6ecd8132-caef-4f87-bbb0-9fc07d71357d"
+      },
+      "response": {
+        "status": 200,
+        "bodyFileName": "responses/institution_by_id_response.json",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/location-units/institutions/6ecd8132-caef-4f87-bbb0-9fc07d713571"
+      },
+      "response": {
+        "status": 404,
+        "bodyFileName": "errors/not_found.json",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    }
+  ]
+}

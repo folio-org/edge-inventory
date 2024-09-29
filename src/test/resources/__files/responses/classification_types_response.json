@@ -1,0 +1,115 @@
+{
+  "classificationTypes": [
+    {
+      "id": "ad615f6e-e28c-4343-b4a0-457397c5be3e",
+      "name": "Canadian Classification",
+      "source": "consortium",
+      "metadata": {
+        "createdDate": "2023-10-19T16:24:53.971+00:00",
+        "createdByUserId": "3843bbaa-983e-4412-8cff-eb947963cd2f",
+        "updatedDate": "2023-10-19T16:24:53.971+00:00",
+        "updatedByUserId": "3843bbaa-983e-4412-8cff-eb947963cd2f"
+      }
+    },
+    {
+      "id": "74c08086-81a4-4466-93d8-d117ce8646db",
+      "name": "Additional Dewey",
+      "source": "consortium",
+      "metadata": {
+        "createdDate": "2023-10-19T16:24:54.256+00:00",
+        "createdByUserId": "3843bbaa-983e-4412-8cff-eb947963cd2f",
+        "updatedDate": "2023-10-19T16:24:54.256+00:00",
+        "updatedByUserId": "3843bbaa-983e-4412-8cff-eb947963cd2f"
+      }
+    },
+    {
+      "id": "42471af9-7d25-4f3a-bf78-60d29dcf463b",
+      "name": "Dewey",
+      "source": "consortium",
+      "metadata": {
+        "createdDate": "2023-10-19T16:24:54.548+00:00",
+        "createdByUserId": "3843bbaa-983e-4412-8cff-eb947963cd2f",
+        "updatedDate": "2023-10-19T16:24:54.548+00:00",
+        "updatedByUserId": "3843bbaa-983e-4412-8cff-eb947963cd2f"
+      }
+    },
+    {
+      "id": "ce176ace-a53e-4b4d-aa89-725ed7b2edac",
+      "name": "LC",
+      "source": "consortium",
+      "metadata": {
+        "createdDate": "2023-10-19T16:24:54.843+00:00",
+        "createdByUserId": "3843bbaa-983e-4412-8cff-eb947963cd2f",
+        "updatedDate": "2023-10-19T16:24:54.843+00:00",
+        "updatedByUserId": "3843bbaa-983e-4412-8cff-eb947963cd2f"
+      }
+    },
+    {
+      "id": "fb12264c-ff3b-47e0-8e09-b0aa074361f1",
+      "name": "GDC",
+      "source": "consortium",
+      "metadata": {
+        "createdDate": "2023-10-19T16:24:55.148+00:00",
+        "createdByUserId": "3843bbaa-983e-4412-8cff-eb947963cd2f",
+        "updatedDate": "2023-10-19T16:24:55.148+00:00",
+        "updatedByUserId": "3843bbaa-983e-4412-8cff-eb947963cd2f"
+      }
+    },
+    {
+      "id": "a83699eb-cc23-4307-8043-5a38a8dce335",
+      "name": "LC (local)",
+      "source": "consortium",
+      "metadata": {
+        "createdDate": "2023-10-19T16:24:55.437+00:00",
+        "createdByUserId": "3843bbaa-983e-4412-8cff-eb947963cd2f",
+        "updatedDate": "2023-10-19T16:24:55.437+00:00",
+        "updatedByUserId": "3843bbaa-983e-4412-8cff-eb947963cd2f"
+      }
+    },
+    {
+      "id": "a7f4d03f-b0d8-496c-aebf-4e9cdb678200",
+      "name": "NLM",
+      "source": "consortium",
+      "metadata": {
+        "createdDate": "2023-10-19T16:24:55.731+00:00",
+        "createdByUserId": "3843bbaa-983e-4412-8cff-eb947963cd2f",
+        "updatedDate": "2023-10-19T16:24:55.731+00:00",
+        "updatedByUserId": "3843bbaa-983e-4412-8cff-eb947963cd2f"
+      }
+    },
+    {
+      "id": "e8662436-75a8-4984-bebc-531e38c774a0",
+      "name": "UDC",
+      "source": "consortium",
+      "metadata": {
+        "createdDate": "2023-10-19T16:24:56.029+00:00",
+        "createdByUserId": "3843bbaa-983e-4412-8cff-eb947963cd2f",
+        "updatedDate": "2023-10-19T16:24:56.029+00:00",
+        "updatedByUserId": "3843bbaa-983e-4412-8cff-eb947963cd2f"
+      }
+    },
+    {
+      "id": "9a60012a-0fcf-4da9-a1d1-148e818c27ad",
+      "name": "National Agricultural Library",
+      "source": "consortium",
+      "metadata": {
+        "createdDate": "2023-10-19T16:24:56.324+00:00",
+        "createdByUserId": "3843bbaa-983e-4412-8cff-eb947963cd2f",
+        "updatedDate": "2023-10-19T16:24:56.324+00:00",
+        "updatedByUserId": "3843bbaa-983e-4412-8cff-eb947963cd2f"
+      }
+    },
+    {
+      "id": "9075b5f8-7d97-49e1-a431-73fdd468d476",
+      "name": "SUDOC",
+      "source": "consortium",
+      "metadata": {
+        "createdDate": "2023-10-19T16:24:56.620+00:00",
+        "createdByUserId": "3843bbaa-983e-4412-8cff-eb947963cd2f",
+        "updatedDate": "2023-10-19T16:24:56.620+00:00",
+        "updatedByUserId": "3843bbaa-983e-4412-8cff-eb947963cd2f"
+      }
+    }
+  ],
+  "totalRecords": 10
+}

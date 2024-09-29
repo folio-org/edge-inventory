@@ -1,0 +1,30 @@
+{
+  "mappings": [
+    {
+      "request": {
+        "method": "GET",
+        "url": "/inventory/items?offset=0&limit=10&lang=en"
+      },
+      "response": {
+        "status": 200,
+        "bodyFileName": "responses/items_response.json",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/inventory/items?offset=0&query=id%3D%3Dtest&limit=10&lang=en"
+      },
+      "response": {
+        "status": 200,
+        "bodyFileName": "responses/items_empty_response.json",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    }
+  ]
+}

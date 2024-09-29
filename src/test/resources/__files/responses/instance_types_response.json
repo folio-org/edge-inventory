@@ -1,0 +1,25 @@
+{
+  "instanceTypes": [
+    {
+      "id": "a2c91e87-6bab-44d6-8adb-1fd02481fc4f",
+      "name": "other",
+      "code": "xxx",
+      "source": "rdacontent",
+      "metadata": {
+        "createdDate": "2021-11-01T06:28:56.267+00:00",
+        "updatedDate": "2021-11-01T06:28:56.267+00:00"
+      }
+    },
+    {
+      "id": "8105bd44-e7bd-487e-a8f2-b804a361d92f",
+      "name": "tactile text",
+      "code": "tct",
+      "source": "rdacontent",
+      "metadata": {
+        "createdDate": "2021-11-01T06:28:56.275+00:00",
+        "updatedDate": "2021-11-01T06:28:56.275+00:00"
+      }
+    }
+  ],
+  "totalRecords": 2
+}

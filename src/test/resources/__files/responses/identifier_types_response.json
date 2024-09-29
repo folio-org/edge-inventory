@@ -1,0 +1,14 @@
+{
+  "identifierTypes": [
+    {
+      "id": "7f907515-a1bf-4513-8a38-92e1a07c539d",
+      "name": "ASIN",
+      "source": "folio",
+      "metadata": {
+        "createdDate": "2021-05-03T14:13:12.255+00:00",
+        "updatedDate": "2021-05-03T14:13:12.255+00:00"
+      }
+    }
+  ],
+  "totalRecords": 1
+}

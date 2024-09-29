@@ -1,0 +1,30 @@
+{
+  "mappings": [
+    {
+      "request": {
+        "method": "GET",
+        "url": "/source-storage/records/e6bc03c6-c137-4221-b679-a7c5c31f986c/formatted?idType=INSTANCE"
+      },
+      "response": {
+        "status": 200,
+        "bodyFileName": "responses/source-records.json",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/source-storage/records/e857a059-e0b6-4d8f-8783-79f773a7752f"
+      },
+      "response": {
+        "status": 404,
+        "bodyFileName": "errors/not_found.json",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    }
+  ]
+}

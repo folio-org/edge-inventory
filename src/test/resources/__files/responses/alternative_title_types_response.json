@@ -1,0 +1,23 @@
+{
+  "alternativeTitleTypes": [
+    {
+      "id": "0fe58901-183e-4678-a3aa-0b4751174ba8",
+      "name": "No type specified",
+      "source": "folio",
+      "metadata": {
+        "createdDate": "2022-05-12T04:52:43.579+00:00",
+        "updatedDate": "2022-05-12T04:52:43.579+00:00"
+      }
+    },
+    {
+      "id": "30512027-cdc9-4c79-af75-1565b3bd888d",
+      "name": "Uniform title",
+      "source": "folio",
+      "metadata": {
+        "createdDate": "2022-05-12T04:52:43.584+00:00",
+        "updatedDate": "2022-05-12T04:52:43.584+00:00"
+      }
+    }
+  ],
+  "totalRecords": 2
+}

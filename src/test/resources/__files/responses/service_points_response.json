@@ -1,0 +1,34 @@
+{
+  "servicepoints": [
+    {
+      "id": "7c5abc9f-f3d7-4856-b8d7-6712462ca007",
+      "name": "Online",
+      "code": "Online",
+      "discoveryDisplayName": "Online",
+      "shelvingLagTime": 0,
+      "pickupLocation": false,
+      "staffSlips": [],
+      "metadata": {
+        "createdDate": "2021-03-01T20:28:29.678+00:00",
+        "updatedDate": "2021-03-01T20:28:29.678+00:00"
+      }
+    },
+    {
+      "id": "c4c90014-c8c9-4ade-8f24-b5e313319f4b",
+      "name": "Circ Desk 2",
+      "code": "cd2",
+      "discoveryDisplayName": "Circulation Desk -- Back Entrance",
+      "pickupLocation": true,
+      "holdShelfExpiryPeriod": {
+        "duration": 5,
+        "intervalId": "Days"
+      },
+      "staffSlips": [],
+      "metadata": {
+        "createdDate": "2021-03-01T20:28:29.699+00:00",
+        "updatedDate": "2021-03-01T20:28:29.699+00:00"
+      }
+    }
+  ],
+  "totalRecords": 2
+}

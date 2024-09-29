@@ -1,0 +1,5 @@
+{
+  "code": 401,
+  "errorMessage": "Edge API key not found in the request, while query /inventory/instances/1b74ab75-9f41-4837-8662-a1d991180081"
+}
+

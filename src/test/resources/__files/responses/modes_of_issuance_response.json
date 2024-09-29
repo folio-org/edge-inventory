@@ -1,0 +1,23 @@
+{
+  "issuanceModes": [
+    {
+      "id": "9d18a02f-5897-4c31-9106-c9abb5c7ae8b",
+      "name": "single unit",
+      "source": "rdamodeissue",
+      "metadata": {
+        "createdDate": "2021-03-01T20:28:33.220+00:00",
+        "updatedDate": "2021-03-01T20:28:33.220+00:00"
+      }
+    },
+    {
+      "id": "4fc0f4fe-06fd-490a-a078-c4da1754e03a",
+      "name": "integrating resource",
+      "source": "rdamodeissue",
+      "metadata": {
+        "createdDate": "2021-03-01T20:28:33.240+00:00",
+        "updatedDate": "2021-03-01T20:28:33.240+00:00"
+      }
+    }
+  ],
+  "totalRecords": 2
+}

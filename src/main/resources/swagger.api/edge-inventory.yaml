@@ -1,0 +1,800 @@
+openapi: 3.0.0
+info:
+  title: Inventory API
+  version: v1
+  description: Inventory API
+
+
+servers:
+  - url: /inventory
+
+paths:
+  /inventory/instances/{instanceId}:
+    get:
+      tags:
+        - instances
+      operationId: getInstance
+      summary: Retrieve inventory instance by id from folio mod-inventory
+      description: Retrieve inventory instance by id from folio mod-inventory
+      parameters:
+        - $ref: '#/components/parameters/x-okapi-tenant-header'
+        - $ref: '#/components/parameters/x-okapi-token-header'
+        - $ref: '#/components/parameters/instance-id'
+        - $ref: '#/components/parameters/lang'
+      responses:
+        '200':
+          description: 'Calls the mod-inventory GET /inventory/instance/{id} API and returns the result as-is
+          The example of response: https://github.com/folio-org/mod-inventory/blob/master/ramls/examples/instance_get.json'
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          $ref: '#/components/responses/badRequestResponse'
+        '404':
+          $ref: '#/components/responses/notFoundResponse'
+        '500':
+          $ref: '#/components/responses/internalServerErrorResponse'
+
+  /inventory/instances:
+    get:
+      operationId: getInstancesByQuery
+      summary: Retrieve inventory instances associated with the keyword query from folio mod-inventory
+      description: Retrieve inventory instances associated with the keyword query
+      parameters:
+        - $ref: '#/components/parameters/x-okapi-tenant-header'
+        - $ref: '#/components/parameters/x-okapi-token-header'
+        - $ref: '#/components/parameters/request-query-parameters'
+      responses:
+        '200':
+          description: 'Calls the mod-inventory GET /inventory/instances API and returns the result as-is
+          The example of response: https://github.com/folio-org/mod-inventory/blob/master/ramls/examples/instances_get.json'
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          $ref: '#/components/responses/badRequestResponse'
+        '500':
+          $ref: '#/components/responses/internalServerErrorResponse'
+
+  /inventory/authorities/{authorityId}:
+    get:
+      tags:
+        - authorities
+      operationId: getAuthority
+      summary: Retrieve authority by id from folio mod-entities-links
+      description: Retrieve authority by id from folio mod-entities-links
+      parameters:
+        - $ref: '#/components/parameters/x-okapi-tenant-header'
+        - $ref: '#/components/parameters/x-okapi-token-header'
+        - $ref: '#/components/parameters/authority-id'
+      responses:
+        '200':
+          description: 'Calls the mod-entities-links GET /authority-storage/authorities/{id} API and returns the result as-is
+          The example of response: https://github.com/folio-org/mod-inventory/blob/master/ramls/examples/instance_get.json'
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          $ref: '#/components/responses/badRequestResponse'
+        '404':
+          $ref: '#/components/responses/notFoundResponse'
+        '500':
+          $ref: '#/components/responses/internalServerErrorResponse'
+
+  /inventory/authorities:
+    get:
+      operationId: getAuthoritiesByQuery
+      summary: Retrieve authorities associated with the keyword query from folio mod-entities-links
+      description: Retrieve authorities associated with the keyword query
+      parameters:
+        - $ref: '#/components/parameters/x-okapi-tenant-header'
+        - $ref: '#/components/parameters/x-okapi-token-header'
+        - $ref: '#/components/parameters/request-query-parameters'
+      responses:
+        '200':
+          description: 'Calls the mod-entities-links GET /authority-storage/authorities API and returns the result as-is
+          The example of response: https://github.com/folio-org/mod-inventory/blob/master/ramls/examples/instances_get.json'
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          $ref: '#/components/responses/badRequestResponse'
+        '500':
+          $ref: '#/components/responses/internalServerErrorResponse'
+
+  /inventory/holdings:
+    get:
+      tags:
+        - holdings
+      operationId: getHoldings
+      summary: Return a list of holdings by query
+      description: Return a list of holdings by query
+      parameters:
+        - $ref: '#/components/parameters/x-okapi-tenant-header'
+        - $ref: '#/components/parameters/x-okapi-token-header'
+        - $ref: '#/components/parameters/request-query-parameters'
+      responses:
+        '200':
+          description: 'Calls the mod-inventory-storage GET /holdings-storage/holdings API and returns the result as-is
+               The example of response: https://github.com/folio-org/mod-inventory-storage/blob/master/ramls/examples/holdingsrecords_get.json'
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          $ref: '#/components/responses/badRequestResponse'
+        '401':
+          $ref: '#/components/responses/notAuthorizedResponse'
+        '500':
+          $ref: '#/components/responses/internalServerErrorResponse'
+
+  /inventory/identifier-types:
+    get:
+      tags:
+        - identifierTypes
+      operationId: getIdentifierTypes
+      summary: Retrieve invetory instance identifier types by query
+      description: Retrieve invetory instance identifier types by query
+      parameters:
+        - $ref: '#/components/parameters/x-okapi-tenant-header'
+        - $ref: '#/components/parameters/x-okapi-token-header'
+        - $ref: '#/components/parameters/request-query-parameters'
+      responses:
+        '200':
+          description: 'Calls the mod-inventory-storage GET /identifier-types API and returns the result as-is
+        The example of response: https://github.com/folio-org/mod-inventory-storage/blob/master/ramls/examples/identifiertypes.json'
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          $ref: '#/components/responses/badRequestResponse'
+        '500':
+          $ref: '#/components/responses/internalServerErrorResponse'
+
+  /inventory/classification-types:
+    get:
+      tags:
+        - classificationTypes
+      operationId: getClassificationTypes
+      summary: Retrieve inventory instance classification types by query
+      description: Retrieve inventory instance classification types by query
+      parameters:
+        - $ref: '#/components/parameters/x-okapi-tenant-header'
+        - $ref: '#/components/parameters/x-okapi-token-header'
+        - $ref: '#/components/parameters/request-query-parameters'
+      responses:
+        '200':
+          description: 'Calls the mod-inventory-storage GET /classification-types API and returns the result as-is
+        The example of response: https://github.com/folio-org/mod-inventory-storage/blob/master/ramls/examples/classificationtypes.json'
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          $ref: '#/components/responses/badRequestResponse'
+        '500':
+          $ref: '#/components/responses/internalServerErrorResponse'
+
+  /inventory/contributor-types:
+    get:
+      tags:
+        - contributorTypes
+      operationId: getContributorTypes
+      summary: Retrieve inventory contributor types by query
+      description: Retrieve inventory contributor types by query
+      parameters:
+        - $ref: '#/components/parameters/x-okapi-tenant-header'
+        - $ref: '#/components/parameters/x-okapi-token-header'
+        - $ref: '#/components/parameters/request-query-parameters'
+      responses:
+        '200':
+          description: 'Calls the mod-inventory-storage GET /contributor-types API and returns the result as-is
+        The example of response: https://github.com/folio-org/mod-inventory-storage/blob/master/ramls/examples/contributortypes.json'
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          $ref: '#/components/responses/badRequestResponse'
+        '500':
+          $ref: '#/components/responses/internalServerErrorResponse'
+
+  /inventory/contributor-name-types:
+    get:
+      tags:
+        - contributorNameTypes
+      operationId: getContributorNameTypes
+      summary: Retrieve inventory contributor name types by query
+      description: Retrieve inventory contributor name types by query
+      parameters:
+        - $ref: '#/components/parameters/x-okapi-tenant-header'
+        - $ref: '#/components/parameters/x-okapi-token-header'
+        - $ref: '#/components/parameters/request-query-parameters'
+      responses:
+        '200':
+          description: 'Calls the mod-inventory-storage GET /contributor-name-types API and returns the result as-is
+        The example of response: https://github.com/folio-org/mod-inventory-storage/blob/master/ramls/examples/contributornametypes.json'
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          $ref: '#/components/responses/badRequestResponse'
+        '500':
+          $ref: '#/components/responses/internalServerErrorResponse'
+
+  /inventory/locations:
+    get:
+      tags:
+        - locations
+      operationId: getLocations
+      summary: Retrieve collection of location items.
+      description: Retrieve collection of location items.
+      parameters:
+        - $ref: '#/components/parameters/x-okapi-tenant-header'
+        - $ref: '#/components/parameters/x-okapi-token-header'
+        - $ref: '#/components/parameters/request-query-parameters'
+      responses:
+        '200':
+          description: 'Calls the mod-inventory-storage GET /locations API and returns the result as-is
+            The example of response: https://github.com/folio-org/mod-inventory-storage/blob/master/ramls/examples/locations.json'
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          $ref: '#/components/responses/badRequestResponse'
+        '401':
+          $ref: '#/components/responses/notAuthorizedResponse'
+        '500':
+          $ref: '#/components/responses/internalServerErrorResponse'
+
+  /inventory/service-points:
+    get:
+      tags:
+        - servicePoints
+      operationId: getServicePoints
+      summary: Retrieve collection of service points.
+      description: Retrieve collection of service points.
+      parameters:
+        - $ref: '#/components/parameters/x-okapi-tenant-header'
+        - $ref: '#/components/parameters/x-okapi-token-header'
+        - $ref: '#/components/parameters/request-query-parameters'
+      responses:
+        '200':
+          description: 'Calls the mod-inventory-storage GET /service-points API and returns the result as-is
+              The example of response: https://github.com/folio-org/mod-inventory-storage/blob/master/ramls/examples/servicepoints.json'
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          $ref: '#/components/responses/badRequestResponse'
+        '401':
+          $ref: '#/components/responses/notAuthorizedResponse'
+        '500':
+          $ref: '#/components/responses/internalServerErrorResponse'
+
+  /inventory/nature-of-content-terms:
+    get:
+      tags:
+        - natureOfContentTerms
+      operationId: getNatureOfContentTerms
+      summary: Return a list of nature-of-content terms
+      description: Return a list of nature-of-content terms
+      parameters:
+        - $ref: '#/components/parameters/x-okapi-tenant-header'
+        - $ref: '#/components/parameters/x-okapi-token-header'
+        - $ref: '#/components/parameters/request-query-parameters'
+      responses:
+        '200':
+          description: 'Calls the mod-inventory-storage GET /nature-of-content-terms API and returns the result as-is
+            The example of response: https://github.com/folio-org/mod-inventory-storage/blob/master/ramls/examples/natureofcontentterms.json'
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          $ref: '#/components/responses/badRequestResponse'
+        '401':
+          $ref: '#/components/responses/notAuthorizedResponse'
+        '500':
+          $ref: '#/components/responses/internalServerErrorResponse'
+
+  /inventory/modes-of-issuance:
+    get:
+      tags:
+        - modesOfIssuance
+      operationId: getModesOfIssuance
+      summary: Return a list of modes of issuance
+      description: Return a list of modes of issuance
+      parameters:
+        - $ref: '#/components/parameters/x-okapi-tenant-header'
+        - $ref: '#/components/parameters/x-okapi-token-header'
+        - $ref: '#/components/parameters/request-query-parameters'
+      responses:
+        '200':
+          description: 'Calls the mod-inventory-storage GET /modes-of-issuance API and returns the result as-is
+              The example of response: https://github.com/folio-org/mod-inventory-storage/blob/master/ramls/examples/modeofissuance.json'
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          $ref: '#/components/responses/badRequestResponse'
+        '401':
+          $ref: '#/components/responses/notAuthorizedResponse'
+        '500':
+          $ref: '#/components/responses/internalServerErrorResponse'
+
+  /inventory/instance-formats:
+    get:
+      tags:
+        - instanceFormats
+      operationId: getInstanceFormats
+      summary: Return a list of instance formats
+      description: Return a list of instance formats
+      parameters:
+        - $ref: '#/components/parameters/x-okapi-tenant-header'
+        - $ref: '#/components/parameters/x-okapi-token-header'
+        - $ref: '#/components/parameters/request-query-parameters'
+      responses:
+        '200':
+          description: 'Calls the mod-inventory-storage GET /instance-formats API and returns the result as-is
+              The example of response: https://github.com/folio-org/mod-inventory-storage/blob/master/ramls/examples/instanceformats.json'
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          $ref: '#/components/responses/badRequestResponse'
+        '401':
+          $ref: '#/components/responses/notAuthorizedResponse'
+        '500':
+          $ref: '#/components/responses/internalServerErrorResponse'
+
+  /inventory/items:
+    get:
+      tags:
+        - items
+      operationId: getItems
+      summary: Retrieve collection of items.
+      description: Retrieve collection of items.
+      parameters:
+        - $ref: '#/components/parameters/x-okapi-tenant-header'
+        - $ref: '#/components/parameters/x-okapi-token-header'
+        - $ref: '#/components/parameters/request-query-parameters'
+      responses:
+        '200':
+          description: 'Calls the mod-inventory-storage GET /items API and returns the result as-is
+            The example of response: https://github.com/folio-org/mod-inventory-storage/blob/master/ramls/examples/items_get.json'
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          $ref: '#/components/responses/badRequestResponse'
+        '401':
+          $ref: '#/components/responses/notAuthorizedResponse'
+        '500':
+          $ref: '#/components/responses/internalServerErrorResponse'
+
+  /inventory/instance-types:
+    get:
+      tags:
+        - instanceTypes
+      operationId: getInstanceTypes
+      summary: Retrieve collection of instance types.
+      description: Retrieve collection of instance types.
+      parameters:
+        - $ref: '#/components/parameters/x-okapi-tenant-header'
+        - $ref: '#/components/parameters/x-okapi-token-header'
+        - $ref: '#/components/parameters/request-query-parameters'
+      responses:
+        '200':
+          description: 'Calls the mod-inventory-storage GET /instance-types API and returns the result as-is
+            The example of response: https://github.com/folio-org/mod-inventory-storage/blob/master/ramls/examples/instancetypes.json'
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          $ref: '#/components/responses/badRequestResponse'
+        '401':
+          $ref: '#/components/responses/notAuthorizedResponse'
+        '500':
+          $ref: '#/components/responses/internalServerErrorResponse'
+
+  /inventory/instance-note-types:
+    get:
+      tags:
+        - instanceNoteTypes
+      operationId: getInstanceNoteTypes
+      summary: Retrieve collection of instance note types
+      description: Retrieve collection of instance note types.
+      parameters:
+        - $ref: '#/components/parameters/x-okapi-tenant-header'
+        - $ref: '#/components/parameters/x-okapi-token-header'
+        - $ref: '#/components/parameters/request-query-parameters'
+      responses:
+        '200':
+          description: 'Calls the mod-inventory-storage GET /instance-note-types API and returns the result as-is
+            The example of response: https://github.com/folio-org/mod-inventory-storage/blob/master/ramls/examples/instancenotetypes.json'
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          $ref: '#/components/responses/badRequestResponse'
+        '401':
+          $ref: '#/components/responses/notAuthorizedResponse'
+        '500':
+          $ref: '#/components/responses/internalServerErrorResponse'
+  
+  /inventory/inventory-view/instances:
+    get:
+      tags:
+        - inventoryViewInstances
+      operationId: getInventoryViewInstances
+      summary: Retrieve collection of inventory-view instances.
+      description: Retrieve collection of inventory-view instances.
+      parameters:
+        - $ref: '#/components/parameters/x-okapi-tenant-header'
+        - $ref: '#/components/parameters/x-okapi-token-header'
+        - $ref: '#/components/parameters/request-query-parameters'
+      responses:
+        '200':
+          description: 'Calls the mod-inventory-storage GET /inventory-view/instances API and returns the result as-is
+            The example of response: https://github.com/folio-org/mod-inventory-storage/blob/master/ramls/examples/inventory-view-instances.json'
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          $ref: '#/components/responses/badRequestResponse'
+        '401':
+          $ref: '#/components/responses/notAuthorizedResponse'
+        '500':
+          $ref: '#/components/responses/internalServerErrorResponse'
+  
+  /inventory/alternative-title-types:
+    get:
+      tags:
+        - alternativeTitleTypes
+      operationId: getAlternativeTitleTypes
+      summary: Retrieve collection of alternative-title-type items.
+      description: Retrieve collection of alternative-title-type items.
+      parameters:
+        - $ref: '#/components/parameters/x-okapi-tenant-header'
+        - $ref: '#/components/parameters/x-okapi-token-header'
+        - $ref: '#/components/parameters/request-query-parameters'
+      responses:
+        '200':
+          description: 'Calls the mod-inventory-storage GET /alternative-title-types API and returns the result as-is
+            The example of response: https://github.com/folio-org/mod-inventory-storage/blob/master/ramls/examples/alternativetitletypes.json'
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          $ref: '#/components/responses/badRequestResponse'
+        '401':
+          $ref: '#/components/responses/notAuthorizedResponse'
+        '500':
+          $ref: '#/components/responses/internalServerErrorResponse'
+
+  /inventory/location-units/institutions/{institutionId}:
+    get:
+      tags:
+        - locations
+      operationId: getInstitutionById
+      summary: Retrieve institution information by id.
+      description: Retrieve institution information by id.
+      parameters:
+        - $ref: '#/components/parameters/x-okapi-tenant-header'
+        - $ref: '#/components/parameters/x-okapi-token-header'
+        - $ref: '#/components/parameters/institution-id'
+      responses:
+        '200':
+          description: 'Calls the mod-inventory-storage GET /location-units/institutions/{institutionId} API and returns the result as-is
+              The example of response: https://github.com/folio-org/mod-inventory-storage/blob/master/ramls/locinst.json'
+          content:
+            application/json:
+              schema:
+                type: string
+        '404':
+          $ref: '#/components/responses/notFoundResponse'
+        '500':
+          $ref: '#/components/responses/internalServerErrorResponse'
+
+  /inventory/location-units/libraries/{libraryId}:
+    get:
+      tags:
+        - locations
+      operationId: getLibraryById
+      summary: Retrieve library information by id.
+      description: Retrieve library information by id.
+      parameters:
+        - $ref: '#/components/parameters/x-okapi-tenant-header'
+        - $ref: '#/components/parameters/x-okapi-token-header'
+        - $ref: '#/components/parameters/library-id'
+      responses:
+        '200':
+          description: 'Calls the mod-inventory-storage GET /location-units/libraries/{libraryId} API and returns the result as-is
+              The example of response: https://github.com/folio-org/mod-inventory-storage/blob/master/ramls/loclib.json'
+          content:
+            application/json:
+              schema:
+                type: string
+        '404':
+          $ref: '#/components/responses/notFoundResponse'
+        '500':
+          $ref: '#/components/responses/internalServerErrorResponse'
+
+  /inventory/location-units/campuses/{campusId}:
+    get:
+      tags:
+        - locations
+      operationId: getCampusById
+      summary: Retrieve campus information by id.
+      description: Retrieve campus information by id.
+      parameters:
+        - $ref: '#/components/parameters/x-okapi-tenant-header'
+        - $ref: '#/components/parameters/x-okapi-token-header'
+        - $ref: '#/components/parameters/campus-id'
+      responses:
+        '200':
+          description: 'Calls the mod-inventory-storage GET /location-units/campuses/{campusId} API and returns the result as-is
+              https://github.com/folio-org/mod-inventory-storage/blob/master/ramls/loccamp.json'
+          content:
+            application/json:
+              schema:
+                type: string
+        '404':
+          $ref: '#/components/responses/notFoundResponse'
+        '500':
+          $ref: '#/components/responses/internalServerErrorResponse'
+
+  /inventory/material-types/{materialTypeId}:
+    get:
+      tags:
+        - materialTypes
+      operationId: getMaterialTypeById
+      summary: Retrieve material type information by id.
+      description: Retrieve material type information by id.
+      parameters:
+        - $ref: '#/components/parameters/x-okapi-tenant-header'
+        - $ref: '#/components/parameters/x-okapi-token-header'
+        - $ref: '#/components/parameters/material-type-id'
+      responses:
+        '200':
+          description: 'Calls the mod-inventory-storage GET /material-types{materialTypeId} API and returns the result as-is
+                         https://github.com/folio-org/mod-inventory-storage/blob/master/ramls/materialtype.json'
+          content:
+            application/json:
+              schema:
+                type: string
+        '404':
+          $ref: '#/components/responses/notFoundResponse'
+        '500':
+          $ref: '#/components/responses/internalServerErrorResponse'
+
+  /inventory/source-records/{instanceId}:
+    get:
+      tags:
+        - sourceRecords
+      operationId: getSourceRecords
+      summary: Retrieve source records by id from folio mod-source-record-storage
+      description: Retrieve source records by id from folio mod-source-record-storage
+      parameters:
+        - $ref: '#/components/parameters/x-okapi-tenant-header'
+        - $ref: '#/components/parameters/x-okapi-token-header'
+        - $ref: '#/components/parameters/instance-id'
+      responses:
+        '200':
+          description: 'Calls the mod-source-record-storage GET source-storage/records/{id} API and returns the result as-is
+          The example of response: https://github.com/folio-org/data-import-raml-storage/blob/e7f0fef18a5a00925e04a79bbbe5b6c82ae0df9c/schemas/dto/sourceRecord.json'
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          $ref: '#/components/responses/badRequestResponse'
+        '404':
+          $ref: '#/components/responses/notFoundResponse'
+        '500':
+          $ref: '#/components/responses/internalServerErrorResponse'
+
+  /inventory/authorities/source-records/{authorityId}:
+    get:
+      tags:
+        - authoritySourceRecords
+      operationId: getAuthoritySourceRecords
+      summary: Retrieve authority source records by id from folio mod-source-record-storage
+      description: Retrieve authority source records by id from folio mod-source-record-storage
+      parameters:
+        - $ref: '#/components/parameters/x-okapi-tenant-header'
+        - $ref: '#/components/parameters/x-okapi-token-header'
+        - $ref: '#/components/parameters/authority-id'
+      responses:
+        '200':
+          description: 'Calls the mod-source-record-storage GET source-storage/records/{id} API and returns the result as-is
+          The example of response: https://github.com/folio-org/data-import-raml-storage/blob/e7f0fef18a5a00925e04a79bbbe5b6c82ae0df9c/schemas/dto/sourceRecord.json'
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          $ref: '#/components/responses/badRequestResponse'
+        '404':
+          $ref: '#/components/responses/notFoundResponse'
+        '500':
+          $ref: '#/components/responses/internalServerErrorResponse'
+
+components:
+  schemas:
+    errorResponse:
+      $ref: './schemas/error.json#/Error'
+    requestQueryParameters:
+      $ref: './schemas/requestQueryParameters.json#/RequestQueryParameters'
+  parameters:
+    request-query-parameters:
+      name: requestQueryParameters
+      in: query
+      description: Request query parameters(query, limit, offset and etc.) as object.
+      schema:
+        $ref: '#/components/schemas/requestQueryParameters'    
+    x-okapi-tenant-header:
+      name: x-okapi-tenant
+      in: header
+      description: x-okapi-tenant header value
+      required: false
+      schema:
+        type: string
+    x-okapi-url-header:
+      name: x-okapi-url
+      in: header
+      description: x-okapi-url header value
+      required: false
+      schema:
+        type: string
+    x-okapi-token-header:
+      name: x-okapi-token
+      in: header
+      description: x-okapi-token header value
+      required: false
+      schema:
+        type: string
+    lang:
+      name: lang
+      in: query
+      description: Requested language
+      required: false
+      example: en
+      schema:
+        pattern: "[a-zA-Z]{2}"
+        default: en
+        type: string
+
+    instance-id:
+      name: instanceId
+      in: path
+      description: Inventory Instance's UUID
+      required: true
+      schema:
+        type: string
+        pattern: '^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$'
+    authority-id:
+      name: authorityId
+      in: path
+      description: Authority's UUID
+      required: true
+      schema:
+        type: string
+        pattern: '^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$'
+    institution-id:
+      name: institutionId
+      in: path
+      description: Location institution id
+      required: true
+      schema:
+        type: string
+    library-id:
+      name: libraryId
+      in: path
+      description: Location library id
+      required: true
+      schema:
+        type: string
+    campus-id:
+      name: campusId
+      in: path
+      description: Library campus id
+      required: true
+      schema:
+        type: string
+    material-type-id:
+      name: materialTypeId
+      in: path
+      description: Material type id
+      required: true
+      schema:
+        type: string
+  responses:
+    badRequestResponse:
+      description: Validation errors
+      content:
+        application/json:
+          example:
+            $ref: ./examples/error/badRequestErrorResponse.json
+          schema:
+            $ref: "#/components/schemas/errorResponse"
+    internalServerErrorResponse:
+      description: When unhandled exception occurred during code execution, e.g. NullPointerException
+      content:
+        application/json:
+          example:
+            $ref: ./examples/error/internalErrorResponse.json
+          schema:
+            $ref: "#/components/schemas/errorResponse"
+    notAuthorizedResponse:
+      description: Not authorized to perform requested action
+      content:
+        application/json:
+          example:
+            $ref: examples/error/unauthorizedErrorResponse.json
+          schema:
+            $ref: "#/components/schemas/errorResponse"
+    accessDeniedResponse:
+      description: Access Denied
+      content:
+        application/json:
+          example:
+            $ref: ./examples/error/accessDeniedErrorResponse.json
+          schema:
+            $ref: "#/components/schemas/errorResponse"
+    notFoundResponse:
+      description: Item with a given ID not found
+      content:
+        application/json:
+          example:
+            $ref: examples/error/notFoundErrorResponse.json
+          schema:
+            $ref: "#/components/schemas/errorResponse"
+    unprocessableEntityErrorResponse:
+      description: Item with a given ID not found
+      content:
+        application/json:
+          example:
+            $ref: examples/error/unprocessableEntityErrorResponse.json
+          schema:
+            $ref: "#/components/schemas/errorResponse"
+    notImplementedResponse:
+      description: The server does not support the functionality required to fulfill the request
+      content:
+        application/json:
+          example: "the method that is unavailable"
+          schema:
+            $ref: "#/components/schemas/errorResponse"
+tags:
+  - name: instances
+  - name: authorities
+  - name: holdings
+  - name: identifierTypes
+  - name: locations
+  - name: servicePoints
+  - name: natureOfContentTerms
+  - name: modesOfIssuance
+  - name: instanceFormats
+  - name: items
+  - name: instanceTypes
+  - name: inventoryViewInstances
+  - name: alternativeTitleTypes
+  - name: library
+  - name: sourceRecords
+  - name: authoritySourceRecords

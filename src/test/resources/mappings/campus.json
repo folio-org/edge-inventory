@@ -1,0 +1,30 @@
+{
+  "mappings": [
+    {
+      "request": {
+        "method": "GET",
+        "url": "/location-units/campuses/62cf76b7-cca5-4d33-9217-edf42ce1a848"
+      },
+      "response": {
+        "status": 200,
+        "bodyFileName": "responses/campus_by_id_response.json",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/location-units/campuses/b518271c-973e-4ccf-92e7-5acfa54fd6cd"
+      },
+      "response": {
+        "status": 404,
+        "bodyFileName": "errors/not_found.json",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    }
+  ]
+}

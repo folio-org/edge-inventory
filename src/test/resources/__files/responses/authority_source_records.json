@@ -1,0 +1,258 @@
+{
+  "id" : "73f57292-6c90-4a4e-8b16-21cf383a62b5",
+  "snapshotId" : "e82ffbaa-49d3-4f07-a8fa-1ea660cde325",
+  "matchedId" : "73f57292-6c90-4a4e-8b16-21cf383a62b5",
+  "generation" : 0,
+  "recordType" : "MARC_AUTHORITY",
+  "rawRecord" : {
+    "id" : "73f57292-6c90-4a4e-8b16-21cf383a62b5",
+    "content" : "01431cz  a2200301n  4500001000800000005001700008008004100025010002000066016001500086035002300101040007300124042000800197046002100205053001800226100003200244368003600276370002500312372005600337374002700393374001800420375001900438377000800457670006600465670011500531670030200646670013600948700004501084\u001E3478038\u001E20220630115414.0\u001E890721n| azannaabn          |n aaa      \u001E  \u001Fan88234700410821\u001E  \u001Fa1030B8421E\u001E  \u001Fa(OCoLC)oca02565779\u001E  \u001FaDLC\u001Fbeng\u001Ferda\u001FcDLC\u001FdDLC\u001FdNBuU\u001FdOCoLC\u001FdIlMpPL\u001FdDLC\u001FdICrlF\u001FdCaOONL\u001FdNN\u001E  \u001Fanlc\u001E  \u001Ff1963-02-12\u001F2edtf\u001E 0\u001FaPS3573.O64524\u001E1 \u001FaWoodson, Jacqueline C410821\u001E  \u001FcAfrican American authors\u001F2lcdgt\u001E  \u001FaColumbus (Ohio)\u001F2naf\u001E  \u001FaChildren's literature\u001FaYoung adult literature\u001F2lcsh\u001E  \u001FaNarrator of audiobooks\u001E  \u001FaAuthors\u001F2lcsh\u001E  \u001FaFemales\u001F2lcdgt\u001E  \u001Faeng\u001E  \u001FaLast summer with Maizon, 1990:\u001FbCIP t.p. (Jacqueline Woodson)\u001E  \u001FaContemp. lesbian writers of the US, 1993:\u001Fbp. 583 (Jacqueline Woodson, born February 12, 1963, Columbus, Ohio)\u001E  \u001FaEnsler, E. Vagina monologues, 2018:\u001FbECIP t.p. (foreword by Jacqueline Woodson) data view (Jacqueline Woodson is the winner of the National Book Award for Young People's Literature for Brown Girl Dreaming and author of Another Brooklyn, which was nominated for the National Book Award for Fiction)\u001E  \u001FaWoodson, Jacqueline. Harbor me [SR], 2018?\u001Fb(publisher supplied information Performed by N'Jameh Camara; Jacqueline Woodson; Toshi)\u001E16\u001FaWoodson, Jacqueline\u001F0(CaOONL)ncf10653651\u001E\u001D"
+  },
+  "parsedRecord" : {
+    "id" : "73f57292-6c90-4a4e-8b16-21cf383a62b5",
+    "content" : {
+      "fields" : [ {
+        "001" : "3478038"
+      }, {
+        "005" : "20240620110425.3"
+      }, {
+        "008" : "890721n| azannaabn          |n aaa      "
+      }, {
+        "010" : {
+          "ind1" : " ",
+          "ind2" : " ",
+          "subfields" : [ {
+            "a" : "n88234700410821"
+          } ]
+        }
+      }, {
+        "016" : {
+          "ind1" : " ",
+          "ind2" : " ",
+          "subfields" : [ {
+            "a" : "1030B8421E"
+          } ]
+        }
+      }, {
+        "035" : {
+          "ind1" : " ",
+          "ind2" : " ",
+          "subfields" : [ {
+            "a" : "(OCoLC)oca02565779"
+          } ]
+        }
+      }, {
+        "040" : {
+          "ind1" : " ",
+          "ind2" : " ",
+          "subfields" : [ {
+            "a" : "DLC"
+          }, {
+            "b" : "eng"
+          }, {
+            "e" : "rda"
+          }, {
+            "c" : "DLC"
+          }, {
+            "d" : "DLC"
+          }, {
+            "d" : "NBuU"
+          }, {
+            "d" : "OCoLC"
+          }, {
+            "d" : "IlMpPL"
+          }, {
+            "d" : "DLC"
+          }, {
+            "d" : "ICrlF"
+          }, {
+            "d" : "CaOONL"
+          }, {
+            "d" : "NN"
+          } ]
+        }
+      }, {
+        "042" : {
+          "ind1" : " ",
+          "ind2" : " ",
+          "subfields" : [ {
+            "a" : "nlc"
+          } ]
+        }
+      }, {
+        "046" : {
+          "ind1" : " ",
+          "ind2" : " ",
+          "subfields" : [ {
+            "f" : "1963-02-12"
+          }, {
+            "2" : "edtf"
+          } ]
+        }
+      }, {
+        "053" : {
+          "ind1" : " ",
+          "ind2" : "0",
+          "subfields" : [ {
+            "a" : "PS3573.O64524"
+          } ]
+        }
+      }, {
+        "100" : {
+          "ind1" : "1",
+          "ind2" : " ",
+          "subfields" : [ {
+            "a" : "Woodson, Jacqueline C410821"
+          } ]
+        }
+      }, {
+        "368" : {
+          "ind1" : " ",
+          "ind2" : " ",
+          "subfields" : [ {
+            "c" : "African American authors"
+          }, {
+            "2" : "lcdgt"
+          } ]
+        }
+      }, {
+        "370" : {
+          "ind1" : " ",
+          "ind2" : " ",
+          "subfields" : [ {
+            "a" : "Columbus (Ohio)"
+          }, {
+            "2" : "naf"
+          } ]
+        }
+      }, {
+        "372" : {
+          "ind1" : " ",
+          "ind2" : " ",
+          "subfields" : [ {
+            "a" : "Children's literature"
+          }, {
+            "a" : "Young adult literature"
+          }, {
+            "2" : "lcsh"
+          } ]
+        }
+      }, {
+        "374" : {
+          "ind1" : " ",
+          "ind2" : " ",
+          "subfields" : [ {
+            "a" : "Narrator of audiobooks"
+          } ]
+        }
+      }, {
+        "374" : {
+          "ind1" : " ",
+          "ind2" : " ",
+          "subfields" : [ {
+            "a" : "Authors"
+          }, {
+            "2" : "lcsh"
+          } ]
+        }
+      }, {
+        "375" : {
+          "ind1" : " ",
+          "ind2" : " ",
+          "subfields" : [ {
+            "a" : "Females"
+          }, {
+            "2" : "lcdgt"
+          } ]
+        }
+      }, {
+        "377" : {
+          "ind1" : " ",
+          "ind2" : " ",
+          "subfields" : [ {
+            "a" : "eng"
+          } ]
+        }
+      }, {
+        "670" : {
+          "ind1" : " ",
+          "ind2" : " ",
+          "subfields" : [ {
+            "a" : "Last summer with Maizon, 1990:"
+          }, {
+            "b" : "CIP t.p. (Jacqueline Woodson)"
+          } ]
+        }
+      }, {
+        "670" : {
+          "ind1" : " ",
+          "ind2" : " ",
+          "subfields" : [ {
+            "a" : "Contemp. lesbian writers of the US, 1993:"
+          }, {
+            "b" : "p. 583 (Jacqueline Woodson, born February 12, 1963, Columbus, Ohio)"
+          } ]
+        }
+      }, {
+        "670" : {
+          "ind1" : " ",
+          "ind2" : " ",
+          "subfields" : [ {
+            "a" : "Ensler, E. Vagina monologues, 2018:"
+          }, {
+            "b" : "ECIP t.p. (foreword by Jacqueline Woodson) data view (Jacqueline Woodson is the winner of the National Book Award for Young People's Literature for Brown Girl Dreaming and author of Another Brooklyn, which was nominated for the National Book Award for Fiction)"
+          } ]
+        }
+      }, {
+        "670" : {
+          "ind1" : " ",
+          "ind2" : " ",
+          "subfields" : [ {
+            "a" : "Woodson, Jacqueline. Harbor me [SR], 2018?"
+          }, {
+            "b" : "(publisher supplied information Performed by N'Jameh Camara; Jacqueline Woodson; Toshi)"
+          } ]
+        }
+      }, {
+        "700" : {
+          "ind1" : "1",
+          "ind2" : "6",
+          "subfields" : [ {
+            "a" : "Woodson, Jacqueline"
+          }, {
+            "0" : "(CaOONL)ncf10653651"
+          } ]
+        }
+      }, {
+        "999" : {
+          "ind1" : "f",
+          "ind2" : "f",
+          "subfields" : [ {
+            "s" : "73f57292-6c90-4a4e-8b16-21cf383a62b5"
+          }, {
+            "i" : "9eba0866-8195-457c-ac72-dbfc279cc496"
+          } ]
+        }
+      } ],
+      "leader" : "01522cz  a2200313n  4500"
+    },
+    "formattedContent" : "LEADER 01522cz  a2200313n  4500\n001 3478038\n005 20240620110425.3\n008 890721n| azannaabn          |n aaa      \n010   $an88234700410821\n016   $a1030B8421E\n035   $a(OCoLC)oca02565779\n040   $aDLC$beng$erda$cDLC$dDLC$dNBuU$dOCoLC$dIlMpPL$dDLC$dICrlF$dCaOONL$dNN\n042   $anlc\n046   $f1963-02-12$2edtf\n053  0$aPS3573.O64524\n100 1 $aWoodson, Jacqueline C410821\n368   $cAfrican American authors$2lcdgt\n370   $aColumbus (Ohio)$2naf\n372   $aChildren's literature$aYoung adult literature$2lcsh\n374   $aNarrator of audiobooks\n374   $aAuthors$2lcsh\n375   $aFemales$2lcdgt\n377   $aeng\n670   $aLast summer with Maizon, 1990:$bCIP t.p. (Jacqueline Woodson)\n670   $aContemp. lesbian writers of the US, 1993:$bp. 583 (Jacqueline Woodson, born February 12, 1963, Columbus, Ohio)\n670   $aEnsler, E. Vagina monologues, 2018:$bECIP t.p. (foreword by Jacqueline Woodson) data view (Jacqueline Woodson is the winner of the National Book Award for Young People's Literature for Brown Girl Dreaming and author of Another Brooklyn, which was nominated for the National Book Award for Fiction)\n670   $aWoodson, Jacqueline. Harbor me [SR], 2018?$b(publisher supplied information Performed by N'Jameh Camara; Jacqueline Woodson; Toshi)\n700 16$aWoodson, Jacqueline$0(CaOONL)ncf10653651\n999 ff$s73f57292-6c90-4a4e-8b16-21cf383a62b5$i9eba0866-8195-457c-ac72-dbfc279cc496\n\n"
+  },
+  "deleted" : false,
+  "order" : 0,
+  "externalIdsHolder" : {
+    "authorityId" : "9eba0866-8195-457c-ac72-dbfc279cc496",
+    "authorityHrid" : "3478038"
+  },
+  "additionalInfo" : {
+    "suppressDiscovery" : false
+  },
+  "state" : "ACTUAL",
+  "leaderRecordStatus" : "c",
+  "metadata" : {
+    "createdDate" : "2024-09-02T11:51:34.606+00:00",
+    "createdByUserId" : "a3d2fb7a-c200-402f-845e-b79e10afaf72",
+    "updatedDate" : "2024-09-02T11:57:12.616+00:00",
+    "updatedByUserId" : "a3d2fb7a-c200-402f-845e-b79e10afaf72"
+  }
+}

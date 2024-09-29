@@ -1,0 +1,50 @@
+{
+  "id": "9eba0866-8195-457c-ac72-dbfc279cc496",
+  "_version": 0,
+  "source": "MARC",
+  "personalName": "Woodson, Jacqueline C410821",
+  "sftPersonalName": [],
+  "saftPersonalName": [],
+  "sftPersonalNameTitle": [],
+  "saftPersonalNameTitle": [],
+  "sftCorporateName": [],
+  "saftCorporateName": [],
+  "sftCorporateNameTitle": [],
+  "saftCorporateNameTitle": [],
+  "sftMeetingName": [],
+  "saftMeetingName": [],
+  "sftMeetingNameTitle": [],
+  "saftMeetingNameTitle": [],
+  "sftUniformTitle": [],
+  "saftUniformTitle": [],
+  "sftTopicalTerm": [],
+  "saftTopicalTerm": [],
+  "subjectHeadings": "a",
+  "sftGeographicName": [],
+  "saftGeographicName": [],
+  "sftGenreTerm": [],
+  "saftGenreTerm": [],
+  "identifiers": [
+    {
+      "value": "3478038",
+      "identifierTypeId": "5d164f4b-0b15-4e42-ae75-cfcf85318ad9"
+    },
+    {
+      "value": "n88234700410821",
+      "identifierTypeId": "c858e4f2-2b6b-4385-842b-60732ee14abb"
+    },
+    {
+      "value": "(OCoLC)oca02565779",
+      "identifierTypeId": "7e591197-f335-4afb-bc6d-a6d76ca3bace"
+    }
+  ],
+  "notes": [],
+  "sourceFileId": "af045f2f-e851-4613-984c-4bc13430454a",
+  "naturalId": "n88234700410821",
+  "metadata": {
+    "createdDate": "2024-06-20T11:04:25.030681Z",
+    "createdByUserId": "a3d2fb7a-c200-402f-845e-b79e10afaf72",
+    "updatedDate": "2024-06-20T11:04:25.030681Z",
+    "updatedByUserId": "a3d2fb7a-c200-402f-845e-b79e10afaf72"
+  }
+}
