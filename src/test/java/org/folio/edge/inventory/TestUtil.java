@@ -1,8 +1,11 @@
 package org.folio.edge.inventory;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.io.IOUtils;
 
@@ -20,4 +23,12 @@ public class TestUtil {
     }
   }
 
+  public static byte[] readFileBytesFromResources(String resourcePath) {
+    try {
+      return Files.readAllBytes(Paths.get(ClassLoader.getSystemResource(resourcePath).toURI()));
+    } catch (IOException | URISyntaxException e) {
+      log.error(e.getMessage(), e);
+      throw new RuntimeException("Failed to read file from resources", e);
+    }
+  }
 }

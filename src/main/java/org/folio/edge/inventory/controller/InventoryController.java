@@ -1,11 +1,13 @@
 package org.folio.edge.inventory.controller;
 
+import org.folio.edge.inventory.service.DataExportService;
 import org.folio.edge.inventory.service.InventoryService;
 import org.folio.inventory.domain.dto.RequestQueryParameters;
 import org.folio.inventory.rest.resource.InventoryApi;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class InventoryController implements InventoryApi {
 
   private final InventoryService inventoryService;
+  private final DataExportService dataExportService;
 
   @Override
   public ResponseEntity<String> getInstance(String instanceId, String xOkapiTenant, String xOkapiToken, String lang) {
@@ -181,5 +184,19 @@ public class InventoryController implements InventoryApi {
   public ResponseEntity<String> getAuthority(String authorityId, String xOkapiTenant, String xOkapiToken) {
     log.info("Retrieving authority by id {}", authorityId);
     return ResponseEntity.ok(inventoryService.getAuthority(authorityId));
+  }
+
+  @Override
+  public ResponseEntity<Resource> downloadAuthorityById(String authorityId, String xOkapiTenant, String xOkapiToken,
+      Boolean isUtf) {
+    log.info("Download authority by id {} in utf format:{}", authorityId, isUtf);
+    return dataExportService.downloadAuthority(authorityId, isUtf);
+  }
+
+  @Override
+  public ResponseEntity<Resource> downloadInstanceById(String instanceId, String xOkapiTenant, String xOkapiToken,
+      Boolean isUtf) {
+    log.info("Download instance by id {} in utf format:{}", instanceId, isUtf);
+    return dataExportService.downloadInstance(instanceId, isUtf);
   }
 }
