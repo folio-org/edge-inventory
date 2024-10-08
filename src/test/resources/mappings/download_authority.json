@@ -1,0 +1,45 @@
+{
+  "mappings": [
+    {
+      "request": {
+        "method": "GET",
+        "url": "/data-export/download-record/0831576a-c421-47dd-9285-ebab3351faa8?utf=true&idType=AUTHORITY"
+      },
+      "response": {
+        "status": 200,
+        "bodyFileName": "responses/0831576a-c421-47dd-9285-ebab3351faa8-utf.mrc",
+        "headers": {
+          "Content-Type": "application/octet-stream",
+          "Content-Disposition": "attachment; filename=\"0831576a-c421-47dd-9285-ebab3351faa8-utf.mrc\""
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/data-export/download-record/0831576a-c421-47dd-9285-ebab3351faa8?utf=false&idType=AUTHORITY"
+      },
+      "response": {
+        "status": 200,
+        "bodyFileName": "responses/0831576a-c421-47dd-9285-ebab3351faa8-marc8.mrc",
+        "headers": {
+          "Content-Type": "application/octet-stream",
+          "Content-Disposition": "attachment; filename=\"0831576a-c421-47dd-9285-ebab3351faa8-marc8.mrc\""
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/data-export/download-record/1831576a-c421-47dd-9285-ebab3351faa8?utf=true&idType=AUTHORITY"
+      },
+      "response": {
+        "status": 500,
+        "body": "Couldn't find authority in db for ID: 1831576a-c421-47dd-9285-ebab3351faa8",
+        "headers": {
+          "Content-Type": "text/plain"
+        }
+      }
+    }
+  ]
+}

@@ -4,16 +4,20 @@ import static org.folio.edge.inventory.TestConstants.*;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.iterableWithSize;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.folio.edge.inventory.BaseIntegrationTests;
 import org.folio.edge.inventory.TestUtil;
 import org.json.JSONObject;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 @TestMethodOrder(OrderAnnotation.class)
@@ -586,5 +590,79 @@ class InventoryControllerIT extends BaseIntegrationTests {
         .andExpect(jsonPath("contributorNameTypes[1].name", is("Meeting name")))
         .andExpect(jsonPath("contributorNameTypes[2].name", is("Personal name")))
         .andExpect(jsonPath("totalRecords", is(3)));
+  }
+
+  @Test
+  void downloadAuthority_shouldReturnCorrectFileNameAndContentInUft_whenUtfNotProvided() throws Exception {
+    doGet(mockMvc, "/inventory/download-authority/0831576a-c421-47dd-9285-ebab3351faa8")
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/octet-stream"))
+        .andExpect(header().string("Content-Disposition",
+            "attachment; filename=\"" + "0831576a-c421-47dd-9285-ebab3351faa8-utf.mrc" + "\""))
+        .andExpect(result -> {
+          byte[] expectedContent = TestUtil.readFileBytesFromResources("__files/responses/0831576a-c421-47dd-9285-ebab3351faa8-utf.mrc");
+          byte[] actualContent = result.getResponse().getContentAsByteArray();
+          Assertions.assertArrayEquals(expectedContent, actualContent);
+        });
+  }
+
+  @Test
+  void downloadAuthority_shouldReturnCorrectFileNameAndContentInMarc8_whenNonUtf() throws Exception {
+    doGet(mockMvc, "/inventory/download-authority/0831576a-c421-47dd-9285-ebab3351faa8?utf=false")
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/octet-stream"))
+        .andExpect(header().string("Content-Disposition",
+            "attachment; filename=\"" + "0831576a-c421-47dd-9285-ebab3351faa8-marc8.mrc" + "\""))
+        .andExpect(result -> {
+          byte[] expectedContent = TestUtil.readFileBytesFromResources("__files/responses/0831576a-c421-47dd-9285-ebab3351faa8-marc8.mrc");
+          byte[] actualContent = result.getResponse().getContentAsByteArray();
+          Assertions.assertArrayEquals(expectedContent, actualContent);
+        });
+  }
+
+  @Test
+  void downloadAuthority_shouldReturnError_whenInventoryRespondWithError() throws Exception {
+    doGet(mockMvc, "/inventory/download-authority/1831576a-c421-47dd-9285-ebab3351faa8?utf=true")
+        .andExpect(status().isInternalServerError())
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+        .andExpect(jsonPath("$.code").value(500))
+        .andExpect(jsonPath("$.errorMessage").value("Couldn't find authority in db for ID: 1831576a-c421-47dd-9285-ebab3351faa8"));
+  }
+
+  @Test
+  void downloadInstance_shouldReturnCorrectFileNameAndContentInUft_whenUtfNotProvided() throws Exception {
+    doGet(mockMvc, "/inventory/download-instance/0684a01d-a83a-4ea7-8985-37dd59a751b2")
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/octet-stream"))
+        .andExpect(header().string("Content-Disposition",
+            "attachment; filename=\"" + "0684a01d-a83a-4ea7-8985-37dd59a751b2-utf.mrc" + "\""))
+        .andExpect(result -> {
+          byte[] expectedContent = TestUtil.readFileBytesFromResources("__files/responses/0684a01d-a83a-4ea7-8985-37dd59a751b2-utf.mrc");
+          byte[] actualContent = result.getResponse().getContentAsByteArray();
+          Assertions.assertArrayEquals(expectedContent, actualContent);
+        });
+  }
+
+  @Test
+  void downloadInstance_shouldReturnCorrectFileNameAndContentInMarc8_whenNonUtf() throws Exception {
+    doGet(mockMvc, "/inventory/download-instance/0684a01d-a83a-4ea7-8985-37dd59a751b2?utf=false")
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/octet-stream"))
+        .andExpect(header().string("Content-Disposition",
+            "attachment; filename=\"" + "0684a01d-a83a-4ea7-8985-37dd59a751b2-marc8.mrc" + "\""))
+        .andExpect(result -> {
+          byte[] expectedContent = TestUtil.readFileBytesFromResources("__files/responses/0684a01d-a83a-4ea7-8985-37dd59a751b2-marc8.mrc");
+          byte[] actualContent = result.getResponse().getContentAsByteArray();
+          Assertions.assertArrayEquals(expectedContent, actualContent);
+        });
+  }
+
+  @Test
+  void downloadInstance_shouldReturnError_whenInventoryRespondWithError() throws Exception {
+    doGet(mockMvc, "/inventory/download-instance/1831576a-c421-47dd-9285-ebab3351faa8?utf=true")
+        .andExpect(status().isInternalServerError())
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+        .andExpect(jsonPath("$.code").value(500))
+        .andExpect(jsonPath("$.errorMessage").value("Couldn't find instance in db for ID: 1831576a-c421-47dd-9285-ebab3351faa8"));
   }
 }

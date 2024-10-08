@@ -636,6 +636,62 @@ paths:
         '500':
           $ref: '#/components/responses/internalServerErrorResponse'
 
+  /inventory/download-authority/{authorityId}:
+    get:
+      description: Download single authority record by id in specified format
+      operationId: downloadAuthorityById
+      parameters:
+        - $ref: '#/components/parameters/authority-id'
+        - $ref: '#/components/parameters/x-okapi-tenant-header'
+        - $ref: '#/components/parameters/x-okapi-token-header'
+        - name: utf
+          in: query
+          description: "Specify whether to encode the file in UTF-8."
+          required: false
+          schema:
+            type: boolean
+            default: true
+      responses:
+        '200':
+          description: A file download in binary format
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        '404':
+          $ref: '#/components/responses/notFoundResponse'
+        '500':
+          $ref: '#/components/responses/internalServerErrorResponse'
+
+  /inventory/download-instance/{instanceId}:
+    get:
+      description: Download single instance record by id in specified format
+      operationId: downloadInstanceById
+      parameters:
+        - $ref: '#/components/parameters/instance-id'
+        - $ref: '#/components/parameters/x-okapi-tenant-header'
+        - $ref: '#/components/parameters/x-okapi-token-header'
+        - name: utf
+          in: query
+          description: "Specify whether to encode the file in UTF-8."
+          required: false
+          schema:
+            type: boolean
+            default: true
+      responses:
+        '200':
+          description: A file download in binary format
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        '404':
+          $ref: '#/components/responses/notFoundResponse'
+        '500':
+          $ref: '#/components/responses/internalServerErrorResponse'
+
 components:
   schemas:
     errorResponse:

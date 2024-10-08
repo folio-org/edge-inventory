@@ -1,0 +1,45 @@
+{
+  "mappings": [
+    {
+      "request": {
+        "method": "GET",
+        "url": "/data-export/download-record/0684a01d-a83a-4ea7-8985-37dd59a751b2?utf=true&idType=INSTANCE"
+      },
+      "response": {
+        "status": 200,
+        "bodyFileName": "responses/0684a01d-a83a-4ea7-8985-37dd59a751b2-utf.mrc",
+        "headers": {
+          "Content-Type": "application/octet-stream",
+          "Content-Disposition": "attachment; filename=\"0684a01d-a83a-4ea7-8985-37dd59a751b2-utf.mrc\""
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/data-export/download-record/0684a01d-a83a-4ea7-8985-37dd59a751b2?utf=false&idType=INSTANCE"
+      },
+      "response": {
+        "status": 200,
+        "bodyFileName": "responses/0684a01d-a83a-4ea7-8985-37dd59a751b2-marc8.mrc",
+        "headers": {
+          "Content-Type": "application/octet-stream",
+          "Content-Disposition": "attachment; filename=\"0684a01d-a83a-4ea7-8985-37dd59a751b2-marc8.mrc\""
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/data-export/download-record/1831576a-c421-47dd-9285-ebab3351faa8?utf=true&idType=INSTANCE"
+      },
+      "response": {
+        "status": 500,
+        "body": "Couldn't find instance in db for ID: 1831576a-c421-47dd-9285-ebab3351faa8",
+        "headers": {
+          "Content-Type": "text/plain"
+        }
+      }
+    }
+  ]
+}
