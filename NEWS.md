@@ -1,3 +1,26 @@
-## [v1.7.1]
-- TBD
-- 
+## v2.0.0
+### Features
+- Get Instances
+- Get Authorities 
+- Get Authority Detail
+- Get Instance Detail
+- Get Inventory Holdings
+- Get Identifier Types
+- Get Classification Types
+- Get Contributor Types
+- Get Contributor Name Types
+- Get Locations
+- Get Service Points
+- Get Nature of Content Terms
+- Get Mode of Issuances
+- Get Instance Formats
+- Get Inventory Items
+- Get Instance Types
+- Get Inventory Note Types
+- Get Alternative Title Types
+- Get Institutions, Campsues, Libraries and Locations
+- Get Material Types
+- Get Source Record for Bib
+- Get Source Record for Authority
+- Download instance and authority data
+- Get Instance View
