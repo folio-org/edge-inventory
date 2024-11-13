@@ -1,9 +1,9 @@
 package org.folio.edge.inventory.service;
 
-import org.folio.edge.inventory.client.InventoryClient;
-import org.folio.inventory.domain.dto.RequestQueryParameters;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.folio.edge.inventory.client.InventoryClient;
+import org.folio.inventory.domain.dto.RequestQueryParameters;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -31,6 +31,10 @@ public class InventoryService {
 
   public String getServicePoints(RequestQueryParameters requestQueryParameters) {
     return inventoryClient.getServicePoints(requestQueryParameters);
+  }
+
+  public String getLocationById(String locationId) {
+    return inventoryClient.getLocationById(locationId);
   }
 
   public String getLocations(RequestQueryParameters requestQueryParameters) {

@@ -1,0 +1,96 @@
+{
+  "mappings": [
+    {
+      "request": {
+        "method": "GET",
+        "urlPath": "/search/consortium/libraries",
+        "headers": {
+          "x-okapi-tenant": {
+            "equalTo": "central_test"
+          }
+        },
+        "queryParameters": {
+          "id": {
+            "equalTo": "5d78803e-ca04-4b4a-aeae-2c63b924518b"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "bodyFileName": "responses/search_libraries_response.json",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "urlPath": "/search/consortium/campuses",
+        "headers": {
+          "x-okapi-tenant": {
+            "equalTo": "central_test"
+          }
+        },
+        "queryParameters": {
+          "id": {
+            "equalTo": "62cf76b7-cca5-4d33-9217-edf42ce1a848"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "bodyFileName": "responses/search_campuses_response.json",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "urlPath": "/search/consortium/institutions",
+        "headers": {
+          "x-okapi-tenant": {
+            "equalTo": "central_test"
+          }
+        },
+        "queryParameters": {
+          "id": {
+            "equalTo": "6ecd8132-caef-4f87-bbb0-9fc07d71357d"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "bodyFileName": "responses/search_institutions_response.json",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "urlPath": "/search/consortium/locations",
+        "headers": {
+          "x-okapi-tenant": {
+            "equalTo": "central_test"
+          }
+        },
+        "queryParameters": {
+          "id": {
+            "equalTo": "93b74baf-0782-431a-ba64-f74d51d68ca2"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "bodyFileName": "responses/search_locations_response.json",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    }
+  ]
+}

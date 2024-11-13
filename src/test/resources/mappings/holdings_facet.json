@@ -1,0 +1,17 @@
+{
+  "mappings": [
+    {
+      "request": {
+        "method": "GET",
+        "urlPath": "/search/instances/facets"
+      },
+      "response": {
+        "status": 200,
+        "bodyFileName": "responses/holdings_facet_response.json",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    }
+  ]
+}
