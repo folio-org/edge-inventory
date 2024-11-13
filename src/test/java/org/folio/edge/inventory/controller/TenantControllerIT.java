@@ -18,7 +18,7 @@ class TenantControllerIT extends BaseIntegrationTests {
     mockMvc
         .perform(
             post("/_/tenant")
-                .headers(defaultHeaders())
+                .headers(defaultHeaders(false))
                 .content("{ \"module_from\":  \"edge-inventory.1\",  \"module_to\":  \"edge-inventory.2\" }"))
         .andExpect(status().isNoContent());
   }

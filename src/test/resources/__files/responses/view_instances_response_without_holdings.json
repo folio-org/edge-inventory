@@ -1,0 +1,199 @@
+{
+  "instances": [
+    {
+      "instanceId": "f1e82a1e-fc06-4b82-bb1d-da326cb378ce",
+      "isBoundWith": false,
+      "instance": {
+        "id": "f1e82a1e-fc06-4b82-bb1d-da326cb378ce",
+        "_version": 1,
+        "hrid": "inst000000000013",
+        "source": "FOLIO",
+        "title": "Global Africa",
+        "alternativeTitles": [],
+        "editions": [],
+        "series": [],
+        "identifiers": [
+          {
+            "value": "(OCoLC)981117973",
+            "identifierTypeId": "7e591197-f335-4afb-bc6d-a6d76ca3bace"
+          },
+          {
+            "value": "(DE-599)ZDB2905315-8",
+            "identifierTypeId": "7e591197-f335-4afb-bc6d-a6d76ca3bace"
+          }
+        ],
+        "contributors": [],
+        "subjects": [
+          "Monografische Reihe"
+        ],
+        "classifications": [
+          {
+            "classificationNumber": "300",
+            "classificationTypeId": "42471af9-7d25-4f3a-bf78-60d29dcf463b"
+          }
+        ],
+        "publication": [
+          {
+            "publisher": "Routledge, Taylor & Francis Group",
+            "place": "London New York",
+            "dateOfPublication": "2017-"
+          }
+        ],
+        "publicationFrequency": [],
+        "publicationRange": [],
+        "publicationPeriod": {
+          "start": 2017
+        },
+        "electronicAccess": [],
+        "instanceTypeId": "6312d172-f0cf-40f6-b27d-9fa8feaf332f",
+        "instanceFormatIds": [],
+        "instanceFormats": [],
+        "physicalDescriptions": [
+          "Bände"
+        ],
+        "languages": [
+          "eng"
+        ],
+        "notes": [],
+        "administrativeNotes": [],
+        "previouslyHeld": false,
+        "discoverySuppress": false,
+        "statisticalCodeIds": [],
+        "statusUpdatedDate": "2022-05-12T04:52:44.743+0000",
+        "metadata": {
+          "createdDate": "2022-05-12T04:52:44.733+00:00",
+          "updatedDate": "2022-05-12T04:52:44.733+00:00"
+        },
+        "holdingsRecords2": [],
+        "natureOfContentTermIds": []
+      }
+    },
+    {
+      "instanceId": "31fcc8e7-a019-43f4-b642-2edc389f4501",
+      "isBoundWith": false,
+      "instance": {
+        "id": "31fcc8e7-a019-43f4-b642-2edc389f4501",
+        "_version": 1,
+        "hrid": "inst000000000003",
+        "source": "FOLIO",
+        "title": "The American Journal of Medicine",
+        "alternativeTitles": [
+          {
+            "alternativeTitle": "The American journal of medicine (online)"
+          },
+          {
+            "alternativeTitle": "Am. J. med"
+          },
+          {
+            "alternativeTitle": "Green journal"
+          }
+        ],
+        "editions": [],
+        "series": [],
+        "identifiers": [
+          {
+            "value": "AJMEAZ",
+            "identifierTypeId": "593b78cb-32f3-44d1-ba8c-63fd5e6989e6"
+          },
+          {
+            "value": "0002-9343",
+            "identifierTypeId": "913300b2-03ed-469a-8179-c1092c991227"
+          },
+          {
+            "value": "med49002270",
+            "identifierTypeId": "c858e4f2-2b6b-4385-842b-60732ee14abb"
+          }
+        ],
+        "contributors": [],
+        "subjects": [
+          "Clinical medicine-Periodicals",
+          "Medicine",
+          "Geneeskunde"
+        ],
+        "classifications": [
+          {
+            "classificationNumber": "RC60 .A5",
+            "classificationTypeId": "ce176ace-a53e-4b4d-aa89-725ed7b2edac"
+          },
+          {
+            "classificationNumber": "W1 AM493",
+            "classificationTypeId": "a7f4d03f-b0d8-496c-aebf-4e9cdb678200"
+          }
+        ],
+        "publication": [
+          {
+            "publisher": "Dun-Donnelley Pub. Co. ",
+            "place": "New York",
+            "dateOfPublication": "1946-"
+          }
+        ],
+        "publicationFrequency": [],
+        "publicationRange": [],
+        "publicationPeriod": {
+          "start": 1946
+        },
+        "electronicAccess": [],
+        "instanceTypeId": "6312d172-f0cf-40f6-b27d-9fa8feaf332f",
+        "instanceFormatIds": [],
+        "instanceFormats": [],
+        "physicalDescriptions": [
+          "v., ill. 27 cm."
+        ],
+        "languages": [
+          "eng"
+        ],
+        "notes": [
+          {
+            "note": "Print subscription cancelled by Dec. 2016.",
+            "staffOnly": false,
+            "instanceNoteTypeId": "6a2533a7-4de2-4e64-8466-074c2fa9308c"
+          },
+          {
+            "note": "May 1988-: A Yorke medical. Also known as the Green journal",
+            "staffOnly": false,
+            "instanceNoteTypeId": "6a2533a7-4de2-4e64-8466-074c2fa9308c"
+          },
+          {
+            "note": "Publisher: Excerpta Medica, 2008-; New York, NY : Elsevier Inc. 2013-",
+            "staffOnly": false,
+            "instanceNoteTypeId": "6a2533a7-4de2-4e64-8466-074c2fa9308c"
+          },
+          {
+            "note": "Supplements issued irregularly, 1982.",
+            "staffOnly": false,
+            "instanceNoteTypeId": "6a2533a7-4de2-4e64-8466-074c2fa9308c"
+          },
+          {
+            "note": "Official journal of the Association of Professors of Medicine 2005-",
+            "staffOnly": false,
+            "instanceNoteTypeId": "6a2533a7-4de2-4e64-8466-074c2fa9308c"
+          },
+          {
+            "note": "Indexed quinquennially in: American journal of medicine 5 year cumulative index",
+            "staffOnly": false,
+            "instanceNoteTypeId": "6a2533a7-4de2-4e64-8466-074c2fa9308c"
+          }
+        ],
+        "administrativeNotes": [],
+        "previouslyHeld": false,
+        "discoverySuppress": false,
+        "statisticalCodeIds": [],
+        "statusUpdatedDate": "2022-05-12T04:52:44.763+0000",
+        "metadata": {
+          "createdDate": "2022-05-12T04:52:44.763+00:00",
+          "updatedDate": "2022-05-12T04:52:44.763+00:00"
+        },
+        "holdingsRecords2": [],
+        "natureOfContentTermIds": [
+          "0abeee3d-8ad2-4b04-92ff-221b4fce1075"
+        ]
+      }
+    }
+  ],
+  "totalRecords": 2,
+  "resultInfo": {
+    "totalRecords": 2,
+    "facets": [],
+    "diagnostics": []
+  }
+}

@@ -1,12 +1,14 @@
 package org.folio.edge.inventory.controller;
 
-import org.folio.edge.inventory.service.DataExportService;
-import org.folio.edge.inventory.service.InventoryService;
-import org.folio.inventory.domain.dto.RequestQueryParameters;
-import org.folio.inventory.rest.resource.InventoryApi;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.folio.edge.inventory.service.DataExportService;
+import org.folio.edge.inventory.service.EcsInventoryService;
+import org.folio.edge.inventory.service.EcsLocationsService;
+import org.folio.edge.inventory.service.InventoryService;
+import org.folio.inventory.domain.dto.RequestQueryParameters;
+import org.folio.inventory.rest.resource.InventoryApi;
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,6 +21,8 @@ public class InventoryController implements InventoryApi {
 
   private final InventoryService inventoryService;
   private final DataExportService dataExportService;
+  private final EcsInventoryService ecsInventoryService;
+  private final EcsLocationsService ecsLocationsService;
 
   @Override
   public ResponseEntity<String> getInstance(String instanceId, String xOkapiTenant, String xOkapiToken, String lang) {
@@ -55,20 +59,38 @@ public class InventoryController implements InventoryApi {
   }
 
   @Override
+  public ResponseEntity<String> getLocationById(String locationId, String xOkapiTenant, String xOkapiToken) {
+    log.info("Retrieving locations by id {}", locationId);
+    if (ecsInventoryService.isCentralTenant(xOkapiTenant)) {
+      return ResponseEntity.ok(ecsLocationsService.getLocationById(locationId));
+    }
+    return ResponseEntity.ok(inventoryService.getLocationById(locationId));
+  }
+
+  @Override
   public ResponseEntity<String> getInstitutionById(String institutionId, String xOkapiTenant, String xOkapiToken) {
     log.info("Retrieving institution by id {}", institutionId);
+    if (ecsInventoryService.isCentralTenant(xOkapiTenant)) {
+      return ResponseEntity.ok(ecsLocationsService.getInstitutionById(institutionId));
+    }
     return ResponseEntity.ok(inventoryService.getInstitutionById(institutionId));
   }
 
   @Override
   public ResponseEntity<String> getLibraryById(String libraryId, String xOkapiTenant, String xOkapiToken) {
     log.info("Retrieving library by id {}", libraryId);
+    if (ecsInventoryService.isCentralTenant(xOkapiTenant)) {
+      return ResponseEntity.ok(ecsLocationsService.getLibraryById(libraryId));
+    }
     return ResponseEntity.ok(inventoryService.getLibraryById(libraryId));
   }
 
   @Override
   public ResponseEntity<String> getCampusById(String campusId, String xOkapiTenant, String xOkapiToken) {
     log.info("Retrieving library by id {}", campusId);
+    if (ecsInventoryService.isCentralTenant(xOkapiTenant)) {
+      return ResponseEntity.ok(ecsLocationsService.getCampusById(campusId));
+    }
     return ResponseEntity.ok(inventoryService.getCampusById(campusId));
   }
 
@@ -139,6 +161,9 @@ public class InventoryController implements InventoryApi {
   public ResponseEntity<String> getInventoryViewInstances(String xOkapiTenant, String xOkapiToken,
       RequestQueryParameters requestQueryParameters) {
     log.info("Retrieving inventory view instances by query {}", requestQueryParameters.getQuery());
+    if (ecsInventoryService.isCentralTenant(xOkapiTenant)) {
+      return ResponseEntity.ok(ecsInventoryService.getEcsInventoryViewInstances(requestQueryParameters));
+    }
     return ResponseEntity.ok(inventoryService.getInventoryViewInstances(requestQueryParameters));
   }
 

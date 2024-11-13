@@ -41,7 +41,9 @@ public class InventoryClientRequestInterceptor implements RequestInterceptor {
     template.target(okapiUrlToUse);
     var apiKey = getApiKey();
     var paramsWithToken = securityManagerService.getParamsWithToken(apiKey);
-    template.header(TENANT, paramsWithToken.getTenantId());
+    if (!template.headers().containsKey(TENANT)) {
+      template.header(TENANT, paramsWithToken.getTenantId());
+    }
     template.header(TOKEN, paramsWithToken.getOkapiToken().accessToken());
   }
 

@@ -3,12 +3,12 @@ package org.folio.edge.inventory;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
-import org.folio.edge.inventory.config.InventoryClientRequestInterceptor;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.extension.responsetemplating.ResponseTemplateTransformer;
 import java.util.List;
 import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j2;
+import org.folio.edge.inventory.config.InventoryClientRequestInterceptor;
 import org.folio.edgecommonspring.client.EdgeFeignClientProperties;
 import org.folio.edgecommonspring.client.EnrichUrlClient;
 import org.folio.spring.integration.XOkapiHeaders;
@@ -40,6 +40,7 @@ public abstract class BaseIntegrationTests {
           .dynamicPort()
           .extensions(new ResponseTemplateTransformer(false)));
   private static final String TEST_API_KEY = "eyJzIjoiQlBhb2ZORm5jSzY0NzdEdWJ4RGgiLCJ0IjoidGVzdCIsInUiOiJ0ZXN0X2FkbWluIn0=";
+  private static final String CENTRAL_API_KEY = "eyJzIjoiQlBhb2ZORm5jSzY0NzdEdWJ4RGgiLCJ0IjoiY2VudHJhbF90ZXN0IiwidSI6InRlc3RfYWRtaW4ifQ==";
 
   @Autowired
   protected MockMvc mockMvc;
@@ -62,22 +63,35 @@ public abstract class BaseIntegrationTests {
   @SneakyThrows
   protected static ResultActions doGet(MockMvc mockMvc, String url) {
     return mockMvc.perform(get(url)
-        .headers(defaultHeaders()));
+        .headers(defaultHeaders(false)));
+  }
+
+  @SneakyThrows
+  protected static ResultActions doGet(MockMvc mockMvc, String url, boolean isCentral) {
+    return mockMvc.perform(get(url)
+        .headers(defaultHeaders(isCentral)));
   }
 
   @SneakyThrows
   protected static ResultActions doGetWithParams(MockMvc mockMvc, String url, String paramName, String paramValue) {
     return mockMvc.perform(get(url)
         .param(paramName, paramValue)
-        .headers(defaultHeaders()));
+        .headers(defaultHeaders(false)));
   }
 
-  protected static HttpHeaders defaultHeaders() {
+  @SneakyThrows
+  protected static ResultActions doGetWithParams(MockMvc mockMvc, String url, String paramName, String paramValue, boolean isCentral) {
+    return mockMvc.perform(get(url)
+        .param(paramName, paramValue)
+        .headers(defaultHeaders(isCentral)));
+  }
+
+  protected static HttpHeaders defaultHeaders(boolean isCentral) {
     final HttpHeaders httpHeaders = new HttpHeaders();
     httpHeaders.setContentType(APPLICATION_JSON);
-    httpHeaders.put(XOkapiHeaders.TENANT, List.of(TestConstants.TEST_TENANT));
     httpHeaders.put(XOkapiHeaders.URL, List.of(WIRE_MOCK.baseUrl()));
-    httpHeaders.put(XOkapiHeaders.AUTHORIZATION, List.of(TEST_API_KEY));
+    var apiKey = isCentral ? CENTRAL_API_KEY : TEST_API_KEY;
+    httpHeaders.put(XOkapiHeaders.AUTHORIZATION, List.of(apiKey));
     return httpHeaders;
   }
 

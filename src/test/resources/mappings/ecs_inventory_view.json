@@ -1,0 +1,50 @@
+{
+  "mappings": [
+    {
+      "request": {
+        "method": "GET",
+        "urlPath": "/inventory-view/instances",
+        "headers": {
+          "x-okapi-tenant": {
+            "equalTo": "central_test"
+          }
+        },
+        "queryParameters": {
+          "query": {
+            "equalTo": "ecs"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "bodyFileName": "responses/view_instances_response_without_holdings.json",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "urlPath": "/inventory-view/instances",
+        "headers": {
+          "x-okapi-tenant": {
+            "equalTo": "test"
+          }
+        },
+        "queryParameters": {
+          "query": {
+            "contains": "f1e82a1e-fc06-4b82-bb1d-da326cb378ce"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "bodyFileName": "responses/view_instances_response_with_holdings.json",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    }
+  ]
+}

@@ -1,12 +1,13 @@
 package org.folio.edge.inventory.client;
 
 import org.folio.edge.inventory.config.InventoryClientConfig;
-import org.folio.inventory.domain.dto.RequestQueryParameters;
+import org.folio.spring.integration.XOkapiHeaders;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.cloud.openfeign.SpringQueryMap;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @FeignClient(name = "inventory", configuration = InventoryClientConfig.class)
@@ -26,6 +27,9 @@ public interface InventoryClient {
 
   @GetMapping(value = "/locations", consumes = MediaType.APPLICATION_JSON_VALUE)
   String getLocations(@SpringQueryMap Object requestQueryParameters);
+
+  @GetMapping(value = "/locations/{locationId}", consumes = MediaType.APPLICATION_JSON_VALUE)
+  String getLocationById(@PathVariable("locationId") String locationId);
 
   @GetMapping(value = "/location-units/institutions/{institutionId}", consumes = MediaType.APPLICATION_JSON_VALUE)
   String getInstitutionById(@PathVariable("institutionId") String institutionId);
@@ -68,6 +72,9 @@ public interface InventoryClient {
 
   @GetMapping(value = "/inventory-view/instances", consumes = MediaType.APPLICATION_JSON_VALUE)
   String getInventoryViewInstances(@SpringQueryMap Object requestQueryParameters);
+
+  @GetMapping(value = "/inventory-view/instances", consumes = MediaType.APPLICATION_JSON_VALUE)
+  String getInventoryViewInstances(@SpringQueryMap Object requestQueryParameters, @RequestHeader(XOkapiHeaders.TENANT) String tenantId);
 
   @GetMapping(value = "/alternative-title-types", consumes = MediaType.APPLICATION_JSON_VALUE)
   String getAlternativeTitleTypes(@SpringQueryMap Object requestQueryParameters);

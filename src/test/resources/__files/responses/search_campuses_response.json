@@ -1,0 +1,14 @@
+{
+  "campuses": [{
+    "id": "62cf76b7-cca5-4d33-9217-edf42ce1a848",
+    "name": "Annex",
+    "code": "KU/CC/DI/A",
+    "tenantId": "test",
+    "institutionId": "6ecd8132-caef-4f87-bbb0-9fc07d71357d",
+    "metadata": {
+      "createdDate": "2024-04-15T13:49:06.283+00:00",
+      "updatedDate": "2024-04-15T13:49:06.283+00:00"
+    }
+  }],
+  "totalRecords": 1
+}

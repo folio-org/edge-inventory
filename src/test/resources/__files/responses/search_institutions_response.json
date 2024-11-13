@@ -1,0 +1,13 @@
+{
+  "institutions": [{
+    "id": "6ecd8132-caef-4f87-bbb0-9fc07d71357d",
+    "name": "Annex",
+    "code": "KU/CC/DI/A",
+    "tenantId": "test",
+    "metadata": {
+      "createdDate": "2024-04-15T13:49:06.283+00:00",
+      "updatedDate": "2024-04-15T13:49:06.283+00:00"
+    }
+  }],
+  "totalRecords": 1
+}

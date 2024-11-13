@@ -1,9 +1,11 @@
 package org.folio.edge.inventory.handler;
 
-import org.folio.inventory.domain.dto.Error;
 import feign.FeignException;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.log4j.Log4j2;
+import org.folio.inventory.domain.dto.Error;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -24,6 +26,13 @@ public class InventoryErrorHandler {
     String properErrorMessage = exception.contentUTF8();
     Error errorResponse = buildErrorResponse(exception.status(), properErrorMessage);
     return ResponseEntity.status(exception.status())
+        .body(errorResponse);
+  }
+
+  @ExceptionHandler(EntityNotFoundException.class)
+  public ResponseEntity<Error> handleEntityNotFoundException(EntityNotFoundException exception) {
+    Error errorResponse = buildErrorResponse(HttpStatus.NOT_FOUND.value(), exception.getMessage());
+    return ResponseEntity.status(HttpStatus.NOT_FOUND.value())
         .body(errorResponse);
   }
 
