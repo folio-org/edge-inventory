@@ -1,3 +1,6 @@
+## v2.1.0
+[EDGEINV-3](https://folio-org.atlassian.net/browse/EDGEINV-3): Add support for ECS without DCB 
+
 ## v2.0.0
 [MODINV-1086](https://folio-org.atlassian.net/browse/MODINV-1086): inventory API version update (edge-inventory)
 [EDGEINV-2](https://folio-org.atlassian.net/browse/EDGEINV-2): Update module permissions in the ModuleDescriptor
