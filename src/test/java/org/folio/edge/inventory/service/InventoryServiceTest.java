@@ -313,10 +313,10 @@ class InventoryServiceTest {
     String expectedInstanceFormatsResponse = TestUtil.readFileContentFromResources(GET_VIEW_INSTANCES_PATH);
     RequestQueryParameters requestQueryParameters = new RequestQueryParameters();
     when(inventoryClient
-        .getInventoryViewInstances(requestQueryParameters))
+        .getInventoryViewInstances(requestQueryParameters, false))
         .thenReturn(expectedInstanceFormatsResponse);
 
-    JSONObject itemsJson = new JSONObject(inventoryService.getInventoryViewInstances(requestQueryParameters));
+    JSONObject itemsJson = new JSONObject(inventoryService.getInventoryViewInstances(requestQueryParameters, false));
     JSONObject firstViewInstance = itemsJson.getJSONArray("instances").getJSONObject(0);
     JSONObject secondViewInstance = itemsJson.getJSONArray("instances").getJSONObject(1);
 

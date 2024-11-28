@@ -29,7 +29,7 @@
     {
       "request": {
         "method": "GET",
-        "url": "/inventory-view/instances?offset=0&limit=10&lang=en"
+        "url": "/inventory-view/instances?withBoundedItems=false&offset=0&limit=10&lang=en"
       },
       "response": {
         "status": 200,

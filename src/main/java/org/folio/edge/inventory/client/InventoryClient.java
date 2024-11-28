@@ -71,10 +71,11 @@ public interface InventoryClient {
   String getInstanceNoteTypes(@SpringQueryMap Object requestQueryParameters);
 
   @GetMapping(value = "/inventory-view/instances", consumes = MediaType.APPLICATION_JSON_VALUE)
-  String getInventoryViewInstances(@SpringQueryMap Object requestQueryParameters);
+  String getInventoryViewInstances(@SpringQueryMap Object requestQueryParameters, @RequestParam Boolean withBoundedItems);
 
   @GetMapping(value = "/inventory-view/instances", consumes = MediaType.APPLICATION_JSON_VALUE)
-  String getInventoryViewInstances(@SpringQueryMap Object requestQueryParameters, @RequestHeader(XOkapiHeaders.TENANT) String tenantId);
+  String getInventoryViewInstances(@SpringQueryMap Object requestQueryParameters,
+      @RequestParam Boolean withBoundedItems, @RequestHeader(XOkapiHeaders.TENANT) String tenantId);
 
   @GetMapping(value = "/alternative-title-types", consumes = MediaType.APPLICATION_JSON_VALUE)
   String getAlternativeTitleTypes(@SpringQueryMap Object requestQueryParameters);
