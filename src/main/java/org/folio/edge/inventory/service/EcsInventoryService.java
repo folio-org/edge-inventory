@@ -46,16 +46,16 @@ public class EcsInventoryService {
     return false;
   }
 
-  public String getEcsInventoryViewInstances(RequestQueryParameters requestQueryParameters) {
+  public String getEcsInventoryViewInstances(RequestQueryParameters requestQueryParameters, Boolean withBoundedItems) {
     JsonNode centralView = jsonConverter.readAsTree(
-        inventoryClient.getInventoryViewInstances(requestQueryParameters));
+        inventoryClient.getInventoryViewInstances(requestQueryParameters, withBoundedItems));
     var totalRecords = centralView.get(TOTAL_RECORDS).asInt();
     if (totalRecords < 0) {
       return centralView.toString();
     }
     var instanceIds = getInstanceIdsFromView(centralView);
     var holdingsTenantsMap = getHoldingsTenantsMap(instanceIds);
-    var tenantInstanceViews = getHoldingsAndItemsFromMemberTenants(holdingsTenantsMap);
+    var tenantInstanceViews = getHoldingsAndItemsFromMemberTenants(holdingsTenantsMap, withBoundedItems);
     tenantInstanceViews.forEach(instanceView -> mergeInstanceViews(centralView, instanceView));
     return centralView.toString();
   }
@@ -79,12 +79,13 @@ public class EcsInventoryService {
     return tenantInstanceMap;
   }
 
-  private List<JsonNode> getHoldingsAndItemsFromMemberTenants(Map<String, List<String>> tenantInstanceMap) {
+  private List<JsonNode> getHoldingsAndItemsFromMemberTenants(Map<String, List<String>> tenantInstanceMap,
+      Boolean withBoundedItems) {
     var context = (FolioExecutionContext) folioExecutionContext.getInstance();
     return tenantInstanceMap.entrySet().parallelStream()
         .map(tenantInstances -> context.execute(() -> jsonConverter
             .readAsTree(inventoryClient.getInventoryViewInstances(
-                getRequestQueryParams(tenantInstances.getValue()), tenantInstances.getKey()))))
+                getRequestQueryParams(tenantInstances.getValue()), withBoundedItems, tenantInstances.getKey()))))
         .toList();
   }
 

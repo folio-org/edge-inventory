@@ -447,6 +447,7 @@ paths:
         - $ref: '#/components/parameters/x-okapi-tenant-header'
         - $ref: '#/components/parameters/x-okapi-token-header'
         - $ref: '#/components/parameters/request-query-parameters'
+        - $ref: '#/components/parameters/withBoundedItems'
       responses:
         '200':
           description: 'Calls the mod-inventory-storage GET /inventory-view/instances API and returns the result as-is
@@ -764,6 +765,14 @@ components:
         pattern: "[a-zA-Z]{2}"
         default: en
         type: string
+    withBoundedItems:
+      name: withBoundedItems
+      in: query
+      description: Retrieve bounded items when value is true
+      required: false
+      schema:
+        default: false
+        type: boolean
 
     instance-id:
       name: instanceId

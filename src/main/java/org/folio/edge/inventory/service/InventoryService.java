@@ -93,8 +93,8 @@ public class InventoryService {
     return inventoryClient.getAlternativeTitleTypes(requestQueryParameters);
   }
 
-  public String getInventoryViewInstances(RequestQueryParameters requestQueryParameters) {
-    return inventoryClient.getInventoryViewInstances(requestQueryParameters);
+  public String getInventoryViewInstances(RequestQueryParameters requestQueryParameters, Boolean withBoundedItems) {
+    return inventoryClient.getInventoryViewInstances(requestQueryParameters, withBoundedItems);
   }
 
   public String getMaterialTypeById(String materialTypeId) {
