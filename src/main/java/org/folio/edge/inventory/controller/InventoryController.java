@@ -175,7 +175,8 @@ public class InventoryController implements InventoryApi {
   }
 
   @Override
-  public ResponseEntity<String> getAuthoritiesByQuery(String xOkapiTenant, String xOkapiToken, RequestQueryParameters requestQueryParameters) {
+  public ResponseEntity<String> getAuthoritiesByQuery(String xOkapiTenant, String xOkapiToken,
+      RequestQueryParameters requestQueryParameters) {
     log.info("Retrieving authorities by query {}", requestQueryParameters.getQuery());
     return ResponseEntity.ok(inventoryService.getAuthoritiesByQuery(requestQueryParameters));
   }
@@ -198,5 +199,19 @@ public class InventoryController implements InventoryApi {
       Boolean isUtf) {
     log.info("Download instance by id {} in utf format:{}", instanceId, isUtf);
     return dataExportService.downloadInstance(instanceId, isUtf);
+  }
+
+  @Override
+  public ResponseEntity<String> getSubjectSources(String xOkapiTenant, String xOkapiToken,
+      RequestQueryParameters requestQueryParameters) {
+    log.info("Retrieving subject sources by query {}", requestQueryParameters.getQuery());
+    return ResponseEntity.ok(inventoryService.getSubjectSources(requestQueryParameters));
+  }
+
+  @Override
+  public ResponseEntity<String> getSubjectTypes(String xOkapiTenant, String xOkapiToken,
+      RequestQueryParameters requestQueryParameters) {
+    log.info("Retrieving subject types by query {}", requestQueryParameters.getQuery());
+    return ResponseEntity.ok(inventoryService.getSubjectTypes(requestQueryParameters));
   }
 }

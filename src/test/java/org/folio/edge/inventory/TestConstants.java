@@ -25,6 +25,8 @@ public class TestConstants {
   public static final String INSTANCE_NOTE_TYPES_RESPONSE_PATH = "__files/responses/instance_note_types_response.json";
   public static final String GET_VIEW_INSTANCES_PATH = "__files/responses/view_instances_response.json";
   public static final String GET_ALTERNATIVE_TITLE_TYPES_PATH ="__files/responses/alternative_title_types_response.json";
+  public static final String GET_SUBJECT_SOURCES_PATH ="__files/responses/subject_sources_response.json";
+  public static final String GET_SUBJECT_TYPES_PATH ="__files/responses/subject_types_response.json";
   public static final String INSTITUTION_BY_ID_PATH ="__files/responses/institution_by_id_response.json";
   public static final String CAMPUS_BY_ID_PATH ="__files/responses/campus_by_id_response.json";
   public static final String LIBRARY_BY_ID_PATH ="__files/responses/library_by_id_response.json";
@@ -61,6 +63,8 @@ public class TestConstants {
   public static final String GET_INSTANCE_NOTE_TYPES_URL = "/inventory/instance-note-types";
   public static final String GET_VIEW_INSTANCES_URL = "/inventory/inventory-view/instances";
   public static final String GET_ALTERNATIVE_TITLE_TYPES_URL = "/inventory/alternative-title-types";
+  public static final String GET_SUBJECT_SOURCES_URL = "/inventory/subject-sources";
+  public static final String GET_SUBJECT_TYPES_URL = "/inventory/subject-types";
   public static final String INSTITUTION_ID = "6ecd8132-caef-4f87-bbb0-9fc07d71357d";
   public static final String LIBRARY_ID = "5d78803e-ca04-4b4a-aeae-2c63b924518b";
   public static final String CAMPUS_ID = "62cf76b7-cca5-4d33-9217-edf42ce1a848";

@@ -692,6 +692,58 @@ paths:
         '500':
           $ref: '#/components/responses/internalServerErrorResponse'
 
+  /inventory/subject-sources:
+    get:
+      tags:
+        - subjectSources
+      operationId: getSubjectSources
+      summary: Retrieve collection of subject sources.
+      description: Retrieve collection of subject sources.
+      parameters:
+        - $ref: '#/components/parameters/x-okapi-tenant-header'
+        - $ref: '#/components/parameters/x-okapi-token-header'
+        - $ref: '#/components/parameters/request-query-parameters'
+      responses:
+        '200':
+          description: 'Calls the mod-inventory-storage GET /subject-sources API and returns the result as-is
+            The example of response: https://github.com/folio-org/mod-inventory-storage/blob/master/ramls/examples/subject-sources.json'
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          $ref: '#/components/responses/badRequestResponse'
+        '401':
+          $ref: '#/components/responses/notAuthorizedResponse'
+        '500':
+          $ref: '#/components/responses/internalServerErrorResponse'
+
+  /inventory/subject-types:
+    get:
+      tags:
+        - subjectTypes
+      operationId: getSubjectTypes
+      summary: Retrieve collection of subject types.
+      description: Retrieve collection of subject types.
+      parameters:
+        - $ref: '#/components/parameters/x-okapi-tenant-header'
+        - $ref: '#/components/parameters/x-okapi-token-header'
+        - $ref: '#/components/parameters/request-query-parameters'
+      responses:
+        '200':
+          description: 'Calls the mod-inventory-storage GET /subject-types API and returns the result as-is
+            The example of response: https://github.com/folio-org/mod-inventory-storage/blob/master/ramls/examples/subject-types.json'
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          $ref: '#/components/responses/badRequestResponse'
+        '401':
+          $ref: '#/components/responses/notAuthorizedResponse'
+        '500':
+          $ref: '#/components/responses/internalServerErrorResponse'
+
 components:
   schemas:
     errorResponse:
@@ -854,3 +906,5 @@ tags:
   - name: library
   - name: sourceRecords
   - name: authoritySourceRecords
+  - name: subjectSources
+  - name: subjectTypes

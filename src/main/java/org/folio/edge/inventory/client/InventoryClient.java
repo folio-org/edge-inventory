@@ -86,4 +86,10 @@ public interface InventoryClient {
 
   @GetMapping(value = "/authority-storage/authorities", consumes = MediaType.APPLICATION_JSON_VALUE)
   String getAuthoritiesByQuery(@SpringQueryMap Object requestQueryParameters);
+
+  @GetMapping(value = "/subject-sources", consumes = MediaType.APPLICATION_JSON_VALUE)
+  String getSubjectSources(@SpringQueryMap Object requestQueryParameters);
+
+  @GetMapping(value = "/subject-types", consumes = MediaType.APPLICATION_JSON_VALUE)
+  String getSubjectTypes(@SpringQueryMap Object requestQueryParameters);
 }
