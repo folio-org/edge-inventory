@@ -1,6 +1,50 @@
 package org.folio.edge.inventory.controller;
 
-import static org.folio.edge.inventory.TestConstants.*;
+import static org.folio.edge.inventory.TestConstants.AUTHORITY_BY_INVALID_AUTHORITY_ID_URL;
+import static org.folio.edge.inventory.TestConstants.AUTHORITY_BY_NOT_FOUND_AUTHORITY_ID_URL;
+import static org.folio.edge.inventory.TestConstants.AUTHORITY_BY_VALID_AUTHORITY_ID_URL;
+import static org.folio.edge.inventory.TestConstants.AUTHORITY_SOURCE_RECORDS_WITH_INVALID_ID_URL;
+import static org.folio.edge.inventory.TestConstants.AUTHORITY_SOURCE_RECORDS_WITH_NON_EXISTING_ID_URL;
+import static org.folio.edge.inventory.TestConstants.AUTHORITY_SOURCE_RECORDS_WITH_VALID_ID_URL;
+import static org.folio.edge.inventory.TestConstants.AUTHORITY_SOURCE_RECORD_RESPONSE_PATH;
+import static org.folio.edge.inventory.TestConstants.GET_ALTERNATIVE_TITLE_TYPES_URL;
+import static org.folio.edge.inventory.TestConstants.GET_CAMPUS_BY_ID_NOT_FOUND_URL;
+import static org.folio.edge.inventory.TestConstants.GET_CAMPUS_BY_ID_URL;
+import static org.folio.edge.inventory.TestConstants.GET_CLASSIFICATION_TYPES_URL;
+import static org.folio.edge.inventory.TestConstants.GET_CONTRIBUTOR_NAME_TYPES_URL;
+import static org.folio.edge.inventory.TestConstants.GET_CONTRIBUTOR_TYPES_URL;
+import static org.folio.edge.inventory.TestConstants.GET_EDGE_IDENTIFIER_TYPES_BY_VALID_URL;
+import static org.folio.edge.inventory.TestConstants.GET_HOLDINGS_URL;
+import static org.folio.edge.inventory.TestConstants.GET_INSTANCE_FORMATS_URL;
+import static org.folio.edge.inventory.TestConstants.GET_INSTANCE_NOTE_TYPES_URL;
+import static org.folio.edge.inventory.TestConstants.GET_INSTANCE_TYPES_URL;
+import static org.folio.edge.inventory.TestConstants.GET_INSTITUTION_BY_ID_NOT_FOUND_URL;
+import static org.folio.edge.inventory.TestConstants.GET_INSTITUTION_BY_ID_URL;
+import static org.folio.edge.inventory.TestConstants.GET_ITEMS_URL;
+import static org.folio.edge.inventory.TestConstants.GET_LIBRARY_BY_ID_NOT_FOUND_URL;
+import static org.folio.edge.inventory.TestConstants.GET_LIBRARY_BY_ID_URL;
+import static org.folio.edge.inventory.TestConstants.GET_LOCATION_VALID_URL;
+import static org.folio.edge.inventory.TestConstants.GET_MATERIAL_TYPE_BY_ID_NOT_FOUND_URL;
+import static org.folio.edge.inventory.TestConstants.GET_MATERIAL_TYPE_BY_ID_URL;
+import static org.folio.edge.inventory.TestConstants.GET_MODES_OF_ISSUANCE_URL;
+import static org.folio.edge.inventory.TestConstants.GET_NATURE_OF_CONTENT_TERMS_URL;
+import static org.folio.edge.inventory.TestConstants.GET_SERVICE_POINTS_VALID_URL;
+import static org.folio.edge.inventory.TestConstants.GET_SUBJECT_SOURCES_URL;
+import static org.folio.edge.inventory.TestConstants.GET_SUBJECT_TYPES_URL;
+import static org.folio.edge.inventory.TestConstants.GET_VIEW_INSTANCES_URL;
+import static org.folio.edge.inventory.TestConstants.INSTANCES_WITH_QUERY_URL;
+import static org.folio.edge.inventory.TestConstants.INSTANCES_WITH_QUERY_URL_NOT_FOUND;
+import static org.folio.edge.inventory.TestConstants.INSTANCE_BY_INVALID_INSTANCE_ID_URL;
+import static org.folio.edge.inventory.TestConstants.INSTANCE_BY_NOT_FOUND_INSTANCE_ID_URL;
+import static org.folio.edge.inventory.TestConstants.INSTANCE_BY_VALID_INSTANCE_ID_URL;
+import static org.folio.edge.inventory.TestConstants.LANG_PARAM_INVALID_VALUE;
+import static org.folio.edge.inventory.TestConstants.LANG_PARAM_NAME;
+import static org.folio.edge.inventory.TestConstants.LANG_PARAM_VALID_VALUE;
+import static org.folio.edge.inventory.TestConstants.QUERY_PARAM_NAME;
+import static org.folio.edge.inventory.TestConstants.SOURCE_RECORDS_WITH_INVALID_ID_URL;
+import static org.folio.edge.inventory.TestConstants.SOURCE_RECORDS_WITH_NON_EXISTING_ID_URL;
+import static org.folio.edge.inventory.TestConstants.SOURCE_RECORDS_WITH_VALID_ID_URL;
+import static org.folio.edge.inventory.TestConstants.SOURCE_RECORD_RESPONSE_PATH;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.iterableWithSize;
@@ -59,24 +103,24 @@ class InventoryControllerIT extends BaseIntegrationTests {
   @Test
   void getAuthority_shouldReturnAuthority_whenAuthorityIdValid() throws Exception {
     doGet(mockMvc, AUTHORITY_BY_VALID_AUTHORITY_ID_URL)
-            .andExpect(status().isOk())
-            .andExpect(jsonPath("id", is("9eba0866-8195-457c-ac72-dbfc279cc496")))
-            .andExpect(jsonPath("personalName", is("Woodson, Jacqueline C410821")))
-            .andExpect(
-                    jsonPath("naturalId", is("n88234700410821")))
-            .andExpect(jsonPath("source", is("MARC")));
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("id", is("9eba0866-8195-457c-ac72-dbfc279cc496")))
+        .andExpect(jsonPath("personalName", is("Woodson, Jacqueline C410821")))
+        .andExpect(
+            jsonPath("naturalId", is("n88234700410821")))
+        .andExpect(jsonPath("source", is("MARC")));
   }
 
   @Test
   void getAuthority_shouldReturn400Error_whenAuthorityIdIsInvalid() throws Exception {
     doGet(mockMvc, AUTHORITY_BY_INVALID_AUTHORITY_ID_URL)
-            .andExpect(status().isBadRequest());
+        .andExpect(status().isBadRequest());
   }
 
   @Test
   void getAuthority_shouldReturn404_whenAuthorityIdNotFound() throws Exception {
     doGet(mockMvc, AUTHORITY_BY_NOT_FOUND_AUTHORITY_ID_URL)
-            .andExpect(status().isNotFound());
+        .andExpect(status().isNotFound());
   }
 
   @Test
@@ -520,7 +564,8 @@ class InventoryControllerIT extends BaseIntegrationTests {
         .andExpect(jsonPath("snapshotId", is(expectedResponse.get("snapshotId"))))
         .andExpect(jsonPath("rawRecord.id", is(expectedResponse.getJSONObject("rawRecord").get("id"))))
         .andExpect(jsonPath("rawRecord.content", is(expectedResponse.getJSONObject("rawRecord").get("content"))))
-        .andExpect(jsonPath("parsedRecord.formattedContent", is(expectedResponse.getJSONObject("parsedRecord").get("formattedContent"))))
+        .andExpect(jsonPath("parsedRecord.formattedContent",
+            is(expectedResponse.getJSONObject("parsedRecord").get("formattedContent"))))
         .andExpect(jsonPath("parsedRecord.content.leader",
             is(expectedResponse.getJSONObject("parsedRecord").getJSONObject("content").get("leader"))))
         .andExpect(jsonPath("parsedRecord.content.fields", hasSize(
@@ -547,34 +592,36 @@ class InventoryControllerIT extends BaseIntegrationTests {
     JSONObject expectedResponse = new JSONObject(expectedString);
 
     doGet(mockMvc, AUTHORITY_SOURCE_RECORDS_WITH_VALID_ID_URL)
-            .andExpect(status().isOk())
-            .andExpect(jsonPath("id", is(expectedResponse.get("id"))))
-            .andExpect(jsonPath("snapshotId", is(expectedResponse.get("snapshotId"))))
-            .andExpect(jsonPath("rawRecord.id", is(expectedResponse.getJSONObject("rawRecord").get("id"))))
-            .andExpect(jsonPath("rawRecord.content", is(expectedResponse.getJSONObject("rawRecord").get("content"))))
-            .andExpect(jsonPath("parsedRecord.formattedContent", is(expectedResponse.getJSONObject("parsedRecord").get("formattedContent"))))
-            .andExpect(jsonPath("parsedRecord.content.leader",
-                    is(expectedResponse.getJSONObject("parsedRecord").getJSONObject("content").get("leader"))))
-            .andExpect(jsonPath("parsedRecord.content.fields", hasSize(
-                    expectedResponse.getJSONObject("parsedRecord").getJSONObject("content").getJSONArray("fields").length())))
-            .andExpect(jsonPath("externalIdsHolder.authorityId",
-                    is(expectedResponse.getJSONObject("externalIdsHolder").get("authorityId"))));
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("id", is(expectedResponse.get("id"))))
+        .andExpect(jsonPath("snapshotId", is(expectedResponse.get("snapshotId"))))
+        .andExpect(jsonPath("rawRecord.id", is(expectedResponse.getJSONObject("rawRecord").get("id"))))
+        .andExpect(jsonPath("rawRecord.content", is(expectedResponse.getJSONObject("rawRecord").get("content"))))
+        .andExpect(jsonPath("parsedRecord.formattedContent",
+            is(expectedResponse.getJSONObject("parsedRecord").get("formattedContent"))))
+        .andExpect(jsonPath("parsedRecord.content.leader",
+            is(expectedResponse.getJSONObject("parsedRecord").getJSONObject("content").get("leader"))))
+        .andExpect(jsonPath("parsedRecord.content.fields", hasSize(
+            expectedResponse.getJSONObject("parsedRecord").getJSONObject("content").getJSONArray("fields").length())))
+        .andExpect(jsonPath("externalIdsHolder.authorityId",
+            is(expectedResponse.getJSONObject("externalIdsHolder").get("authorityId"))));
   }
 
   @Test
   void getAuthoritySourceRecord_shouldReturn400Error_whenAuthorityIdIsInvalid() throws Exception {
     doGet(mockMvc, AUTHORITY_SOURCE_RECORDS_WITH_INVALID_ID_URL)
-            .andExpect(status().isBadRequest());
+        .andExpect(status().isBadRequest());
   }
 
   @Test
   void getAuthoritySourceRecord_shouldReturn404_whenInstanceIdNotFound() throws Exception {
     doGet(mockMvc, AUTHORITY_SOURCE_RECORDS_WITH_NON_EXISTING_ID_URL)
-            .andExpect(status().isNotFound());
+        .andExpect(status().isNotFound());
   }
 
   @Test
-  void getContributorNameTypes_shouldReturn200WithEmptyRecords_whenNoContributorNameTypesFoundByQuery() throws Exception {
+  void getContributorNameTypes_shouldReturn200WithEmptyRecords_whenNoContributorNameTypesFoundByQuery()
+      throws Exception {
     doGetWithParams(mockMvc, GET_CONTRIBUTOR_NAME_TYPES_URL, QUERY_PARAM_NAME, "id==test")
         .andExpect(status().isOk())
         .andExpect(jsonPath("totalRecords", is(0)));
@@ -600,7 +647,8 @@ class InventoryControllerIT extends BaseIntegrationTests {
         .andExpect(header().string("Content-Disposition",
             "attachment; filename=\"" + "0831576a-c421-47dd-9285-ebab3351faa8-utf.mrc" + "\""))
         .andExpect(result -> {
-          byte[] expectedContent = TestUtil.readFileBytesFromResources("__files/responses/0831576a-c421-47dd-9285-ebab3351faa8-utf.mrc");
+          byte[] expectedContent = TestUtil.readFileBytesFromResources(
+              "__files/responses/0831576a-c421-47dd-9285-ebab3351faa8-utf.mrc");
           byte[] actualContent = result.getResponse().getContentAsByteArray();
           Assertions.assertArrayEquals(expectedContent, actualContent);
         });
@@ -614,7 +662,8 @@ class InventoryControllerIT extends BaseIntegrationTests {
         .andExpect(header().string("Content-Disposition",
             "attachment; filename=\"" + "0831576a-c421-47dd-9285-ebab3351faa8-marc8.mrc" + "\""))
         .andExpect(result -> {
-          byte[] expectedContent = TestUtil.readFileBytesFromResources("__files/responses/0831576a-c421-47dd-9285-ebab3351faa8-marc8.mrc");
+          byte[] expectedContent = TestUtil.readFileBytesFromResources(
+              "__files/responses/0831576a-c421-47dd-9285-ebab3351faa8-marc8.mrc");
           byte[] actualContent = result.getResponse().getContentAsByteArray();
           Assertions.assertArrayEquals(expectedContent, actualContent);
         });
@@ -626,7 +675,8 @@ class InventoryControllerIT extends BaseIntegrationTests {
         .andExpect(status().isInternalServerError())
         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
         .andExpect(jsonPath("$.code").value(500))
-        .andExpect(jsonPath("$.errorMessage").value("Couldn't find authority in db for ID: 1831576a-c421-47dd-9285-ebab3351faa8"));
+        .andExpect(jsonPath("$.errorMessage").value(
+            "Couldn't find authority in db for ID: 1831576a-c421-47dd-9285-ebab3351faa8"));
   }
 
   @Test
@@ -637,7 +687,8 @@ class InventoryControllerIT extends BaseIntegrationTests {
         .andExpect(header().string("Content-Disposition",
             "attachment; filename=\"" + "0684a01d-a83a-4ea7-8985-37dd59a751b2-utf.mrc" + "\""))
         .andExpect(result -> {
-          byte[] expectedContent = TestUtil.readFileBytesFromResources("__files/responses/0684a01d-a83a-4ea7-8985-37dd59a751b2-utf.mrc");
+          byte[] expectedContent = TestUtil.readFileBytesFromResources(
+              "__files/responses/0684a01d-a83a-4ea7-8985-37dd59a751b2-utf.mrc");
           byte[] actualContent = result.getResponse().getContentAsByteArray();
           Assertions.assertArrayEquals(expectedContent, actualContent);
         });
@@ -651,7 +702,8 @@ class InventoryControllerIT extends BaseIntegrationTests {
         .andExpect(header().string("Content-Disposition",
             "attachment; filename=\"" + "0684a01d-a83a-4ea7-8985-37dd59a751b2-marc8.mrc" + "\""))
         .andExpect(result -> {
-          byte[] expectedContent = TestUtil.readFileBytesFromResources("__files/responses/0684a01d-a83a-4ea7-8985-37dd59a751b2-marc8.mrc");
+          byte[] expectedContent = TestUtil.readFileBytesFromResources(
+              "__files/responses/0684a01d-a83a-4ea7-8985-37dd59a751b2-marc8.mrc");
           byte[] actualContent = result.getResponse().getContentAsByteArray();
           Assertions.assertArrayEquals(expectedContent, actualContent);
         });
@@ -663,6 +715,53 @@ class InventoryControllerIT extends BaseIntegrationTests {
         .andExpect(status().isInternalServerError())
         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
         .andExpect(jsonPath("$.code").value(500))
-        .andExpect(jsonPath("$.errorMessage").value("Couldn't find instance in db for ID: 1831576a-c421-47dd-9285-ebab3351faa8"));
+        .andExpect(jsonPath("$.errorMessage").value(
+            "Couldn't find instance in db for ID: 1831576a-c421-47dd-9285-ebab3351faa8"));
+  }
+
+  @Test
+  void getSubjectSources_shouldReturnSubjectSources() throws Exception {
+    doGetWithParams(mockMvc, GET_SUBJECT_SOURCES_URL, LANG_PARAM_NAME, LANG_PARAM_VALID_VALUE)
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("subjectSources[0].id", is("06b2cbd8-66bf-4956-9d90-97c9776365b8")))
+        .andExpect(jsonPath("subjectSources[0].name", is("Library of Congress Subject Headings")))
+        .andExpect(jsonPath("subjectSources[0].source", is("folio")))
+        .andExpect(jsonPath("subjectSources[1].id", is("f9e5b41b-8d5b-47d3-91d0-ca9004796400")))
+        .andExpect(
+            jsonPath("subjectSources[1].name", is("Library of Congress Children's and Young Adults' Subject Headings")))
+        .andExpect(jsonPath("subjectSources[1].source", is("folio")))
+        .andExpect(jsonPath("subjectSources[2].id", is("6e09d47d-95e2-4d8a-831b-f777b8ef6d99")))
+        .andExpect(jsonPath("subjectSources[2].name", is("Non-medical Subject Headings")))
+        .andExpect(jsonPath("subjectSources[2].source", is("local")))
+        .andExpect(jsonPath("totalRecords", is(3)));
+  }
+
+  @Test
+  void getSubjectSources_shouldReturn400Error_whenLangParameterIsInValid() throws Exception {
+    doGetWithParams(mockMvc, GET_SUBJECT_SOURCES_URL, LANG_PARAM_NAME, LANG_PARAM_INVALID_VALUE)
+        .andExpect(status().isBadRequest());
+  }
+
+  @Test
+  void getSubjectTypes_shouldReturnSubjectTypes() throws Exception {
+    doGetWithParams(mockMvc, GET_SUBJECT_TYPES_URL, LANG_PARAM_NAME, LANG_PARAM_VALID_VALUE)
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("subjectTypes[0].id", is("06b2cbd8-66bf-4956-9d90-97c9776365b8")))
+        .andExpect(jsonPath("subjectTypes[0].name", is("Personal name")))
+        .andExpect(jsonPath("subjectTypes[0].source", is("folio")))
+        .andExpect(jsonPath("subjectTypes[1].id", is("f9e5b41b-8d5b-47d3-91d0-ca9004796400")))
+        .andExpect(
+            jsonPath("subjectTypes[1].name", is("Occupation")))
+        .andExpect(jsonPath("subjectTypes[1].source", is("folio")))
+        .andExpect(jsonPath("subjectTypes[2].id", is("6e09d47d-95e2-4d8a-831b-f777b8ef6d99")))
+        .andExpect(jsonPath("subjectTypes[2].name", is("Phone number")))
+        .andExpect(jsonPath("subjectTypes[2].source", is("local")))
+        .andExpect(jsonPath("totalRecords", is(3)));
+  }
+
+  @Test
+  void getSubjectTypes_shouldReturn400Error_whenLangParameterIsInValid() throws Exception {
+    doGetWithParams(mockMvc, GET_SUBJECT_TYPES_URL, LANG_PARAM_NAME, LANG_PARAM_INVALID_VALUE)
+        .andExpect(status().isBadRequest());
   }
 }
