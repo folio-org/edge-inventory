@@ -116,4 +116,12 @@ public class InventoryService {
   public String getAuthoritiesByQuery(RequestQueryParameters requestQueryParameters) {
     return inventoryClient.getAuthoritiesByQuery(requestQueryParameters);
   }
+
+  public String getSubjectSources(RequestQueryParameters requestQueryParameters) {
+    return inventoryClient.getSubjectSources(requestQueryParameters);
+  }
+
+  public String getSubjectTypes(RequestQueryParameters requestQueryParameters) {
+    return inventoryClient.getSubjectTypes(requestQueryParameters);
+  }
 }

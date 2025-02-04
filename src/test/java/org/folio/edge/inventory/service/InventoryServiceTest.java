@@ -1,6 +1,37 @@
 package org.folio.edge.inventory.service;
 
-import static org.folio.edge.inventory.TestConstants.*;
+import static org.folio.edge.inventory.TestConstants.AUTHORITY_RESPONSE_PATH;
+import static org.folio.edge.inventory.TestConstants.AUTHORITY_SOURCE_RECORD_RESPONSE_PATH;
+import static org.folio.edge.inventory.TestConstants.CAMPUS_BY_ID_PATH;
+import static org.folio.edge.inventory.TestConstants.CAMPUS_ID;
+import static org.folio.edge.inventory.TestConstants.CLASSIFICATION_TYPES_RESPONSE_PATH;
+import static org.folio.edge.inventory.TestConstants.CONTRIBUTOR_NAME_TYPES_RESPONSE_PATH;
+import static org.folio.edge.inventory.TestConstants.CONTRIBUTOR_TYPES_RESPONSE_PATH;
+import static org.folio.edge.inventory.TestConstants.GET_ALTERNATIVE_TITLE_TYPES_PATH;
+import static org.folio.edge.inventory.TestConstants.GET_SUBJECT_SOURCES_PATH;
+import static org.folio.edge.inventory.TestConstants.GET_SUBJECT_TYPES_PATH;
+import static org.folio.edge.inventory.TestConstants.GET_VIEW_INSTANCES_PATH;
+import static org.folio.edge.inventory.TestConstants.HOLDINGS_RESPONSE_PATH;
+import static org.folio.edge.inventory.TestConstants.IDENTIFIER_TYPES_RESPONSE_PATH;
+import static org.folio.edge.inventory.TestConstants.INSTANCE_FORMATS_RESPONSE_PATH;
+import static org.folio.edge.inventory.TestConstants.INSTANCE_NOTE_TYPES_RESPONSE_PATH;
+import static org.folio.edge.inventory.TestConstants.INSTANCE_RESPONSE_PATH;
+import static org.folio.edge.inventory.TestConstants.INSTANCE_TYPES_RESPONSE_PATH;
+import static org.folio.edge.inventory.TestConstants.INSTITUTION_BY_ID_PATH;
+import static org.folio.edge.inventory.TestConstants.INSTITUTION_ID;
+import static org.folio.edge.inventory.TestConstants.ITEMS_RESPONSE_PATH;
+import static org.folio.edge.inventory.TestConstants.LANG_PARAM_VALID_VALUE;
+import static org.folio.edge.inventory.TestConstants.LIBRARY_BY_ID_PATH;
+import static org.folio.edge.inventory.TestConstants.LIBRARY_ID;
+import static org.folio.edge.inventory.TestConstants.LOCATIONS_RESPONSE_PATH;
+import static org.folio.edge.inventory.TestConstants.MATERIAL_TYPE_BY_ID_PATH;
+import static org.folio.edge.inventory.TestConstants.MATERIAL_TYPE_ID;
+import static org.folio.edge.inventory.TestConstants.MODES_OF_ISSUANCE_RESPONSE_PATH;
+import static org.folio.edge.inventory.TestConstants.NATURE_OF_CONTENT_TERMS_RESPONSE_PATH;
+import static org.folio.edge.inventory.TestConstants.SERVICE_POINTS_RESPONSE_PATH;
+import static org.folio.edge.inventory.TestConstants.SOURCE_RECORD_RESPONSE_PATH;
+import static org.folio.edge.inventory.TestConstants.VALID_AUTHORITY_ID;
+import static org.folio.edge.inventory.TestConstants.VALID_INSTANCE_ID;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
@@ -50,8 +81,8 @@ class InventoryServiceTest {
   void getAuthorityById_shouldReturnAuthority() throws JSONException {
     String expectedInventoryContent = TestUtil.readFileContentFromResources(AUTHORITY_RESPONSE_PATH);
     when(inventoryClient
-            .getAuthority(VALID_AUTHORITY_ID))
-            .thenReturn(expectedInventoryContent);
+        .getAuthority(VALID_AUTHORITY_ID))
+        .thenReturn(expectedInventoryContent);
 
     JSONObject actualAuthority = new JSONObject(inventoryService.getAuthority(VALID_AUTHORITY_ID));
 
@@ -96,7 +127,8 @@ class InventoryServiceTest {
 
   @Test
   void getClassificationTypes_shouldReturnClassificationTypes() throws JSONException {
-    String expectedClassificationTypesContent = TestUtil.readFileContentFromResources(CLASSIFICATION_TYPES_RESPONSE_PATH);
+    String expectedClassificationTypesContent = TestUtil.readFileContentFromResources(
+        CLASSIFICATION_TYPES_RESPONSE_PATH);
     RequestQueryParameters requestQueryParameters = new RequestQueryParameters();
     when(inventoryClient
         .getClassificationTypes(requestQueryParameters))
@@ -409,8 +441,8 @@ class InventoryServiceTest {
   void getAuthoritySourceRecordById_shouldReturnAuthoritySourceRecord() throws JSONException {
     String expectedSourceRecord = TestUtil.readFileContentFromResources(AUTHORITY_SOURCE_RECORD_RESPONSE_PATH);
     when(inventoryClient
-            .getAuthoritySourceRecords(VALID_AUTHORITY_ID))
-            .thenReturn(expectedSourceRecord);
+        .getAuthoritySourceRecords(VALID_AUTHORITY_ID))
+        .thenReturn(expectedSourceRecord);
 
     JSONObject expected = new JSONObject(expectedSourceRecord);
     JSONObject actual = new JSONObject(inventoryClient.getAuthoritySourceRecords(VALID_AUTHORITY_ID));
@@ -421,6 +453,56 @@ class InventoryServiceTest {
     assertEquals("73f57292-6c90-4a4e-8b16-21cf383a62b5", actual.getJSONObject("rawRecord").get("id"));
     assertEquals(expected.getJSONObject("rawRecord").get("content"), actual.getJSONObject("rawRecord").get("content"));
     assertEquals("01522cz  a2200313n  4500",
-            actual.getJSONObject("parsedRecord").getJSONObject("content").get("leader"));
+        actual.getJSONObject("parsedRecord").getJSONObject("content").get("leader"));
+  }
+
+  @Test
+  void getSubjectSources_shouldReturnSubjectSources() throws JSONException {
+    String expectedInstanceFormatsResponse = TestUtil.readFileContentFromResources(GET_SUBJECT_SOURCES_PATH);
+    RequestQueryParameters requestQueryParameters = new RequestQueryParameters();
+    when(inventoryClient
+        .getSubjectSources(requestQueryParameters))
+        .thenReturn(expectedInstanceFormatsResponse);
+
+    JSONObject itemsJson = new JSONObject(inventoryService.getSubjectSources(requestQueryParameters));
+    JSONObject firstSubjectSource = itemsJson.getJSONArray("subjectSources").getJSONObject(0);
+    JSONObject secondSubjectSource = itemsJson.getJSONArray("subjectSources").getJSONObject(1);
+    JSONObject thirdSubjectSource = itemsJson.getJSONArray("subjectSources").getJSONObject(2);
+
+    assertEquals(3, itemsJson.get(TOTAL_RECORDS));
+    assertEquals("06b2cbd8-66bf-4956-9d90-97c9776365b8", firstSubjectSource.get(ID));
+    assertEquals("Library of Congress Subject Headings", firstSubjectSource.get(NAME));
+    assertEquals("folio", firstSubjectSource.get(SOURCE));
+    assertEquals("f9e5b41b-8d5b-47d3-91d0-ca9004796400", secondSubjectSource.get(ID));
+    assertEquals("Library of Congress Children's and Young Adults' Subject Headings", secondSubjectSource.get(NAME));
+    assertEquals("folio", secondSubjectSource.get(SOURCE));
+    assertEquals("6e09d47d-95e2-4d8a-831b-f777b8ef6d99", thirdSubjectSource.get(ID));
+    assertEquals("Non-medical Subject Headings", thirdSubjectSource.get(NAME));
+    assertEquals("local", thirdSubjectSource.get(SOURCE));
+  }
+
+  @Test
+  void getSubjectTypes_shouldReturnSubjectTypes() throws JSONException {
+    String expectedInstanceFormatsResponse = TestUtil.readFileContentFromResources(GET_SUBJECT_TYPES_PATH);
+    RequestQueryParameters requestQueryParameters = new RequestQueryParameters();
+    when(inventoryClient
+        .getSubjectTypes(requestQueryParameters))
+        .thenReturn(expectedInstanceFormatsResponse);
+
+    JSONObject itemsJson = new JSONObject(inventoryService.getSubjectTypes(requestQueryParameters));
+    JSONObject firstSubjectType = itemsJson.getJSONArray("subjectTypes").getJSONObject(0);
+    JSONObject secondSubjectType = itemsJson.getJSONArray("subjectTypes").getJSONObject(1);
+    JSONObject thirdSubjectType = itemsJson.getJSONArray("subjectTypes").getJSONObject(2);
+
+    assertEquals(3, itemsJson.get(TOTAL_RECORDS));
+    assertEquals("06b2cbd8-66bf-4956-9d90-97c9776365b8", firstSubjectType.get(ID));
+    assertEquals("Personal name", firstSubjectType.get(NAME));
+    assertEquals("folio", firstSubjectType.get(SOURCE));
+    assertEquals("f9e5b41b-8d5b-47d3-91d0-ca9004796400", secondSubjectType.get(ID));
+    assertEquals("Occupation", secondSubjectType.get(NAME));
+    assertEquals("folio", secondSubjectType.get(SOURCE));
+    assertEquals("6e09d47d-95e2-4d8a-831b-f777b8ef6d99", thirdSubjectType.get(ID));
+    assertEquals("Phone number", thirdSubjectType.get(NAME));
+    assertEquals("local", thirdSubjectType.get(SOURCE));
   }
 }
