@@ -159,12 +159,12 @@ public class InventoryController implements InventoryApi {
 
   @Override
   public ResponseEntity<String> getInventoryViewInstances(String xOkapiTenant, String xOkapiToken,
-      RequestQueryParameters requestQueryParameters) {
+      RequestQueryParameters requestQueryParameters, Boolean withBoundedItems) {
     log.info("Retrieving inventory view instances by query {}", requestQueryParameters.getQuery());
     if (ecsInventoryService.isCentralTenant(xOkapiTenant)) {
-      return ResponseEntity.ok(ecsInventoryService.getEcsInventoryViewInstances(requestQueryParameters));
+      return ResponseEntity.ok(ecsInventoryService.getEcsInventoryViewInstances(requestQueryParameters, withBoundedItems));
     }
-    return ResponseEntity.ok(inventoryService.getInventoryViewInstances(requestQueryParameters));
+    return ResponseEntity.ok(inventoryService.getInventoryViewInstances(requestQueryParameters, withBoundedItems));
   }
 
   @Override

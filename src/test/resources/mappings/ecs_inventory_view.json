@@ -12,6 +12,9 @@
         "queryParameters": {
           "query": {
             "equalTo": "ecs"
+          },
+          "withBoundedItems": {
+            "equalTo": "false"
           }
         }
       },
@@ -35,6 +38,9 @@
         "queryParameters": {
           "query": {
             "contains": "f1e82a1e-fc06-4b82-bb1d-da326cb378ce"
+          },
+          "withBoundedItems": {
+            "equalTo": "false"
           }
         }
       },
