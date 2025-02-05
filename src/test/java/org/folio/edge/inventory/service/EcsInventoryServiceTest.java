@@ -59,16 +59,16 @@ public class EcsInventoryServiceTest {
     var request = new RequestQueryParameters();
     when(folioExecutionContext.getInstance()).thenReturn(folioExecutionContext);
     when(folioExecutionContext.execute(any())).thenCallRealMethod();
-    when(inventoryClient.getInventoryViewInstances(request))
+    when(inventoryClient.getInventoryViewInstances(request, false))
         .thenReturn(TestUtil.readFileContentFromResources(GET_VIEW_INSTANCES_WITHOUT_HOLDINGS_PATH));
     var facetResponse = objectMapper.readValue(TestUtil.readFileContentFromResources(HOLDINGS_FACET_RESPONSE_PATH),
         FacetResponse.class);
     when(searchClient.getInstanceFacet(Mockito.eq(ecsInventoryService.FACET), Mockito.anyString()))
         .thenReturn(facetResponse);
-    when(inventoryClient.getInventoryViewInstances(Mockito.any(), Mockito.eq(TestConstants.TEST_TENANT)))
+    when(inventoryClient.getInventoryViewInstances(Mockito.any(), Mockito.eq(false), Mockito.eq(TestConstants.TEST_TENANT)))
         .thenReturn(TestUtil.readFileContentFromResources(GET_VIEW_INSTANCES_WITH_HOLDINGS_PATH));
 
-    var response = jsonConverter.readAsTree(ecsInventoryService.getEcsInventoryViewInstances(request));
+    var response = jsonConverter.readAsTree(ecsInventoryService.getEcsInventoryViewInstances(request, false));
     assertTrue(response.findValue(INSTANCES).isArray());
     assertTrue(response.findValue(INSTANCES).get(0).has(HOLDINGS_RECORDS));
     assertTrue(response.findValue(INSTANCES).get(0).has(ITEMS));
