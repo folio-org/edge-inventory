@@ -55,6 +55,11 @@ public class InventoryController implements InventoryApi {
   public ResponseEntity<String> getLocations(String xOkapiTenant, String xOkapiToken,
       RequestQueryParameters requestQueryParameters) {
     log.info("Retrieving locations by query {}", requestQueryParameters.getQuery());
+    if (ecsInventoryService.isCentralTenant(xOkapiTenant)) {
+      //Pass null to get all locations
+      log.info("Fetching locations for consortia....");
+      return ResponseEntity.ok(ecsLocationsService.getLocationById(null));
+    }
     return ResponseEntity.ok(inventoryService.getLocations(requestQueryParameters));
   }
 
