@@ -58,7 +58,7 @@ public class InventoryController implements InventoryApi {
     if (ecsInventoryService.isCentralTenant(xOkapiTenant)) {
       //Pass null to get all locations
       log.info("Fetching locations for consortia....");
-      return ResponseEntity.ok(ecsLocationsService.getLocationById(null));
+      return ResponseEntity.ok(ecsLocationsService.getConsortiumLocations());
     }
     return ResponseEntity.ok(inventoryService.getLocations(requestQueryParameters));
   }

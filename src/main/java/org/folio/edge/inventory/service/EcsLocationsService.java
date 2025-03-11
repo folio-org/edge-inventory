@@ -52,4 +52,12 @@ public class EcsLocationsService {
     return locations.withObject("/"+ LOCATIONS +"/0").toString();
   }
 
+  public String getConsortiumLocations() {
+    var locations = jsonConverter.readAsTree(searchClient.getConsortiumLocations(null));
+    if (locations.findValue(TOTAL_RECORDS).asInt() == 0) {
+      throw new EntityNotFoundException("Consortium Locations not found: ");
+    }
+    return locations.withObject("/"+ LOCATIONS).toString();
+  }
+
 }
