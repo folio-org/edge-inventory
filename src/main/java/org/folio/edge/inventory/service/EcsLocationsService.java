@@ -52,4 +52,8 @@ public class EcsLocationsService {
     return locations.withObject("/"+ LOCATIONS +"/0").toString();
   }
 
+  public String getConsortiumLocations() {
+    return searchClient.getConsortiumLocations(null);
+  }
+
 }

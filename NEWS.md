@@ -1,3 +1,10 @@
+## v2.1.2
+[EDGINV-12](https://folio-org.atlassian.net/browse/EDGEINV-12)
+
+## v2.1.1
+[EDGEINV-7](https://folio-org.atlassian.net/browse/EDGEINV-7?atlOrigin=eyJpIjoiYmJhNzkzZTQ4MjU3NDU3ZWFiMWZjMGEwMGRlNjcyNTYiLCJwIjoiaiJ9): Append wihtBoundedItems limit for inventory-view/instances endpoint
+[EDGEINV-8](https://folio-org.atlassian.net/browse/EDGEINV-8?atlOrigin=eyJpIjoiZWE5OGU5YmMxMDVlNDU3YjhiMmRjMWVkNWE3ZmQ0Y2IiLCJwIjoiaiJ9): New endpoints - new GET collection of subject-sources and subject-types
+
 ## v2.1.0
 [EDGEINV-3](https://folio-org.atlassian.net/browse/EDGEINV-3): Add support for ECS without DCB 
 
