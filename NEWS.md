@@ -1,3 +1,6 @@
+## v2.2.0
+[EDGEINV-11](https://folio-org.atlassian.net/browse/EDGEINV-11): Update to edge-inventory Java 21
+
 ## v2.1.2
 [EDGINV-12](https://folio-org.atlassian.net/browse/EDGEINV-12)
 
