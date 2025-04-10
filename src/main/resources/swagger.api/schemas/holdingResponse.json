@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "Response schema for search holding",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Holdings ID"
+    },
+    "hrid": {
+      "type": "string",
+      "description": "Holdings HRID"
+    },
+    "tenantId": {
+      "type": "string",
+      "description": "Tenant ID of the Holding"
+    },
+    "instanceId": {
+      "type": "string",
+      "description": "Related Instance Id"
+    },
+    "discoverySuppress": {
+      "type": "boolean",
+      "description": "Discovery suppress flag"
+    },
+    "callNumberPrefix": {
+      "type": "string",
+      "description": "Call number prefix"
+    },
+    "callNumber": {
+      "type": "string",
+      "description": "Call number"
+    },
+    "callNumberSuffix": {
+      "type": "string",
+      "description": "Call number suffix"
+    },
+    "copyNumber": {
+      "type": "string",
+      "description": "Copy number"
+    },
+    "permanentLocationId": {
+      "type": "string",
+      "description": "Permanent Location ID"
+    }
+  },
+  "additionalProperties": false
+}

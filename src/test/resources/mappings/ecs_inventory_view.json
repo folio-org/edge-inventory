@@ -51,6 +51,162 @@
           "Content-Type": "application/json"
         }
       }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "urlPath": "/holdings-storage/holdings",
+        "headers": {
+          "x-okapi-tenant": {
+            "equalTo": "test1"
+          }
+        },
+        "queryParameters": {
+          "query": {
+            "contains": "d41d9172-1869-11eb-adc1-0242ac120002"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "bodyFileName": "responses/holdings_response.json",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "urlPath": "/holdings-storage/holdings",
+        "headers": {
+          "x-okapi-tenant": {
+            "equalTo": "test2"
+          }
+        },
+        "queryParameters": {
+          "query": {
+            "contains": "d41d9172-1869-11eb-adc1-0242ac120002"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "bodyFileName": "responses/holdings_response.json",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "urlPath": "/inventory/items",
+        "headers": {
+          "x-okapi-tenant": {
+            "equalTo": "test1"
+          }
+        },
+        "queryParameters": {
+          "query": {
+            "contains": "d41d9172-1869-11eb-adc1-0242ac120002"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "bodyFileName": "responses/items_response.json",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "urlPath": "/inventory/items",
+        "headers": {
+          "x-okapi-tenant": {
+            "equalTo": "test2"
+          }
+        },
+        "queryParameters": {
+          "query": {
+            "contains": "d41d9172-1869-11eb-adc1-0242ac120002"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "bodyFileName": "responses/items_response.json",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "urlPath": "/search/consortium/holding/e3ff6133-b9a2-4d4c-a1c9-dc1867d4df19",
+        "headers": {
+          "x-okapi-tenant": {
+            "equalTo": "central_test"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "bodyFileName": "responses/holding_response.json",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "urlPath": "/inventory/items",
+        "headers": {
+          "x-okapi-tenant": {
+            "equalTo": "test1"
+          }
+        },
+        "queryParameters": {
+          "query": {
+            "contains": "e3ff6133-b9a2-4d4c-a1c9-dc1867d4df19"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "bodyFileName": "responses/items_response.json",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "urlPath": "/inventory/items",
+        "headers": {
+          "x-okapi-tenant": {
+            "equalTo": "test2"
+          }
+        },
+        "queryParameters": {
+          "query": {
+            "contains": "e3ff6133-b9a2-4d4c-a1c9-dc1867d4df19"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "bodyFileName": "responses/items_response.json",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
     }
   ]
 }
