@@ -781,6 +781,8 @@ components:
       $ref: './schemas/facetResponse.json'
     holdingResponse:
       $ref: './schemas/holdingResponse.json'
+    tenants:
+      $ref: './schemas/tenantCollection.json'
   parameters:
     request-query-parameters:
       name: requestQueryParameters
