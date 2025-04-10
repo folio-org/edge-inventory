@@ -1,14 +1,12 @@
 package org.folio.edge.inventory.service;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
 import org.folio.edge.inventory.client.InventoryClient;
 import org.folio.inventory.domain.dto.RequestQueryParameters;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-@Log4j2
 public class InventoryService {
 
   private final InventoryClient inventoryClient;

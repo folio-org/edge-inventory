@@ -14,7 +14,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
 import org.folio.edge.inventory.client.InventoryClient;
 import org.folio.edge.inventory.client.SearchClient;
 import org.folio.edge.inventory.client.UsersClient;
@@ -28,7 +27,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-@Log4j2
 public class EcsInventoryService {
 
   public static final String FACET = "holdings.tenantId";
