@@ -36,8 +36,8 @@ public class EcsInventoryService {
 
   public static final String FACET = "holdings.tenantId";
   private static final Pattern HOLDINGS_ID_PATTERN = Pattern.compile(HOLDINGS_RECORD_ID + "==\\(([^)]+)\\)");
-  private static final Pattern INSTANCE_ID_PATTERN = Pattern.compile("(instance(?:\\.id|Id))==([a-fA-F0-9\\-]{36})");
   private static final Pattern OR_SPLIT_PATTERN = Pattern.compile("\\s+or\\s+");
+  private static final Pattern INSTANCE_ID_PATTERN = Pattern.compile("(instance(?:\\.id|Id))==([a-fA-F0-9\\-]{36})");
   private final UsersClient usersClient;
   private final InventoryClient inventoryClient;
   private final SearchClient searchClient;
