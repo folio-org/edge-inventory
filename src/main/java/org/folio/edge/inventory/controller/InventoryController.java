@@ -41,6 +41,10 @@ public class InventoryController implements InventoryApi {
   public ResponseEntity<String> getHoldings(String xOkapiTenant, String xOkapiToken,
       RequestQueryParameters requestQueryParameters) {
     log.info("Retrieving holdings  by query {}", requestQueryParameters.getQuery());
+    if (ecsInventoryService.isCentralTenant(xOkapiTenant)) {
+      log.info("Fetching holdings for consortia....");
+      return ResponseEntity.ok(ecsInventoryService.getEcsInventoryHoldings(requestQueryParameters));
+    }
     return ResponseEntity.ok(inventoryService.getHoldings(requestQueryParameters));
   }
 
@@ -130,6 +134,10 @@ public class InventoryController implements InventoryApi {
   public ResponseEntity<String> getItems(String xOkapiTenant, String xOkapiToken,
       RequestQueryParameters requestQueryParameters) {
     log.info("Retrieving items by query {}", requestQueryParameters.getQuery());
+    if (ecsInventoryService.isCentralTenant(xOkapiTenant)) {
+      log.info("Fetching items for consortia....");
+      return ResponseEntity.ok(ecsInventoryService.getEcsInventoryItems(requestQueryParameters));
+    }
     return ResponseEntity.ok(inventoryService.getItems(requestQueryParameters));
   }
 

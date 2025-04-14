@@ -1,6 +1,7 @@
 package org.folio.edge.inventory.service;
 
 import static org.folio.edge.inventory.models.InventoryViewJsonFields.HOLDINGS_RECORDS;
+import static org.folio.edge.inventory.models.InventoryViewJsonFields.HOLDINGS_RECORD_ID;
 import static org.folio.edge.inventory.models.InventoryViewJsonFields.ID;
 import static org.folio.edge.inventory.models.InventoryViewJsonFields.INSTANCES;
 import static org.folio.edge.inventory.models.InventoryViewJsonFields.INSTANCE_ID;
@@ -8,11 +9,13 @@ import static org.folio.edge.inventory.models.InventoryViewJsonFields.ITEMS;
 import static org.folio.edge.inventory.models.InventoryViewJsonFields.TOTAL_RECORDS;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.folio.edge.inventory.client.InventoryClient;
@@ -32,6 +35,8 @@ import org.springframework.stereotype.Service;
 public class EcsInventoryService {
 
   public static final String FACET = "holdings.tenantId";
+  private static final Pattern HOLDINGS_ID_PATTERN = Pattern.compile(HOLDINGS_RECORD_ID + "==\\(([^)]+)\\)");
+  private static final Pattern INSTANCE_ID_PATTERN = Pattern.compile("(instance(?:\\.id|Id))==([a-fA-F0-9\\-]{36})");
   private final UsersClient usersClient;
   private final InventoryClient inventoryClient;
   private final SearchClient searchClient;
@@ -106,16 +111,125 @@ public class EcsInventoryService {
   }
 
   private List<InstanceTenants> getInstanceTenants(List<String> instanceIds) {
+    return instanceIds.parallelStream().map(this::getInstanceTenants).toList();
+  }
+
+  private InstanceTenants getInstanceTenants(String instanceId) {
     var context = (FolioExecutionContext) folioExecutionContext.getInstance();
-    return instanceIds.parallelStream()
-        .map(instanceId -> context.execute(() -> {
-          var response = searchClient.getInstanceFacet(FACET, "id==" + instanceId);
-          if (response.getFacets().getHoldingsTenantId().getTotalRecords() == 0) {
-            return new InstanceTenants(instanceId, Collections.EMPTY_LIST);
-          }
-          var tenantIds = response.getFacets().getHoldingsTenantId().getValues()
-              .stream().map(value -> value.getId()).toList();
-          return new InstanceTenants(instanceId, tenantIds);
-        })).toList();
+    return context.execute(() -> {
+      var response = searchClient.getInstanceFacet(FACET, "id==" + instanceId);
+      if (response.getFacets().getHoldingsTenantId().getTotalRecords() == 0) {
+        return new InstanceTenants(instanceId, Collections.EMPTY_LIST);
+      }
+      var tenantIds = response.getFacets().getHoldingsTenantId().getValues()
+          .stream().map(value -> value.getId()).toList();
+      return new InstanceTenants(instanceId, tenantIds);
+    });
+  }
+
+  public String getEcsInventoryHoldings(RequestQueryParameters requestQueryParameters) {
+    var query = requestQueryParameters.getQuery();
+    var instanceId = parseInstanceId(query);
+    var instanceTenants = getInstanceTenants(instanceId);
+    var tenantHoldings = getHoldings(instanceTenants, requestQueryParameters);
+    return flattenHoldings(tenantHoldings);
+  }
+
+  private List<JsonNode> getHoldings(InstanceTenants instanceTenants, RequestQueryParameters requestQueryParameters) {
+    var context = (FolioExecutionContext) folioExecutionContext.getInstance();
+    return instanceTenants.tenantIds().parallelStream()
+        .map(tenantId -> context.execute(() -> jsonConverter
+            .readAsTree(inventoryClient.getHoldings(requestQueryParameters, tenantId))))
+        .toList();
+  }
+
+  private String flattenHoldings(List<JsonNode> tenantHoldings) {
+    var response = JsonNodeFactory.instance.objectNode();
+    var mergedHoldings = JsonNodeFactory.instance.arrayNode();
+    int totalRecordsSum = 0;
+    if (tenantHoldings == null || tenantHoldings.isEmpty()) {
+      response.set(HOLDINGS_RECORDS, mergedHoldings);
+      response.put(TOTAL_RECORDS, totalRecordsSum);
+      return response.toString();
+    }
+
+    for (JsonNode node : tenantHoldings) {
+      mergedHoldings.addAll(node.withArrayProperty(HOLDINGS_RECORDS));
+      var totalRecordsNode = node.get(TOTAL_RECORDS);
+      if (totalRecordsNode != null && totalRecordsNode.isInt()) {
+        totalRecordsSum += totalRecordsNode.intValue();
+      }
+    }
+
+    response.set(HOLDINGS_RECORDS, mergedHoldings);
+    response.put(TOTAL_RECORDS, totalRecordsSum);
+    return response.toString();
+  }
+
+  public String getEcsInventoryItems(RequestQueryParameters requestQueryParameters) {
+    var query = requestQueryParameters.getQuery();
+    String instanceId;
+    if (query.contains(HOLDINGS_RECORD_ID)) {
+      var holdingId = parseHoldingId(query);
+      var holdingResponse = searchClient.getConsortiumHolding(holdingId);
+      instanceId = holdingResponse.getInstanceId();
+    } else {
+      instanceId = parseInstanceId(query);
+    }
+
+    var instanceTenants = getInstanceTenants(instanceId);
+    var tenantItems = getItems(instanceTenants, requestQueryParameters);
+    return flattenItems(tenantItems);
+  }
+
+  private String flattenItems(List<JsonNode> tenantItems) {
+    var response = JsonNodeFactory.instance.objectNode();
+    var mergedItems = JsonNodeFactory.instance.arrayNode();
+    int totalRecordsSum = 0;
+    if (tenantItems == null || tenantItems.isEmpty()) {
+      response.set(ITEMS, mergedItems);
+      response.put(TOTAL_RECORDS, totalRecordsSum);
+      return response.toString();
+    }
+
+    for (JsonNode node : tenantItems) {
+      mergedItems.addAll(node.withArrayProperty(ITEMS));
+      var totalRecordsNode = node.get(TOTAL_RECORDS);
+      if (totalRecordsNode != null && totalRecordsNode.isInt()) {
+        totalRecordsSum += totalRecordsNode.intValue();
+      }
+    }
+
+    response.set(ITEMS, mergedItems);
+    response.put(TOTAL_RECORDS, totalRecordsSum);
+    return response.toString();
+  }
+
+  private List<JsonNode> getItems(InstanceTenants instanceTenants, RequestQueryParameters requestQueryParameters) {
+    var context = (FolioExecutionContext) folioExecutionContext.getInstance();
+    return instanceTenants.tenantIds().parallelStream()
+        .map(tenantId -> context.execute(() -> jsonConverter
+            .readAsTree(inventoryClient.getItems(requestQueryParameters, tenantId))))
+        .toList();
+  }
+
+  private String parseHoldingId(String query) {
+    var matcher = HOLDINGS_ID_PATTERN.matcher(query);
+    if (matcher.find()) {
+      var insideParentheses = matcher.group(1);
+      var ids = insideParentheses.split(" or ");
+      if (ids.length > 0) {
+        return ids[0].trim();
+      }
+    }
+    return null;
+  }
+
+  private String parseInstanceId(String query) {
+    var matcher = INSTANCE_ID_PATTERN.matcher(query);
+    if (matcher.find()) {
+      return matcher.group(2);
+    }
+    return null;
   }
 }

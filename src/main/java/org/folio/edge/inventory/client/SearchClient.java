@@ -2,9 +2,11 @@ package org.folio.edge.inventory.client;
 
 import org.folio.edge.inventory.config.InventoryClientConfig;
 import org.folio.inventory.domain.dto.FacetResponse;
+import org.folio.inventory.domain.dto.HoldingResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @FeignClient(name = "search", configuration = InventoryClientConfig.class)
@@ -24,5 +26,8 @@ public interface SearchClient {
 
   @GetMapping(value = "/search/consortium/campuses")
   String getConsortiumCampuses(@RequestParam String id);
+
+  @GetMapping(value = "/search/consortium/holding/{id}")
+  HoldingResponse getConsortiumHolding(@PathVariable String id);
 
 }

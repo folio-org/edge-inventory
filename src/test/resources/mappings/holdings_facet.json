@@ -3,7 +3,48 @@
     {
       "request": {
         "method": "GET",
-        "urlPath": "/search/instances/facets"
+        "urlPath": "/search/instances/facets",
+        "queryParameters": {
+          "query": {
+            "contains": "d41d9172-1869-11eb-adc1-0242ac120002"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "bodyFileName": "responses/holdings_facet_with_two_tenants_response.json",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "urlPath": "/search/instances/facets",
+        "queryParameters": {
+          "query": {
+            "contains": "f1e82a1e-fc06-4b82-bb1d-da326cb378ce"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "bodyFileName": "responses/holdings_facet_response.json",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "urlPath": "/search/instances/facets",
+        "queryParameters": {
+          "query": {
+            "contains": "31fcc8e7-a019-43f4-b642-2edc389f4501"
+          }
+        }
       },
       "response": {
         "status": 200,

@@ -6,5 +6,6 @@ public class InventoryViewJsonFields {
   public static final String INSTANCE_ID = "instanceId";
   public static final String ID = "id";
   public static final String HOLDINGS_RECORDS = "holdingsRecords";
+  public static final String HOLDINGS_RECORD_ID = "holdingsRecordId";
   public static final String ITEMS = "items";
 }
