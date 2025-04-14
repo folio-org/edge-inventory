@@ -22,6 +22,9 @@ public interface InventoryClient {
   @GetMapping(value = "/holdings-storage/holdings", consumes = MediaType.APPLICATION_JSON_VALUE)
   String getHoldings(@SpringQueryMap Object requestQueryParameters);
 
+  @GetMapping(value = "/holdings-storage/holdings", consumes = MediaType.APPLICATION_JSON_VALUE)
+  String getHoldings(@SpringQueryMap Object requestQueryParameters, @RequestHeader(XOkapiHeaders.TENANT) String tenantId);
+
   @GetMapping(value = "/identifier-types", consumes = MediaType.APPLICATION_JSON_VALUE)
   String getIdentifierTypes(@SpringQueryMap Object requestQueryParameters);
 
@@ -54,6 +57,9 @@ public interface InventoryClient {
 
   @GetMapping(value = "/inventory/items", consumes = MediaType.APPLICATION_JSON_VALUE)
   String getItems(@SpringQueryMap Object requestQueryParameters);
+
+  @GetMapping(value = "/inventory/items", consumes = MediaType.APPLICATION_JSON_VALUE)
+  String getItems(@SpringQueryMap Object requestQueryParameters, @RequestHeader(XOkapiHeaders.TENANT) String tenantId);
 
   @GetMapping(value = "/instance-types", consumes = MediaType.APPLICATION_JSON_VALUE)
   String getInstanceTypes(@SpringQueryMap Object requestQueryParameters);
