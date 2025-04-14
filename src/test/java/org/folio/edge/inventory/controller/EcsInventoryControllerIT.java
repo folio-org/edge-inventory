@@ -17,6 +17,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.folio.edge.inventory.BaseIntegrationTests;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
@@ -60,6 +61,14 @@ class EcsInventoryControllerIT extends BaseIntegrationTests {
   }
 
   @Test
+  void getInventoryHoldings_shouldReturnEmptyResponse() throws Exception {
+    doGetWithParams(mockMvc, GET_HOLDINGS_URL, "query",
+        "instanceId==31fcc8e7-a019-43f4-b642-2edc389f4501%20not%20discoverySuppress==true", true).andExpect(status().isOk())
+        .andExpect(jsonPath("holdingsRecords", Matchers.hasSize(0)))
+        .andExpect(jsonPath("totalRecords", is(0)));
+  }
+
+  @Test
   void getInventoryItems_shouldReturnInventoryHoldingsFromMemberTenant_whenQueryWithInstanceId() throws Exception {
     doGetWithParams(mockMvc, GET_ITEMS_URL, "query",
         "instance.id==d41d9172-1869-11eb-adc1-0242ac120002", true).andExpect(status().isOk())
@@ -68,6 +77,14 @@ class EcsInventoryControllerIT extends BaseIntegrationTests {
         .andExpect(jsonPath("items[1].holdingsRecordId", is("e3ff6133-b9a2-4d4c-a1c9-dc1867d4df19")))
         .andExpect(jsonPath("items[1].id", is("7212ba6a-8dcf-45a1-be9a-ffaa847c4423")))
         .andExpect(jsonPath("totalRecords", is(2)));
+  }
+
+  @Test
+  void getInventoryItems_shouldReturnEmpty() throws Exception {
+    doGetWithParams(mockMvc, GET_ITEMS_URL, "query",
+        "instance.id==31fcc8e7-a019-43f4-b642-2edc389f4501", true).andExpect(status().isOk())
+        .andExpect(jsonPath("items", hasSize(0)))
+        .andExpect(jsonPath("totalRecords", is(0)));
   }
 
   @Test

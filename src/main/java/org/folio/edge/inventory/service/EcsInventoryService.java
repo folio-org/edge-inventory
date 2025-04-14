@@ -37,7 +37,6 @@ public class EcsInventoryService {
   public static final String FACET = "holdings.tenantId";
   private static final Pattern HOLDINGS_ID_PATTERN = Pattern.compile(HOLDINGS_RECORD_ID + "==\\(([^)]+)\\)");
   private static final Pattern INSTANCE_ID_PATTERN = Pattern.compile("(instance(?:\\.id|Id))==([a-fA-F0-9\\-]{36})");
-  private static final Pattern OR_SPLIT_PATTERN = Pattern.compile("\\s+or\\s+");
   private final UsersClient usersClient;
   private final InventoryClient inventoryClient;
   private final SearchClient searchClient;
@@ -146,12 +145,14 @@ public class EcsInventoryService {
 
   private String flattenHoldings(List<JsonNode> tenantHoldings) {
     var response = JsonNodeFactory.instance.objectNode();
+    var mergedHoldings = JsonNodeFactory.instance.arrayNode();
+    int totalRecordsSum = 0;
     if (tenantHoldings == null || tenantHoldings.isEmpty()) {
+      response.set(HOLDINGS_RECORDS, mergedHoldings);
+      response.put(TOTAL_RECORDS, totalRecordsSum);
       return response.toString();
     }
 
-    var mergedHoldings = JsonNodeFactory.instance.arrayNode();
-    int totalRecordsSum = 0;
     for (JsonNode node : tenantHoldings) {
       mergedHoldings.addAll(node.withArrayProperty(HOLDINGS_RECORDS));
       var totalRecordsNode = node.get(TOTAL_RECORDS);
@@ -183,12 +184,14 @@ public class EcsInventoryService {
 
   private String flattenItems(List<JsonNode> tenantItems) {
     var response = JsonNodeFactory.instance.objectNode();
+    var mergedItems = JsonNodeFactory.instance.arrayNode();
+    int totalRecordsSum = 0;
     if (tenantItems == null || tenantItems.isEmpty()) {
+      response.set(ITEMS, mergedItems);
+      response.put(TOTAL_RECORDS, totalRecordsSum);
       return response.toString();
     }
 
-    var mergedItems = JsonNodeFactory.instance.arrayNode();
-    int totalRecordsSum = 0;
     for (JsonNode node : tenantItems) {
       mergedItems.addAll(node.withArrayProperty(ITEMS));
       var totalRecordsNode = node.get(TOTAL_RECORDS);
@@ -210,7 +213,7 @@ public class EcsInventoryService {
         .toList();
   }
 
-  public static String parseHoldingId(String query) {
+  private String parseHoldingId(String query) {
     var matcher = HOLDINGS_ID_PATTERN.matcher(query);
     if (matcher.find()) {
       var insideParentheses = matcher.group(1);
@@ -222,7 +225,7 @@ public class EcsInventoryService {
     return null;
   }
 
-  public static String parseInstanceId(String query) {
+  private String parseInstanceId(String query) {
     var matcher = INSTANCE_ID_PATTERN.matcher(query);
     if (matcher.find()) {
       return matcher.group(2);
