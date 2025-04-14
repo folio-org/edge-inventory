@@ -36,6 +36,7 @@ public class TestConstants {
   public static final String SOURCE_RECORD_RESPONSE_PATH ="__files/responses/source-records.json";
   public static final String AUTHORITY_SOURCE_RECORD_RESPONSE_PATH = "__files/responses/authority_source_records.json";
   public static final String HOLDINGS_FACET_RESPONSE_PATH = "__files/responses/holdings_facet_response.json";
+  public static final String HOLDING_RESPONSE_PATH = "__files/responses/holding_response.json";
   public static final String USER_TENANTS_RESPONSE_PATH = "__files/responses/user_tenants_response.json";
   public static final String USER_TENANTS_NON_CONSORTIA_RESPONSE_PATH = "__files/responses/user_tenants_non_consortia_response.json";
   public static final String LOCATIONS_SEARCH_RESPONSE_PATH = "__files/responses/search_locations_response.json";
