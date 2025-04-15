@@ -30,6 +30,8 @@ public class EcsMaterialTypeService {
   public String getEcsMaterialTypeById(String materialTypeId) {
     var userTenants = usersClient.getUserTenants();
 
+    log.info("usersClient.getUserTenants() - {}", userTenants); //just for debugging
+
     if (userTenants != null) {
       var consortiumId = userTenants.getUserTenants().stream().map(
           UserTenantsUserTenantsInner::getConsortiumId
@@ -41,6 +43,8 @@ public class EcsMaterialTypeService {
             log.error("Consortium ID not found in user tenants");
             return new EntityNotFoundException("Consortium ID not found");
           });
+
+      log.info("tenantCollection - {}", tenantCollection); //just for debugging
 
       var materialTypes = getMaterialTypesFromMemberTenants(tenantCollection, materialTypeId);
       return materialTypes.stream()
