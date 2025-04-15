@@ -10,6 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 @FeignClient(name = "consortia", configuration = InventoryClientConfig.class)
 public interface ConsortiaClient {
 
-  @GetMapping(value = "/{consortiumId}/tenants", consumes = MediaType.APPLICATION_JSON_VALUE)
+  @GetMapping(value = "/consortia/{consortiumId}/tenants", consumes = MediaType.APPLICATION_JSON_VALUE)
   TenantCollection getTenants(@PathVariable String consortiumId);
 }
