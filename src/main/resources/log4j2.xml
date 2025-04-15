@@ -12,5 +12,9 @@
         <Logger name="io.swagger.models.parameters.AbstractSerializableParameter" level="error" additivity="false">
             <AppenderRef ref="Console"/>
         </Logger>
+
+        <Logger name="org.folio.edge.inventory.client.ConsortiaClient" level="debug" additivity="false">
+            <AppenderRef ref="Console"/>
+        </Logger>
     </Loggers>
 </Configuration>

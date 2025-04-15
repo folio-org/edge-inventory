@@ -37,6 +37,8 @@ public class EcsMaterialTypeService {
           UserTenantsUserTenantsInner::getConsortiumId
       ).findFirst();
 
+      log.info("GET ConsortiumId - {}", consortiumId.isPresent());
+
       TenantCollection tenantCollection = consortiumId
           .map(consortiaClient::getTenants)
           .orElseThrow(() -> {
