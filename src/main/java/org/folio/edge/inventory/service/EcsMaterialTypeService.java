@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 public class EcsMaterialTypeService {
 
   public static final String NAME = "name";
+  public static final String CENTRAL_OFFICE = "Central Office";
 
   private final UsersClient usersClient;
   private final ConsortiaClient consortiaClient;
@@ -64,18 +65,17 @@ public class EcsMaterialTypeService {
     throw new EntityNotFoundException("User tenants not found");
   }
 
-//  private List<JsonNode> getMaterialTypesFromMemberTenants(TenantCollection tenantCollection, String materialTypeId) {
-//    var instance = (FolioExecutionContext) folioExecutionContext.getInstance();
-//    return tenantCollection.getTenants().stream().map(
-//        tenant -> instance.execute(
-//            () -> jsonConverter.readAsTree(inventoryClient.getMaterialTypeById(materialTypeId, tenant.getName()))
-//        )).toList();
-//  }
-
   private List<JsonNode> getMaterialTypesFromMemberTenants(TenantCollection tenantCollection, String materialTypeId) {
     var instance = (FolioExecutionContext) folioExecutionContext.getInstance();
 
     return tenantCollection.getTenants().stream()
+        .filter(tenant -> {
+          boolean isCentralOffice = CENTRAL_OFFICE.equalsIgnoreCase(tenant.getName());
+          if (isCentralOffice) {
+            log.info("Skipping tenant {} as it is Central Office which is not enabled", tenant.getName());
+          }
+          return !isCentralOffice;
+        })
         .map(tenant -> {
           try {
             return instance.execute(() -> {
@@ -84,7 +84,7 @@ public class EcsMaterialTypeService {
               return jsonConverter.readAsTree(response);
             });
           } catch (Exception e) {
-            log.warn("Failed to retrieve material type [{}] for tenant [{}]: {}", materialTypeId, tenant.getName(), e.getMessage());
+            log.warn("Failed to retrieve material type {} for tenant {}: {}", materialTypeId, tenant.getName(), e.getMessage());
             throw new EntityNotFoundException("Failed to retrieve material type for some tenants");
           }
         })
