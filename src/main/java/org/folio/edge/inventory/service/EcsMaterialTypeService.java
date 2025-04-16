@@ -3,6 +3,7 @@ package org.folio.edge.inventory.service;
 import com.fasterxml.jackson.databind.JsonNode;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.folio.edge.inventory.client.ConsortiaClient;
@@ -63,12 +64,32 @@ public class EcsMaterialTypeService {
     throw new EntityNotFoundException("User tenants not found");
   }
 
+//  private List<JsonNode> getMaterialTypesFromMemberTenants(TenantCollection tenantCollection, String materialTypeId) {
+//    var instance = (FolioExecutionContext) folioExecutionContext.getInstance();
+//    return tenantCollection.getTenants().stream().map(
+//        tenant -> instance.execute(
+//            () -> jsonConverter.readAsTree(inventoryClient.getMaterialTypeById(materialTypeId, tenant.getName()))
+//        )).toList();
+//  }
+
   private List<JsonNode> getMaterialTypesFromMemberTenants(TenantCollection tenantCollection, String materialTypeId) {
     var instance = (FolioExecutionContext) folioExecutionContext.getInstance();
-    return tenantCollection.getTenants().stream().map(
-        tenant -> instance.execute(
-            () -> jsonConverter.readAsTree(inventoryClient.getMaterialTypeById(materialTypeId, tenant.getName()))
-        )).toList();
+
+    return tenantCollection.getTenants().stream()
+        .map(tenant -> {
+          try {
+            return instance.execute(() -> {
+              log.info("Requesting material type {} for tenant {}", materialTypeId, tenant.getName());
+              var response = inventoryClient.getMaterialTypeById(materialTypeId, tenant.getName());
+              return jsonConverter.readAsTree(response);
+            });
+          } catch (Exception e) {
+            log.warn("Failed to retrieve material type [{}] for tenant [{}]: {}", materialTypeId, tenant.getName(), e.getMessage());
+            throw new EntityNotFoundException("Failed to retrieve material type for some tenants");
+          }
+        })
+        .filter(Objects::nonNull)
+        .toList();
   }
 
 }
