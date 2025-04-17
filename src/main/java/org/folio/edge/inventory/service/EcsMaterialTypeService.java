@@ -79,7 +79,7 @@ public class EcsMaterialTypeService {
           try {
             return instance.execute(() -> {
               log.info("Requesting material type {} for tenant {}", materialTypeId, tenant.getName());
-              var response = inventoryClient.getMaterialTypeById(materialTypeId, tenant.getName());
+              var response = inventoryClient.getMaterialTypeById(materialTypeId, tenant.getId());
               return jsonConverter.readAsTree(response);
             });
           } catch (Exception e) {
