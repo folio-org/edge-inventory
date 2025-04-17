@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 public class EcsMaterialTypeService {
 
   public static final String NAME = "name";
+  public static final String SECURE_TENANT_CODE = "SEC";
 
   private final UsersClient usersClient;
   private final ConsortiaClient consortiaClient;
@@ -69,11 +70,11 @@ public class EcsMaterialTypeService {
 
     return tenantCollection.getTenants().stream()
         .filter(tenant -> {
-          boolean isCentral = Boolean.TRUE.equals(tenant.getIsCentral());
-          if (isCentral) {
-            log.info("Skipping central tenant {} (id: {})", tenant.getName(), tenant.getId());
+          boolean isSecTenant = SECURE_TENANT_CODE.equalsIgnoreCase(tenant.getCode());
+          if (isSecTenant) {
+            log.info("Skipping tenant with name: {} and id: {}", tenant.getName(), tenant.getId());
           }
-          return !isCentral;
+          return !isSecTenant;
         })
         .map(tenant -> {
           try {
@@ -83,8 +84,9 @@ public class EcsMaterialTypeService {
               return jsonConverter.readAsTree(response);
             });
           } catch (Exception e) {
-            log.warn("Failed to retrieve material type {} for tenant {}: {}", materialTypeId, tenant.getName(), e.getMessage());
-            throw new EntityNotFoundException("Failed to retrieve material type for some tenants");
+            log.error("Failed to retrieve material type {} for tenant {}: {}", materialTypeId, tenant.getName(),
+                e.getMessage());
+            throw new EntityNotFoundException("Failed to retrieve material type for some tenants: {}", e);
           }
         })
         .filter(Objects::nonNull)
