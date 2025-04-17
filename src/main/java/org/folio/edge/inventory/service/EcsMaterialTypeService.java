@@ -21,7 +21,6 @@ import org.springframework.stereotype.Service;
 public class EcsMaterialTypeService {
 
   public static final String NAME = "name";
-  public static final String CENTRAL_OFFICE = "Central Office";
 
   private final UsersClient usersClient;
   private final ConsortiaClient consortiaClient;
@@ -70,11 +69,11 @@ public class EcsMaterialTypeService {
 
     return tenantCollection.getTenants().stream()
         .filter(tenant -> {
-          boolean isCentralOffice = CENTRAL_OFFICE.equalsIgnoreCase(tenant.getName());
-          if (isCentralOffice) {
-            log.info("Skipping tenant {} as it is Central Office which is not enabled", tenant.getName());
+          boolean isCentral = Boolean.TRUE.equals(tenant.getIsCentral());
+          if (isCentral) {
+            log.info("Skipping central tenant {} (id: {})", tenant.getName(), tenant.getId());
           }
-          return !isCentralOffice;
+          return !isCentral;
         })
         .map(tenant -> {
           try {
