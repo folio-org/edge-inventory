@@ -84,9 +84,8 @@ public class EcsMaterialTypeService {
               return jsonConverter.readAsTree(response);
             });
           } catch (Exception e) {
-            log.error("Failed to retrieve material type {} for tenant {}: {}", materialTypeId, tenant.getName(),
-                e.getMessage());
-            throw new EntityNotFoundException("Failed to retrieve material type for some tenants: {}", e);
+            log.warn("Material type {} not found for tenant {} ({}): {}", materialTypeId, tenant.getName(), tenant.getId(), e.getMessage());
+            return null;
           }
         })
         .filter(Objects::nonNull)
