@@ -19,6 +19,7 @@ import org.folio.edge.inventory.util.JsonConverter;
 import org.folio.inventory.domain.dto.TenantCollection;
 import org.folio.inventory.domain.dto.UserTenants;
 import org.folio.spring.FolioExecutionContext;
+import org.folio.spring.FolioModuleMetadata;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -36,6 +37,8 @@ public class EcsMaterialTypeServiceTest {
   private InventoryClient inventoryClient;
   @Mock
   private FolioExecutionContext folioExecutionContext;
+  @Mock
+  private FolioModuleMetadata folioModuleMetadata;
 
   private final ObjectMapper objectMapper = new ObjectMapper();
   private final JsonConverter jsonConverter = new JsonConverter(objectMapper);
@@ -43,6 +46,11 @@ public class EcsMaterialTypeServiceTest {
 
   @BeforeEach
   void setUp() {
+    when(folioExecutionContext.getFolioModuleMetadata()).thenReturn(folioModuleMetadata);
+    when(folioModuleMetadata.getModuleName()).thenReturn("edge-inventory");
+    when(folioExecutionContext.getInstance()).thenReturn(folioExecutionContext);
+    when(folioExecutionContext.execute(any())).thenCallRealMethod();
+
     ecsMaterialTypeService = new EcsMaterialTypeService(usersClient, consortiaClient, inventoryClient, jsonConverter,
         folioExecutionContext);
   }
@@ -59,8 +67,6 @@ public class EcsMaterialTypeServiceTest {
 
     when(usersClient.getUserTenants()).thenReturn(userTenants);
     when(consortiaClient.getTenants(any())).thenReturn(consortiaTenants);
-    when(folioExecutionContext.getInstance()).thenReturn(folioExecutionContext);
-    when(folioExecutionContext.execute(any())).thenCallRealMethod();
     when(inventoryClient.getMaterialTypeById(MATERIAL_TYPE_ID, CENTRAL_TEST_TENANT)).thenReturn(
         expectedMaterialTypeResponse);
 

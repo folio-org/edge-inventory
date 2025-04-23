@@ -21,6 +21,24 @@
     {
       "request": {
         "method": "GET",
+        "urlPath": "/material-types/40db37f8-2500-402c-bfd1-8b4764e738d0",
+        "headers": {
+          "x-okapi-tenant": {
+            "equalTo": "cs00000int_0001"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "bodyFileName": "errors/not_found.json",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
         "urlPath": "/consortia/1f06c60e-4431-432d-97a4-ca2bc6b152cb/tenants",
         "headers": {
           "x-okapi-tenant": {
