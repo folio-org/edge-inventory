@@ -48,7 +48,7 @@ public class EcsMaterialTypeServiceTest {
   @BeforeEach
   void setUp() {
     lenient().when(folioExecutionContext.getFolioModuleMetadata()).thenReturn(folioModuleMetadata);
-    lenient().when(folioModuleMetadata.getModuleName()).thenReturn("mod-inventory");
+    lenient().when(folioModuleMetadata.getModuleName()).thenReturn("edge-inventory");
     when(folioExecutionContext.getInstance()).thenReturn(folioExecutionContext);
     when(folioExecutionContext.execute(any())).thenCallRealMethod();
 
