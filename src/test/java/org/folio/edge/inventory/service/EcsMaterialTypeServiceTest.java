@@ -7,6 +7,7 @@ import static org.folio.edge.inventory.TestConstants.MATERIAL_TYPE_OF_MEMBER_FRO
 import static org.folio.edge.inventory.TestConstants.USER_TENANTS_RESPONSE_PATH;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.when;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -46,8 +47,8 @@ public class EcsMaterialTypeServiceTest {
 
   @BeforeEach
   void setUp() {
-    when(folioExecutionContext.getFolioModuleMetadata()).thenReturn(folioModuleMetadata);
-    when(folioModuleMetadata.getModuleName()).thenReturn("edge-inventory");
+    lenient().when(folioExecutionContext.getFolioModuleMetadata()).thenReturn(folioModuleMetadata);
+    lenient().when(folioModuleMetadata.getModuleName()).thenReturn("mod-inventory");
     when(folioExecutionContext.getInstance()).thenReturn(folioExecutionContext);
     when(folioExecutionContext.execute(any())).thenCallRealMethod();
 
