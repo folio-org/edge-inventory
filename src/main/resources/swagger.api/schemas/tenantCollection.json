@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "Response schema for tenants by consortium Id",
+  "type": "object",
+  "properties": {
+    "tenants": {
+      "description": "Tenants by consortium Id",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "code": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 5,
+            "pattern": "^[a-zA-Z0-9]*$"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 150
+          },
+          "isCentral": {
+            "type": "boolean"
+          },
+          "isDeleted": {
+            "type": "boolean"
+          }
+        },
+        "required": ["id", "code", "name", "isCentral"],
+        "additionalProperties": false
+      }
+    },
+    "totalRecords": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "tenants",
+    "totalRecords"
+  ],
+  "additionalProperties": false
+}

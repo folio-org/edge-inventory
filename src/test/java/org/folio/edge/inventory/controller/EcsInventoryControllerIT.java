@@ -7,6 +7,7 @@ import static org.folio.edge.inventory.TestConstants.GET_INSTITUTION_BY_ID_URL;
 import static org.folio.edge.inventory.TestConstants.GET_ITEMS_URL;
 import static org.folio.edge.inventory.TestConstants.GET_LIBRARY_BY_ID_URL;
 import static org.folio.edge.inventory.TestConstants.GET_LOCATION_BY_ID_URL;
+import static org.folio.edge.inventory.TestConstants.GET_MATERIAL_TYPES_URL;
 import static org.folio.edge.inventory.TestConstants.GET_VIEW_INSTANCES_URL;
 import static org.folio.edge.inventory.TestConstants.INSTITUTION_ID;
 import static org.folio.edge.inventory.TestConstants.LIBRARY_ID;
@@ -133,6 +134,15 @@ class EcsInventoryControllerIT extends BaseIntegrationTests {
         .andExpect(jsonPath("id", is(LIBRARY_ID)))
         .andExpect(jsonPath("name", is("Annex")))
         .andExpect(jsonPath("code", is("KU/CC/DI/A")));
+  }
+
+  @Test
+  void getMaterialTypeById_shouldReturnMaterialTypeWhenCentral() throws Exception {
+    doGet(mockMvc, GET_MATERIAL_TYPES_URL, true)
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("id", is("79a28446-25ed-4be6-8821-20b57cae0677")))
+        .andExpect(jsonPath("name", is("test for member from central")))
+        .andExpect(jsonPath("source", is("local")));
   }
 
 
