@@ -23,7 +23,8 @@ public interface InventoryClient {
   String getHoldings(@SpringQueryMap Object requestQueryParameters);
 
   @GetMapping(value = "/holdings-storage/holdings", consumes = MediaType.APPLICATION_JSON_VALUE)
-  String getHoldings(@SpringQueryMap Object requestQueryParameters, @RequestHeader(XOkapiHeaders.TENANT) String tenantId);
+  String getHoldings(@SpringQueryMap Object requestQueryParameters,
+      @RequestHeader(XOkapiHeaders.TENANT) String tenantId);
 
   @GetMapping(value = "/identifier-types", consumes = MediaType.APPLICATION_JSON_VALUE)
   String getIdentifierTypes(@SpringQueryMap Object requestQueryParameters);
@@ -77,7 +78,8 @@ public interface InventoryClient {
   String getInstanceNoteTypes(@SpringQueryMap Object requestQueryParameters);
 
   @GetMapping(value = "/inventory-view/instances", consumes = MediaType.APPLICATION_JSON_VALUE)
-  String getInventoryViewInstances(@SpringQueryMap Object requestQueryParameters, @RequestParam Boolean withBoundedItems);
+  String getInventoryViewInstances(@SpringQueryMap Object requestQueryParameters,
+      @RequestParam Boolean withBoundedItems);
 
   @GetMapping(value = "/inventory-view/instances", consumes = MediaType.APPLICATION_JSON_VALUE)
   String getInventoryViewInstances(@SpringQueryMap Object requestQueryParameters,
@@ -88,6 +90,10 @@ public interface InventoryClient {
 
   @GetMapping(value = "/material-types/{materialTypeId}", consumes = MediaType.APPLICATION_JSON_VALUE)
   String getMaterialTypeById(@PathVariable("materialTypeId") String materialTypeId);
+
+  @GetMapping(value = "/material-types/{materialTypeId}", consumes = MediaType.APPLICATION_JSON_VALUE)
+  String getMaterialTypeById(@PathVariable("materialTypeId") String materialTypeId,
+      @RequestHeader(XOkapiHeaders.TENANT) String tenantId);
 
   @GetMapping(value = "/source-storage/records/{instanceId}/formatted?idType=INSTANCE", consumes = MediaType.APPLICATION_JSON_VALUE)
   String getSourceRecords(@PathVariable("instanceId") String instanceId);

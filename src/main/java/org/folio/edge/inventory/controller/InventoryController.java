@@ -6,6 +6,7 @@ import lombok.extern.log4j.Log4j2;
 import org.folio.edge.inventory.service.DataExportService;
 import org.folio.edge.inventory.service.EcsInventoryService;
 import org.folio.edge.inventory.service.EcsLocationsService;
+import org.folio.edge.inventory.service.EcsMaterialTypeService;
 import org.folio.edge.inventory.service.InventoryService;
 import org.folio.inventory.domain.dto.RequestQueryParameters;
 import org.folio.inventory.rest.resource.InventoryApi;
@@ -23,6 +24,7 @@ public class InventoryController implements InventoryApi {
   private final DataExportService dataExportService;
   private final EcsInventoryService ecsInventoryService;
   private final EcsLocationsService ecsLocationsService;
+  private final EcsMaterialTypeService materialTypeService;
 
   @Override
   public ResponseEntity<String> getInstance(String instanceId, String xOkapiTenant, String xOkapiToken, String lang) {
@@ -174,7 +176,8 @@ public class InventoryController implements InventoryApi {
       RequestQueryParameters requestQueryParameters, Boolean withBoundedItems) {
     log.info("Retrieving inventory view instances by query {}", requestQueryParameters.getQuery());
     if (ecsInventoryService.isCentralTenant(xOkapiTenant)) {
-      return ResponseEntity.ok(ecsInventoryService.getEcsInventoryViewInstances(requestQueryParameters, withBoundedItems));
+      return ResponseEntity.ok(
+          ecsInventoryService.getEcsInventoryViewInstances(requestQueryParameters, withBoundedItems));
     }
     return ResponseEntity.ok(inventoryService.getInventoryViewInstances(requestQueryParameters, withBoundedItems));
   }
@@ -182,6 +185,10 @@ public class InventoryController implements InventoryApi {
   @Override
   public ResponseEntity<String> getMaterialTypeById(String materialTypeId, String xOkapiTenant, String xOkapiToken) {
     log.info("Retrieving material type by id {}", materialTypeId);
+    if (ecsInventoryService.isCentralTenant(xOkapiTenant)) {
+      return ResponseEntity.ok(
+          materialTypeService.getEcsMaterialTypeById(materialTypeId));
+    }
     return ResponseEntity.ok(inventoryService.getMaterialTypeById(materialTypeId));
   }
 
