@@ -1,0 +1,26 @@
+{
+  "tenants": [
+    {
+      "id": "central_test",
+      "code": "CEN",
+      "name": "Central Office",
+      "isCentral": true,
+      "isDeleted": false
+    },
+    {
+      "id": "cs00000int_0001",
+      "code": "COL",
+      "name": "College",
+      "isCentral": false,
+      "isDeleted": false
+    },
+    {
+      "id": "cs00000int_0013",
+      "code": "SEC",
+      "name": "Secure tenant",
+      "isCentral": false,
+      "isDeleted": false
+    }
+  ],
+  "totalRecords": 13
+}
