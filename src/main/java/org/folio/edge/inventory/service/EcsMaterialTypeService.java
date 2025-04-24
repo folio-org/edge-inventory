@@ -83,6 +83,13 @@ public class EcsMaterialTypeService {
           }
         })
         .filter(Objects::nonNull)
-        .toList();
+        .filter(node -> {
+          boolean isError = node.has("code") && node.get("code").asInt() == 404;
+          isError = isError || (node.has("errorMessage") && "Not found".equalsIgnoreCase(node.get("errorMessage").asText()));
+          return !isError;
+        })
+        .findFirst()
+        .map(List::of)
+        .orElseGet(List::of);
   }
 }
