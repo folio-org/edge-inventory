@@ -1,0 +1,94 @@
+package org.folio.edge.inventory.service;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import jakarta.persistence.EntityNotFoundException;
+import java.util.List;
+import java.util.Objects;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
+import org.folio.edge.inventory.client.ConsortiaClient;
+import org.folio.edge.inventory.client.InventoryClient;
+import org.folio.edge.inventory.client.UsersClient;
+import org.folio.edge.inventory.util.JsonConverter;
+import org.folio.inventory.domain.dto.TenantCollection;
+import org.folio.inventory.domain.dto.UserTenantsUserTenantsInner;
+import org.folio.spring.FolioExecutionContext;
+import org.springframework.stereotype.Service;
+
+@Service
+@RequiredArgsConstructor
+@Log4j2
+public class EcsMaterialTypeService {
+
+  public static final String NAME = "name";
+  public static final String SECURE_TENANT_CODE = "SEC";
+
+  private final UsersClient usersClient;
+  private final ConsortiaClient consortiaClient;
+  private final InventoryClient inventoryClient;
+  private final JsonConverter jsonConverter;
+  private final FolioExecutionContext folioExecutionContext;
+
+  public String getEcsMaterialTypeById(String materialTypeId) {
+    var userTenants = usersClient.getUserTenants();
+
+    if (userTenants != null) {
+      var consortiumId = userTenants.getUserTenants().stream().map(
+          UserTenantsUserTenantsInner::getConsortiumId
+      ).findFirst();
+
+      TenantCollection tenantCollection = consortiumId
+          .map(consortiaClient::getTenants)
+          .orElseThrow(() -> {
+            log.error("Consortium ID not found in user tenants");
+            return new EntityNotFoundException("Consortium ID not found");
+          });
+
+      var materialTypes = getMaterialTypesFromMemberTenants(tenantCollection, materialTypeId);
+      return materialTypes.stream()
+          .filter(json -> json.has(NAME))
+          .findFirst()
+          .map(JsonNode::toString)
+          .orElseGet(() -> {
+            log.error("Material type not found, returning respective response body");
+            throw new EntityNotFoundException("Material type not found");
+          });
+    }
+
+    log.error("User tenants not found");
+    throw new EntityNotFoundException("User tenants not found");
+  }
+
+  private List<JsonNode> getMaterialTypesFromMemberTenants(TenantCollection tenantCollection, String materialTypeId) {
+    var instance = (FolioExecutionContext) folioExecutionContext.getInstance();
+
+    return tenantCollection.getTenants().stream()
+        .filter(tenant -> {
+          boolean isSecTenant = SECURE_TENANT_CODE.equalsIgnoreCase(tenant.getCode());
+          if (isSecTenant) {
+            log.info("Skipping tenant with name: {} and id: {}", tenant.getName(), tenant.getId());
+          }
+          return !isSecTenant;
+        })
+        .map(tenant -> {
+          try {
+            return instance.execute(() -> {
+              log.info("Requesting material type {} for tenant {}", materialTypeId, tenant.getName());
+              var response = inventoryClient.getMaterialTypeById(materialTypeId, tenant.getId());
+              return jsonConverter.readAsTree(response);
+            });
+          } catch (Exception e) {
+            log.warn("Material type {} not found for tenant {}: {}", materialTypeId, tenant.getName(), e.getMessage());
+            return null;
+          }
+        })
+        .filter(Objects::nonNull)
+        .filter(node -> {
+          boolean isError = node.has("code") && node.get("code").asInt() == 404;
+          return !isError;
+        })
+        .findFirst()
+        .map(List::of)
+        .orElseGet(List::of);
+  }
+}
