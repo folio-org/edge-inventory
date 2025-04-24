@@ -51,7 +51,7 @@ public class EcsMaterialTypeService {
           .map(JsonNode::toString)
           .orElseGet(() -> {
             log.error("Material type not found, returning respective response body");
-            return materialTypes.getFirst().toString();
+            throw new EntityNotFoundException("Material type not found");
           });
     }
 
@@ -85,7 +85,6 @@ public class EcsMaterialTypeService {
         .filter(Objects::nonNull)
         .filter(node -> {
           boolean isError = node.has("code") && node.get("code").asInt() == 404;
-          isError = isError || (node.has("errorMessage") && "Not found".equalsIgnoreCase(node.get("errorMessage").asText()));
           return !isError;
         })
         .findFirst()

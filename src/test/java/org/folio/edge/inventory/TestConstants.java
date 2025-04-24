@@ -34,6 +34,7 @@ public class TestConstants {
   public static final String LIBRARY_BY_ID_PATH ="__files/responses/library_by_id_response.json";
   public static final String MATERIAL_TYPE_BY_ID_PATH ="__files/responses/material_type_by_id_response.json";
   public static final String MATERIAL_TYPE_OF_MEMBER_FROM_CENTRAL_TENANT_PATH ="__files/responses/material_type_of_member_from_central_tenant_response.json";
+  public static final String MATERIAL_TYPE_OF_MEMBER_FROM_CENTRAL_TENANT_NOT_FOUND_PATH ="__files/errors/not_found.json";
   public static final String SOURCE_RECORD_RESPONSE_PATH ="__files/responses/source-records.json";
   public static final String AUTHORITY_SOURCE_RECORD_RESPONSE_PATH = "__files/responses/authority_source_records.json";
   public static final String HOLDINGS_FACET_RESPONSE_PATH = "__files/responses/holdings_facet_response.json";
@@ -89,6 +90,7 @@ public class TestConstants {
   public static final String CAMPUS_ID = "62cf76b7-cca5-4d33-9217-edf42ce1a848";
   public static final String LOCATION_ID = "93b74baf-0782-431a-ba64-f74d51d68ca2";
   public static final String MATERIAL_TYPE_ID = "79a28446-25ed-4be6-8821-20b57cae0677";
+  public static final String MATERIAL_TYPE_ID_NOT_FOUND = "79a28446-25ed-4be6-8821-20b57cae0611";
   public static final String GET_INSTITUTION_BY_ID_URL = "/inventory/location-units/institutions/6ecd8132-caef-4f87-bbb0-9fc07d71357d";
   public static final String GET_INSTITUTION_BY_ID_NOT_FOUND_URL = "/inventory/location-units/institutions/6ecd8132-caef-4f87-bbb0-9fc07d713571";
   public static final String GET_CAMPUS_BY_ID_URL = "/inventory/location-units/campuses/62cf76b7-cca5-4d33-9217-edf42ce1a848";
