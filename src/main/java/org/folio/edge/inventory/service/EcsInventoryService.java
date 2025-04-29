@@ -109,20 +109,18 @@ public class EcsInventoryService {
   }
 
   private List<InstanceTenants> getInstanceTenants(List<String> instanceIds) {
-    return instanceIds.parallelStream().map(this::getInstanceTenants).toList();
+    var context = (FolioExecutionContext) folioExecutionContext.getInstance();
+    return instanceIds.parallelStream().map(id -> context.execute(() -> getInstanceTenants(id))).toList();
   }
 
   private InstanceTenants getInstanceTenants(String instanceId) {
-    var context = (FolioExecutionContext) folioExecutionContext.getInstance();
-    return context.execute(() -> {
-      var response = searchClient.getInstanceFacet(FACET, "id==" + instanceId);
-      if (response.getFacets().getHoldingsTenantId().getTotalRecords() == 0) {
-        return new InstanceTenants(instanceId, Collections.EMPTY_LIST);
-      }
-      var tenantIds = response.getFacets().getHoldingsTenantId().getValues()
-          .stream().map(value -> value.getId()).toList();
-      return new InstanceTenants(instanceId, tenantIds);
-    });
+    var response = searchClient.getInstanceFacet(FACET, "id==" + instanceId);
+    if (response.getFacets().getHoldingsTenantId().getTotalRecords() == 0) {
+      return new InstanceTenants(instanceId, Collections.EMPTY_LIST);
+    }
+    var tenantIds = response.getFacets().getHoldingsTenantId().getValues()
+        .stream().map(value -> value.getId()).toList();
+    return new InstanceTenants(instanceId, tenantIds);
   }
 
   public String getEcsInventoryHoldings(RequestQueryParameters requestQueryParameters) {
