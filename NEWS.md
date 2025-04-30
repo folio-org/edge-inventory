@@ -1,4 +1,8 @@
 ## v2.1.2
+[EDGINV-14](https://folio-org.atlassian.net/browse/EDGEINV-14) Update GET /inventory/material-types/{id} endpoint to retrieve consolidated material types
+[EDGINV-15](https://folio-org.atlassian.net/browse/EDGEINV-15) Add ecs support for holdings and items
+
+## v2.1.2
 [EDGINV-12](https://folio-org.atlassian.net/browse/EDGEINV-12)
 
 ## v2.1.1
