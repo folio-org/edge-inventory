@@ -23,8 +23,9 @@ paths:
         - $ref: '#/components/parameters/lang'
       responses:
         '200':
-          description: 'Calls the mod-inventory GET /inventory/instance/{id} API and returns the result as-is
-          The example of response: https://github.com/folio-org/mod-inventory/blob/master/ramls/examples/instance_get.json'
+          description: |
+            Calls the mod-inventory GET /inventory/instance/{id} API and returns the result as-is. \
+            The example of response: https://github.com/folio-org/mod-inventory/blob/master/ramls/examples/instance_get.json
           content:
             application/json:
               schema:
@@ -47,8 +48,9 @@ paths:
         - $ref: '#/components/parameters/request-query-parameters'
       responses:
         '200':
-          description: 'Calls the mod-inventory GET /inventory/instances API and returns the result as-is
-          The example of response: https://github.com/folio-org/mod-inventory/blob/master/ramls/examples/instances_get.json'
+          description: |
+            Calls the mod-inventory GET /inventory/instances API and returns the result as-is. \
+            The example of response: https://github.com/folio-org/mod-inventory/blob/master/ramls/examples/instances_get.json
           content:
             application/json:
               schema:
@@ -71,8 +73,9 @@ paths:
         - $ref: '#/components/parameters/authority-id'
       responses:
         '200':
-          description: 'Calls the mod-entities-links GET /authority-storage/authorities/{id} API and returns the result as-is
-          The example of response: https://github.com/folio-org/mod-inventory/blob/master/ramls/examples/instance_get.json'
+          description: |
+            Calls the mod-entities-links GET /authority-storage/authorities/{id} API and returns the result as-is. \
+            The example of response: https://github.com/folio-org/mod-inventory/blob/master/ramls/examples/instance_get.json
           content:
             application/json:
               schema:
@@ -95,8 +98,9 @@ paths:
         - $ref: '#/components/parameters/request-query-parameters'
       responses:
         '200':
-          description: 'Calls the mod-entities-links GET /authority-storage/authorities API and returns the result as-is
-          The example of response: https://github.com/folio-org/mod-inventory/blob/master/ramls/examples/instances_get.json'
+          description: |
+            Calls the mod-entities-links GET /authority-storage/authorities API and returns the result as-is. \
+            The example of response: https://github.com/folio-org/mod-inventory/blob/master/ramls/examples/instances_get.json
           content:
             application/json:
               schema:
@@ -119,8 +123,9 @@ paths:
         - $ref: '#/components/parameters/request-query-parameters'
       responses:
         '200':
-          description: 'Calls the mod-inventory-storage GET /holdings-storage/holdings API and returns the result as-is
-               The example of response: https://github.com/folio-org/mod-inventory-storage/blob/master/ramls/examples/holdingsrecords_get.json'
+          description: |
+            Calls the mod-inventory-storage GET /holdings-storage/holdings API and returns the result as-is. \
+            The example of response: https://github.com/folio-org/mod-inventory-storage/blob/master/ramls/examples/holdingsrecords_get.json
           content:
             application/json:
               schema:
@@ -145,8 +150,9 @@ paths:
         - $ref: '#/components/parameters/request-query-parameters'
       responses:
         '200':
-          description: 'Calls the mod-inventory-storage GET /identifier-types API and returns the result as-is
-        The example of response: https://github.com/folio-org/mod-inventory-storage/blob/master/ramls/examples/identifiertypes.json'
+          description: |
+            Calls the mod-inventory-storage GET /identifier-types API and returns the result as-is. \
+            The example of response: https://github.com/folio-org/mod-inventory-storage/blob/master/ramls/examples/identifiertypes.json
           content:
             application/json:
               schema:
@@ -169,8 +175,9 @@ paths:
         - $ref: '#/components/parameters/request-query-parameters'
       responses:
         '200':
-          description: 'Calls the mod-inventory-storage GET /classification-types API and returns the result as-is
-        The example of response: https://github.com/folio-org/mod-inventory-storage/blob/master/ramls/examples/classificationtypes.json'
+          description: |
+            Calls the mod-inventory-storage GET /classification-types API and returns the result as-is. \
+            The example of response: https://github.com/folio-org/mod-inventory-storage/blob/master/ramls/examples/classificationtypes.json
           content:
             application/json:
               schema:
@@ -193,8 +200,9 @@ paths:
         - $ref: '#/components/parameters/request-query-parameters'
       responses:
         '200':
-          description: 'Calls the mod-inventory-storage GET /contributor-types API and returns the result as-is
-        The example of response: https://github.com/folio-org/mod-inventory-storage/blob/master/ramls/examples/contributortypes.json'
+          description: |
+            Calls the mod-inventory-storage GET /contributor-types API and returns the result as-is. \
+            The example of response: https://github.com/folio-org/mod-inventory-storage/blob/master/ramls/examples/contributortypes.json
           content:
             application/json:
               schema:
@@ -217,8 +225,9 @@ paths:
         - $ref: '#/components/parameters/request-query-parameters'
       responses:
         '200':
-          description: 'Calls the mod-inventory-storage GET /contributor-name-types API and returns the result as-is
-        The example of response: https://github.com/folio-org/mod-inventory-storage/blob/master/ramls/examples/contributornametypes.json'
+          description: |
+            Calls the mod-inventory-storage GET /contributor-name-types API and returns the result as-is. \
+            The example of response: https://github.com/folio-org/mod-inventory-storage/blob/master/ramls/examples/contributornametypes.json
           content:
             application/json:
               schema:
@@ -241,8 +250,9 @@ paths:
         - $ref: '#/components/parameters/request-query-parameters'
       responses:
         '200':
-          description: 'Calls the mod-inventory-storage GET /locations API and returns the result as-is
-            The example of response: https://github.com/folio-org/mod-inventory-storage/blob/master/ramls/examples/locations.json'
+          description: |
+            Calls the mod-inventory-storage GET /locations API and returns the result as-is. \
+            The example of response: https://github.com/folio-org/mod-inventory-storage/blob/master/ramls/examples/locations.json
           content:
             application/json:
               schema:
@@ -267,8 +277,9 @@ paths:
         - $ref: '#/components/parameters/request-query-parameters'
       responses:
         '200':
-          description: 'Calls the mod-inventory-storage GET /service-points API and returns the result as-is
-              The example of response: https://github.com/folio-org/mod-inventory-storage/blob/master/ramls/examples/servicepoints.json'
+          description: |
+            Calls the mod-inventory-storage GET /service-points API and returns the result as-is. \
+            The example of response: https://github.com/folio-org/mod-inventory-storage/blob/master/ramls/examples/servicepoints.json
           content:
             application/json:
               schema:
@@ -293,8 +304,9 @@ paths:
         - $ref: '#/components/parameters/request-query-parameters'
       responses:
         '200':
-          description: 'Calls the mod-inventory-storage GET /nature-of-content-terms API and returns the result as-is
-            The example of response: https://github.com/folio-org/mod-inventory-storage/blob/master/ramls/examples/natureofcontentterms.json'
+          description: |
+            Calls the mod-inventory-storage GET /nature-of-content-terms API and returns the result as-is. \
+            The example of response: https://github.com/folio-org/mod-inventory-storage/blob/master/ramls/examples/natureofcontentterms.json
           content:
             application/json:
               schema:
@@ -319,8 +331,9 @@ paths:
         - $ref: '#/components/parameters/request-query-parameters'
       responses:
         '200':
-          description: 'Calls the mod-inventory-storage GET /modes-of-issuance API and returns the result as-is
-              The example of response: https://github.com/folio-org/mod-inventory-storage/blob/master/ramls/examples/modeofissuance.json'
+          description: |
+            Calls the mod-inventory-storage GET /modes-of-issuance API and returns the result as-is. \
+            The example of response: https://github.com/folio-org/mod-inventory-storage/blob/master/ramls/examples/modeofissuance.json
           content:
             application/json:
               schema:
@@ -345,8 +358,9 @@ paths:
         - $ref: '#/components/parameters/request-query-parameters'
       responses:
         '200':
-          description: 'Calls the mod-inventory-storage GET /instance-formats API and returns the result as-is
-              The example of response: https://github.com/folio-org/mod-inventory-storage/blob/master/ramls/examples/instanceformats.json'
+          description: |
+            Calls the mod-inventory-storage GET /instance-formats API and returns the result as-is. \
+            The example of response: https://github.com/folio-org/mod-inventory-storage/blob/master/ramls/examples/instanceformats.json
           content:
             application/json:
               schema:
@@ -371,8 +385,9 @@ paths:
         - $ref: '#/components/parameters/request-query-parameters'
       responses:
         '200':
-          description: 'Calls the mod-inventory-storage GET /items API and returns the result as-is
-            The example of response: https://github.com/folio-org/mod-inventory-storage/blob/master/ramls/examples/items_get.json'
+          description: |
+            Calls the mod-inventory-storage GET /items API and returns the result as-is. \
+            The example of response: https://github.com/folio-org/mod-inventory-storage/blob/master/ramls/examples/items_get.json
           content:
             application/json:
               schema:
@@ -397,8 +412,9 @@ paths:
         - $ref: '#/components/parameters/request-query-parameters'
       responses:
         '200':
-          description: 'Calls the mod-inventory-storage GET /instance-types API and returns the result as-is
-            The example of response: https://github.com/folio-org/mod-inventory-storage/blob/master/ramls/examples/instancetypes.json'
+          description: |
+            Calls the mod-inventory-storage GET /instance-types API and returns the result as-is. \
+            The example of response: https://github.com/folio-org/mod-inventory-storage/blob/master/ramls/examples/instancetypes.json
           content:
             application/json:
               schema:
@@ -423,8 +439,9 @@ paths:
         - $ref: '#/components/parameters/request-query-parameters'
       responses:
         '200':
-          description: 'Calls the mod-inventory-storage GET /instance-note-types API and returns the result as-is
-            The example of response: https://github.com/folio-org/mod-inventory-storage/blob/master/ramls/examples/instancenotetypes.json'
+          description: |
+            Calls the mod-inventory-storage GET /instance-note-types API and returns the result as-is. \
+            The example of response: https://github.com/folio-org/mod-inventory-storage/blob/master/ramls/examples/instancenotetypes.json
           content:
             application/json:
               schema:
@@ -450,8 +467,9 @@ paths:
         - $ref: '#/components/parameters/withBoundedItems'
       responses:
         '200':
-          description: 'Calls the mod-inventory-storage GET /inventory-view/instances API and returns the result as-is
-            The example of response: https://github.com/folio-org/mod-inventory-storage/blob/master/ramls/examples/inventory-view-instances.json'
+          description: |
+            Calls the mod-inventory-storage GET /inventory-view/instances API and returns the result as-is. \
+            The example of response: https://github.com/folio-org/mod-inventory-storage/blob/master/ramls/examples/inventory-view-instances.json
           content:
             application/json:
               schema:
@@ -476,8 +494,9 @@ paths:
         - $ref: '#/components/parameters/request-query-parameters'
       responses:
         '200':
-          description: 'Calls the mod-inventory-storage GET /alternative-title-types API and returns the result as-is
-            The example of response: https://github.com/folio-org/mod-inventory-storage/blob/master/ramls/examples/alternativetitletypes.json'
+          description: |
+            Calls the mod-inventory-storage GET /alternative-title-types API and returns the result as-is. \
+            The example of response: https://github.com/folio-org/mod-inventory-storage/blob/master/ramls/examples/alternativetitletypes.json
           content:
             application/json:
               schema:
@@ -502,8 +521,9 @@ paths:
         - $ref: '#/components/parameters/location-id'
       responses:
         '200':
-          description: 'Calls the mod-inventory-storage GET /locations/{id} API and returns the result as-is
-              The example of response: https://github.com/folio-org/mod-inventory-storage/blob/master/ramls/locinst.json'
+          description: |
+            Calls the mod-inventory-storage GET /locations/{id} API and returns the result as-is. \
+            The example of response: https://github.com/folio-org/mod-inventory-storage/blob/master/ramls/locinst.json
           content:
             application/json:
               schema:
@@ -526,8 +546,9 @@ paths:
         - $ref: '#/components/parameters/institution-id'
       responses:
         '200':
-          description: 'Calls the mod-inventory-storage GET /location-units/institutions/{institutionId} API and returns the result as-is
-              The example of response: https://github.com/folio-org/mod-inventory-storage/blob/master/ramls/locinst.json'
+          description: |
+            Calls the mod-inventory-storage GET /location-units/institutions/{institutionId} API and returns the result as-is. \
+            The example of response: https://github.com/folio-org/mod-inventory-storage/blob/master/ramls/locinst.json
           content:
             application/json:
               schema:
@@ -550,8 +571,9 @@ paths:
         - $ref: '#/components/parameters/library-id'
       responses:
         '200':
-          description: 'Calls the mod-inventory-storage GET /location-units/libraries/{libraryId} API and returns the result as-is
-              The example of response: https://github.com/folio-org/mod-inventory-storage/blob/master/ramls/loclib.json'
+          description: |
+            Calls the mod-inventory-storage GET /location-units/libraries/{libraryId} API and returns the result as-is. \
+            The example of response: https://github.com/folio-org/mod-inventory-storage/blob/master/ramls/loclib.json
           content:
             application/json:
               schema:
@@ -574,8 +596,9 @@ paths:
         - $ref: '#/components/parameters/campus-id'
       responses:
         '200':
-          description: 'Calls the mod-inventory-storage GET /location-units/campuses/{campusId} API and returns the result as-is
-              https://github.com/folio-org/mod-inventory-storage/blob/master/ramls/loccamp.json'
+          description: |
+            Calls the mod-inventory-storage GET /location-units/campuses/{campusId} API and returns the result as-is. \
+            https://github.com/folio-org/mod-inventory-storage/blob/master/ramls/loccamp.json
           content:
             application/json:
               schema:
@@ -598,8 +621,9 @@ paths:
         - $ref: '#/components/parameters/material-type-id'
       responses:
         '200':
-          description: 'Calls the mod-inventory-storage GET /material-types{materialTypeId} API and returns the result as-is
-                         https://github.com/folio-org/mod-inventory-storage/blob/master/ramls/materialtype.json'
+          description: |
+            Calls the mod-inventory-storage GET /material-types{materialTypeId} API and returns the result as-is. \
+            https://github.com/folio-org/mod-inventory-storage/blob/master/ramls/materialtype.json
           content:
             application/json:
               schema:
@@ -622,8 +646,9 @@ paths:
         - $ref: '#/components/parameters/instance-id'
       responses:
         '200':
-          description: 'Calls the mod-source-record-storage GET source-storage/records/{id} API and returns the result as-is
-          The example of response: https://github.com/folio-org/data-import-raml-storage/blob/e7f0fef18a5a00925e04a79bbbe5b6c82ae0df9c/schemas/dto/sourceRecord.json'
+          description: |
+            Calls the mod-source-record-storage GET source-storage/records/{id} API and returns the result as-is. \
+            The example of response: https://github.com/folio-org/data-import-raml-storage/blob/e7f0fef18a5a00925e04a79bbbe5b6c82ae0df9c/schemas/dto/sourceRecord.json
           content:
             application/json:
               schema:
@@ -648,8 +673,9 @@ paths:
         - $ref: '#/components/parameters/authority-id'
       responses:
         '200':
-          description: 'Calls the mod-source-record-storage GET source-storage/records/{id} API and returns the result as-is
-          The example of response: https://github.com/folio-org/data-import-raml-storage/blob/e7f0fef18a5a00925e04a79bbbe5b6c82ae0df9c/schemas/dto/sourceRecord.json'
+          description: |
+            Calls the mod-source-record-storage GET source-storage/records/{id} API and returns the result as-is. \
+            The example of response: https://github.com/folio-org/data-import-raml-storage/blob/e7f0fef18a5a00925e04a79bbbe5b6c82ae0df9c/schemas/dto/sourceRecord.json
           content:
             application/json:
               schema:
@@ -730,8 +756,9 @@ paths:
         - $ref: '#/components/parameters/request-query-parameters'
       responses:
         '200':
-          description: 'Calls the mod-inventory-storage GET /subject-sources API and returns the result as-is
-            The example of response: https://github.com/folio-org/mod-inventory-storage/blob/master/ramls/examples/subject-sources.json'
+          description: |
+            Calls the mod-inventory-storage GET /subject-sources API and returns the result as-is. \
+            The example of response: https://github.com/folio-org/mod-inventory-storage/blob/master/ramls/examples/subject-sources.json
           content:
             application/json:
               schema:
@@ -756,8 +783,9 @@ paths:
         - $ref: '#/components/parameters/request-query-parameters'
       responses:
         '200':
-          description: 'Calls the mod-inventory-storage GET /subject-types API and returns the result as-is
-            The example of response: https://github.com/folio-org/mod-inventory-storage/blob/master/ramls/examples/subject-types.json'
+          description: |
+            Calls the mod-inventory-storage GET /subject-types API and returns the result as-is. \
+            The example of response: https://github.com/folio-org/mod-inventory-storage/blob/master/ramls/examples/subject-types.json
           content:
             application/json:
               schema:
