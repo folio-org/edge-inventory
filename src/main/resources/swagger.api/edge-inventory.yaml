@@ -115,7 +115,7 @@ paths:
       tags:
         - holdings
       operationId: getHoldings
-      summary: Return a list of holdings by query
+      summary: Return a list of holdings associated with the keyword query from folio mod-inventory
       description: Return a list of holdings by query
       parameters:
         - $ref: '#/components/parameters/x-okapi-tenant-header'
