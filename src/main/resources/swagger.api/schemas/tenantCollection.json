@@ -10,24 +10,29 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "string"
+            "type": "string",
+            "description": "The ID of a specific Folio tenant"
           },
           "code": {
             "type": "string",
+            "description": "The tenant short name",
             "minLength": 2,
             "maxLength": 5,
             "pattern": "^[a-zA-Z0-9]*$"
           },
           "name": {
             "type": "string",
+            "description": "The tenant full name",
             "minLength": 2,
             "maxLength": 150
           },
           "isCentral": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Indicates whether the tenant is central"
           },
           "isDeleted": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Indicates whether the tenant is deleted"
           }
         },
         "required": ["id", "code", "name", "isCentral"],
