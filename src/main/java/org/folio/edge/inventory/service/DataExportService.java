@@ -22,8 +22,8 @@ public class DataExportService {
    * @param isUtf A boolean flag indicating whether the data should be encoded in UTF-8.
    * @return A ResponseEntity containing the downloaded authority data as a Resource.
    */
-  public ResponseEntity<Resource> downloadAuthority(String authorityId, boolean isUtf){
-    return dataExportClient.downloadRecord(authorityId, isUtf, "AUTHORITY");
+  public ResponseEntity<Resource> downloadAuthority(String authorityId, boolean isUtf, Boolean suppress999ff){
+    return dataExportClient.downloadRecord(authorityId, isUtf, "AUTHORITY", suppress999ff);
   }
 
   /**
@@ -34,6 +34,6 @@ public class DataExportService {
    * @return A ResponseEntity containing the downloaded instance data as a Resource.
    */
   public ResponseEntity<Resource> downloadInstance(String instanceId, boolean isUtf){
-    return dataExportClient.downloadRecord(instanceId, isUtf, "INSTANCE");
+    return dataExportClient.downloadRecord(instanceId, isUtf, "INSTANCE", false);
   }
 }
