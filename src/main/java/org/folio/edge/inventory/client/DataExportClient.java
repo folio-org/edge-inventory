@@ -14,5 +14,5 @@ public interface DataExportClient {
 
   @GetMapping(value = "/data-export/download-record/{recordId}")
   ResponseEntity<Resource> downloadRecord(@PathVariable("recordId") String recordId, @RequestParam boolean utf,
-      @RequestParam String idType);
+      @RequestParam String idType, @RequestParam Boolean suppress999ff);
 }

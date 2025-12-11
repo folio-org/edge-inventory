@@ -3,7 +3,7 @@
     {
       "request": {
         "method": "GET",
-        "url": "/data-export/download-record/0831576a-c421-47dd-9285-ebab3351faa8?utf=true&idType=AUTHORITY"
+        "url": "/data-export/download-record/0831576a-c421-47dd-9285-ebab3351faa8?utf=true&idType=AUTHORITY&suppress999ff=false"
       },
       "response": {
         "status": 200,
@@ -17,7 +17,7 @@
     {
       "request": {
         "method": "GET",
-        "url": "/data-export/download-record/0831576a-c421-47dd-9285-ebab3351faa8?utf=false&idType=AUTHORITY"
+        "url": "/data-export/download-record/0831576a-c421-47dd-9285-ebab3351faa8?utf=false&idType=AUTHORITY&suppress999ff=false"
       },
       "response": {
         "status": 200,
@@ -31,7 +31,7 @@
     {
       "request": {
         "method": "GET",
-        "url": "/data-export/download-record/1831576a-c421-47dd-9285-ebab3351faa8?utf=true&idType=AUTHORITY"
+        "url": "/data-export/download-record/1831576a-c421-47dd-9285-ebab3351faa8?utf=true&idType=AUTHORITY&suppress999ff=false"
       },
       "response": {
         "status": 500,
