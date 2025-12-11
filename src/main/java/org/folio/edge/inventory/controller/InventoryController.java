@@ -231,11 +231,11 @@ public class InventoryController implements InventoryApi {
     return ResponseEntity.ok(inventoryService.getAuthority(authorityId));
   }
 
-  @Override
-  public ResponseEntity<Resource> downloadAuthorityById(String authorityId, String xOkapiTenant, String xOkapiToken,
-      Boolean isUtf) {
+    @Override
+  public ResponseEntity<Resource> downloadAuthorityById(String authorityId, Boolean suppress999ff, String xOkapiTenant,
+        String xOkapiToken, Boolean isUtf) {
     log.info("Download authority by id {} in utf format:{}", authorityId, isUtf);
-    return dataExportService.downloadAuthority(authorityId, isUtf);
+    return dataExportService.downloadAuthority(authorityId, isUtf, suppress999ff);
   }
 
   @Override
