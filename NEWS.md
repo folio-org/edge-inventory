@@ -1,3 +1,7 @@
+## v2.2.2 2026.02.17
+### Sunflower Service Patch #6 (R1 2025)
+* [EDGEINV-21](https://folio-org.atlassian.net/browse/EDGEINV-21): Sunflower: Release 2.2.2 with Spring Boot 3.4.13 fixing vulns
+
 ## v2.2.1 2025.12.11
 ### Sunflower Service Patch #4 (R1 2025)
 * [EDGEINV-15](https://folio-org.atlassian.net/browse/EDGEINV-15): Add ecs support for holdings and items
