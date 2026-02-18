@@ -112,4 +112,7 @@ public interface InventoryClient {
 
   @GetMapping(value = "/subject-types", consumes = MediaType.APPLICATION_JSON_VALUE)
   String getSubjectTypes(@SpringQueryMap Object requestQueryParameters);
+
+  @GetMapping(value = "/holdings-note-types", consumes = MediaType.APPLICATION_JSON_VALUE)
+  String getHoldingsNoteTypes(@SpringQueryMap Object requestQueryParameters);
 }

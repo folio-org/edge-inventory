@@ -798,6 +798,33 @@ paths:
         '500':
           $ref: '#/components/responses/internalServerErrorResponse'
 
+  /inventory/holdings-note-types:
+    get:
+      tags:
+        - holdingsNoteTypes
+      operationId: getHoldingsNoteTypes
+      summary: Retrieve collection of holdings note types.
+      description: Retrieve collection of holdings note types.
+      parameters:
+        - $ref: '#/components/parameters/x-okapi-tenant-header'
+        - $ref: '#/components/parameters/x-okapi-token-header'
+        - $ref: '#/components/parameters/request-query-parameters'
+      responses:
+        '200':
+          description: |
+            Calls the mod-inventory-storage GET /holding-note-types API and returns the result as-is. \
+            The example of response: https://github.com/folio-org/mod-inventory-storage/blob/master/ramls/examples/holdings-note-types/holdingsNoteTypes.json
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          $ref: '#/components/responses/badRequestResponse'
+        '401':
+          $ref: '#/components/responses/notAuthorizedResponse'
+        '500':
+          $ref: '#/components/responses/internalServerErrorResponse'
+
 components:
   schemas:
     errorResponse:

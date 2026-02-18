@@ -122,4 +122,8 @@ public class InventoryService {
   public String getSubjectTypes(RequestQueryParameters requestQueryParameters) {
     return inventoryClient.getSubjectTypes(requestQueryParameters);
   }
+
+  public String getHoldingsNoteTypes(RequestQueryParameters requestQueryParameters) {
+    return inventoryClient.getHoldingsNoteTypes(requestQueryParameters);
+  }
 }
