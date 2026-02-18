@@ -258,4 +258,11 @@ public class InventoryController implements InventoryApi {
     log.info("Retrieving subject types by query {}", requestQueryParameters.getQuery());
     return ResponseEntity.ok(inventoryService.getSubjectTypes(requestQueryParameters));
   }
+
+  @Override
+  public ResponseEntity<String> getHoldingsNoteTypes(String xOkapiTenant, String xOkapiToken,
+      RequestQueryParameters requestQueryParameters) {
+    log.info("Retrieving holdings note types by query {}", requestQueryParameters.getQuery());
+    return ResponseEntity.ok(inventoryService.getHoldingsNoteTypes(requestQueryParameters));
+  }
 }

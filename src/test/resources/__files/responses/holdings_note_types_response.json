@@ -1,0 +1,93 @@
+{
+  "holdingsNoteTypes": [
+    {
+      "id": "e19eabab-a85c-4aef-a7b2-33bd9acef24e",
+      "name": "Binding",
+      "source": "consortium",
+      "metadata": {
+        "createdDate": "2023-10-19T16:27:13.549+00:00",
+        "createdByUserId": "3843bbaa-983e-4412-8cff-eb947963cd2f",
+        "updatedDate": "2023-10-19T16:27:13.549+00:00",
+        "updatedByUserId": "3843bbaa-983e-4412-8cff-eb947963cd2f"
+      }
+    },
+    {
+      "id": "d6510242-5ec3-42ed-b593-3585d2e48fd6",
+      "name": "Action note",
+      "source": "consortium",
+      "metadata": {
+        "createdDate": "2023-10-19T16:27:13.839+00:00",
+        "createdByUserId": "3843bbaa-983e-4412-8cff-eb947963cd2f",
+        "updatedDate": "2023-10-19T16:27:13.839+00:00",
+        "updatedByUserId": "3843bbaa-983e-4412-8cff-eb947963cd2f"
+      }
+    },
+    {
+      "id": "88914775-f677-4759-b57b-1a33b90b24e0",
+      "name": "Electronic bookplate",
+      "source": "consortium",
+      "metadata": {
+        "createdDate": "2023-10-19T16:27:14.126+00:00",
+        "createdByUserId": "3843bbaa-983e-4412-8cff-eb947963cd2f",
+        "updatedDate": "2023-10-19T16:27:14.126+00:00",
+        "updatedByUserId": "3843bbaa-983e-4412-8cff-eb947963cd2f"
+      }
+    },
+    {
+      "id": "b160f13a-ddba-4053-b9c4-60ec5ea45d56",
+      "name": "Note",
+      "source": "consortium",
+      "metadata": {
+        "createdDate": "2023-10-19T16:27:14.415+00:00",
+        "createdByUserId": "3843bbaa-983e-4412-8cff-eb947963cd2f",
+        "updatedDate": "2023-10-19T16:27:14.415+00:00",
+        "updatedByUserId": "3843bbaa-983e-4412-8cff-eb947963cd2f"
+      }
+    },
+    {
+      "id": "c4407cc7-d79f-4609-95bd-1cefb2e2b5c5",
+      "name": "Copy note",
+      "source": "consortium",
+      "metadata": {
+        "createdDate": "2023-10-19T16:27:14.708+00:00",
+        "createdByUserId": "3843bbaa-983e-4412-8cff-eb947963cd2f",
+        "updatedDate": "2023-10-19T16:27:14.708+00:00",
+        "updatedByUserId": "3843bbaa-983e-4412-8cff-eb947963cd2f"
+      }
+    },
+    {
+      "id": "db9b4787-95f0-4e78-becf-26748ce6bdeb",
+      "name": "Provenance",
+      "source": "consortium",
+      "metadata": {
+        "createdDate": "2023-10-19T16:27:14.997+00:00",
+        "createdByUserId": "3843bbaa-983e-4412-8cff-eb947963cd2f",
+        "updatedDate": "2023-10-19T16:27:14.997+00:00",
+        "updatedByUserId": "3843bbaa-983e-4412-8cff-eb947963cd2f"
+      }
+    },
+    {
+      "id": "6a41b714-8574-4084-8d64-a9373c3fbb59",
+      "name": "Reproduction",
+      "source": "consortium",
+      "metadata": {
+        "createdDate": "2023-10-19T16:27:15.282+00:00",
+        "createdByUserId": "3843bbaa-983e-4412-8cff-eb947963cd2f",
+        "updatedDate": "2023-10-19T16:27:15.282+00:00",
+        "updatedByUserId": "3843bbaa-983e-4412-8cff-eb947963cd2f"
+      }
+    },
+    {
+      "id": "dd09b48d-46a8-405d-88ed-07e1eb3c2f07",
+      "name": "test",
+      "source": "local",
+      "metadata": {
+        "createdDate": "2026-01-28T16:50:54.788+00:00",
+        "createdByUserId": "9f9d1c46-52e1-4bb7-9c6c-56e6bb945c42",
+        "updatedDate": "2026-01-28T16:50:54.788+00:00",
+        "updatedByUserId": "9f9d1c46-52e1-4bb7-9c6c-56e6bb945c42"
+      }
+    }
+  ],
+  "totalRecords": 8
+}

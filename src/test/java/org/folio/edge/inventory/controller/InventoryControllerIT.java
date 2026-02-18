@@ -764,4 +764,23 @@ class InventoryControllerIT extends BaseIntegrationTests {
     doGetWithParams(mockMvc, GET_SUBJECT_TYPES_URL, LANG_PARAM_NAME, LANG_PARAM_INVALID_VALUE)
         .andExpect(status().isBadRequest());
   }
+
+  @Test
+  void getHoldingsNoteTypes_shouldReturnHoldingsNoteTypes() throws Exception {
+    doGetWithParams(mockMvc, "/inventory/holdings-note-types", LANG_PARAM_NAME, LANG_PARAM_VALID_VALUE)
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("holdingsNoteTypes[0].id", is("e19eabab-a85c-4aef-a7b2-33bd9acef24e")))
+        .andExpect(jsonPath("holdingsNoteTypes[0].name", is("Binding")))
+        .andExpect(jsonPath("holdingsNoteTypes[1].id", is("d6510242-5ec3-42ed-b593-3585d2e48fd6")))
+        .andExpect(jsonPath("holdingsNoteTypes[1].name", is("Action note")))
+        .andExpect(jsonPath("totalRecords", is(8)));
+  }
+
+  @Test
+  void getHoldingsNoteTypes_shouldReturn200WithEmptyRecords_whenNoHoldingsNoteTypesFoundByQuery() throws Exception {
+    doGetWithParams(mockMvc, "/inventory/holdings-note-types", QUERY_PARAM_NAME, "id==test")
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("totalRecords", is(0)))
+        .andExpect(jsonPath("holdingsNoteTypes", iterableWithSize(0)));
+  }
 }
