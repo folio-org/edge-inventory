@@ -88,6 +88,9 @@ public interface InventoryClient {
   @GetMapping(value = "/alternative-title-types", consumes = MediaType.APPLICATION_JSON_VALUE)
   String getAlternativeTitleTypes(@SpringQueryMap Object requestQueryParameters);
 
+  @GetMapping(value = "/material-types", consumes = MediaType.APPLICATION_JSON_VALUE)
+  String getMaterialTypes(@SpringQueryMap Object requestQueryParameters);
+
   @GetMapping(value = "/material-types/{materialTypeId}", consumes = MediaType.APPLICATION_JSON_VALUE)
   String getMaterialTypeById(@PathVariable("materialTypeId") String materialTypeId);
 

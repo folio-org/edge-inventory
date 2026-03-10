@@ -24,6 +24,7 @@ import static org.folio.edge.inventory.TestConstants.LANG_PARAM_VALID_VALUE;
 import static org.folio.edge.inventory.TestConstants.LIBRARY_BY_ID_PATH;
 import static org.folio.edge.inventory.TestConstants.LIBRARY_ID;
 import static org.folio.edge.inventory.TestConstants.LOCATIONS_RESPONSE_PATH;
+import static org.folio.edge.inventory.TestConstants.MATERIAL_TYPES_RESPONSE_PATH;
 import static org.folio.edge.inventory.TestConstants.MATERIAL_TYPE_BY_ID_PATH;
 import static org.folio.edge.inventory.TestConstants.MATERIAL_TYPE_ID;
 import static org.folio.edge.inventory.TestConstants.MODES_OF_ISSUANCE_RESPONSE_PATH;
@@ -401,6 +402,21 @@ class InventoryServiceTest {
     assertEquals("City Campus", campusJson.get("name"));
     assertEquals("CC", campusJson.get("code"));
     assertEquals("40ee00ca-a518-4b49-be01-0638d0a4ac57", campusJson.get("institutionId"));
+  }
+
+  @Test
+  void getMaterialTypes_shouldReturnMaterialTypes() throws JSONException {
+    String expectedMaterialTypesContent = TestUtil.readFileContentFromResources(MATERIAL_TYPES_RESPONSE_PATH);
+    RequestQueryParameters requestQueryParameters = new RequestQueryParameters();
+    when(inventoryClient.getMaterialTypes(requestQueryParameters)).thenReturn(expectedMaterialTypesContent);
+
+    JSONObject materialTypes = new JSONObject(inventoryService.getMaterialTypes(requestQueryParameters));
+    JSONObject firstMaterialType = materialTypes.getJSONArray("mtypes").getJSONObject(0);
+
+    assertEquals(2, materialTypes.get(TOTAL_RECORDS));
+    assertEquals("79a28446-25ed-4be6-8821-20b57cae0677", firstMaterialType.get(ID));
+    assertEquals("Audio CD", firstMaterialType.get(NAME));
+    assertEquals("local", firstMaterialType.get(SOURCE));
   }
 
   @Test

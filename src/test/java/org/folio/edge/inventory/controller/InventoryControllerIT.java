@@ -24,6 +24,7 @@ import static org.folio.edge.inventory.TestConstants.GET_ITEMS_URL;
 import static org.folio.edge.inventory.TestConstants.GET_LIBRARY_BY_ID_NOT_FOUND_URL;
 import static org.folio.edge.inventory.TestConstants.GET_LIBRARY_BY_ID_URL;
 import static org.folio.edge.inventory.TestConstants.GET_LOCATION_VALID_URL;
+import static org.folio.edge.inventory.TestConstants.GET_MATERIAL_TYPES_COLLECTION_URL;
 import static org.folio.edge.inventory.TestConstants.GET_MATERIAL_TYPE_BY_ID_NOT_FOUND_URL;
 import static org.folio.edge.inventory.TestConstants.GET_MATERIAL_TYPE_BY_ID_URL;
 import static org.folio.edge.inventory.TestConstants.GET_MODES_OF_ISSUANCE_URL;
@@ -520,6 +521,24 @@ class InventoryControllerIT extends BaseIntegrationTests {
   void getCampusById_shouldReturnNotFound() throws Exception {
     doGet(mockMvc, GET_CAMPUS_BY_ID_NOT_FOUND_URL)
         .andExpect(status().isNotFound());
+  }
+
+  @Test
+  void getMaterialTypes_shouldReturnMaterialTypes() throws Exception {
+    doGetWithParams(mockMvc, GET_MATERIAL_TYPES_COLLECTION_URL, LANG_PARAM_NAME, LANG_PARAM_VALID_VALUE)
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("mtypes[0].id", is("79a28446-25ed-4be6-8821-20b57cae0677")))
+        .andExpect(jsonPath("mtypes[0].name", is("Audio CD")))
+        .andExpect(jsonPath("mtypes[0].source", is("local")))
+        .andExpect(jsonPath("mtypes[1].name", is("book")))
+        .andExpect(jsonPath("totalRecords", is(2)));
+  }
+
+  @Test
+  void getMaterialTypes_shouldReturn200WithEmptyRecords_whenNoMaterialTypesFoundByQuery() throws Exception {
+    doGetWithParams(mockMvc, GET_MATERIAL_TYPES_COLLECTION_URL, QUERY_PARAM_NAME, "id==test")
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("totalRecords", is(0)));
   }
 
   @Test

@@ -32,6 +32,7 @@ public class TestConstants {
   public static final String INSTITUTION_BY_ID_PATH ="__files/responses/institution_by_id_response.json";
   public static final String CAMPUS_BY_ID_PATH ="__files/responses/campus_by_id_response.json";
   public static final String LIBRARY_BY_ID_PATH ="__files/responses/library_by_id_response.json";
+  public static final String MATERIAL_TYPES_RESPONSE_PATH ="__files/responses/material_types_response.json";
   public static final String MATERIAL_TYPE_BY_ID_PATH ="__files/responses/material_type_by_id_response.json";
   public static final String MATERIAL_TYPE_OF_MEMBER_FROM_CENTRAL_TENANT_PATH ="__files/responses/material_type_of_member_from_central_tenant_response.json";
   public static final String MATERIAL_TYPE_OF_MEMBER_FROM_CENTRAL_TENANT_NOT_FOUND_PATH ="__files/errors/not_found.json";
@@ -84,6 +85,7 @@ public class TestConstants {
   public static final String GET_ALTERNATIVE_TITLE_TYPES_URL = "/inventory/alternative-title-types";
   public static final String GET_SUBJECT_SOURCES_URL = "/inventory/subject-sources";
   public static final String GET_SUBJECT_TYPES_URL = "/inventory/subject-types";
+  public static final String GET_MATERIAL_TYPES_COLLECTION_URL = "/inventory/material-types";
   public static final String GET_MATERIAL_TYPES_URL = "/inventory/material-types/40db37f8-2500-402c-bfd1-8b4764e738d0";
   public static final String INSTITUTION_ID = "6ecd8132-caef-4f87-bbb0-9fc07d71357d";
   public static final String LIBRARY_ID = "5d78803e-ca04-4b4a-aeae-2c63b924518b";
