@@ -95,6 +95,10 @@ public class InventoryService {
     return inventoryClient.getInventoryViewInstances(requestQueryParameters, withBoundedItems);
   }
 
+  public String getMaterialTypes(RequestQueryParameters requestQueryParameters) {
+    return inventoryClient.getMaterialTypes(requestQueryParameters);
+  }
+
   public String getMaterialTypeById(String materialTypeId) {
     return inventoryClient.getMaterialTypeById(materialTypeId);
   }

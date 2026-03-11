@@ -3,6 +3,32 @@
     {
       "request": {
         "method": "GET",
+        "url": "/material-types?offset=0&limit=10&lang=en"
+      },
+      "response": {
+        "status": 200,
+        "bodyFileName": "responses/material_types_response.json",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/material-types?offset=0&query=id%3D%3Dtest&limit=10&lang=en"
+      },
+      "response": {
+        "status": 200,
+        "bodyFileName": "responses/material_types_empty_response.json",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
         "url": "/material-types/79a28446-25ed-4be6-8821-20b57cae0677"
       },
       "response": {

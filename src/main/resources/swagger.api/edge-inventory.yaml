@@ -608,6 +608,31 @@ paths:
         '500':
           $ref: '#/components/responses/internalServerErrorResponse'
 
+  /inventory/material-types:
+    get:
+      tags:
+        - materialTypes
+      operationId: getMaterialTypes
+      summary: Retrieve collection of material type items.
+      description: Retrieve collection of material type items.
+      parameters:
+        - $ref: '#/components/parameters/x-okapi-tenant-header'
+        - $ref: '#/components/parameters/x-okapi-token-header'
+        - $ref: '#/components/parameters/request-query-parameters'
+      responses:
+        '200':
+          description: |
+            Calls the mod-inventory-storage GET /material-types API and returns the result as-is. \
+            The example of response: https://github.com/folio-org/mod-inventory-storage/blob/master/ramls/examples/materialtypes.json
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          $ref: '#/components/responses/badRequestResponse'
+        '500':
+          $ref: '#/components/responses/internalServerErrorResponse'
+
   /inventory/material-types/{materialTypeId}:
     get:
       tags:
@@ -1015,6 +1040,7 @@ tags:
   - name: instanceTypes
   - name: inventoryViewInstances
   - name: alternativeTitleTypes
+  - name: materialTypes
   - name: library
   - name: sourceRecords
   - name: authoritySourceRecords

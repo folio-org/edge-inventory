@@ -183,6 +183,13 @@ public class InventoryController implements InventoryApi {
   }
 
   @Override
+  public ResponseEntity<String> getMaterialTypes(String xOkapiTenant, String xOkapiToken,
+      RequestQueryParameters requestQueryParameters) {
+    log.info("Retrieving material types by query {}", requestQueryParameters.getQuery());
+    return ResponseEntity.ok(inventoryService.getMaterialTypes(requestQueryParameters));
+  }
+
+  @Override
   public ResponseEntity<String> getMaterialTypeById(String materialTypeId, String xOkapiTenant, String xOkapiToken) {
     log.info("Retrieving material type by id {}", materialTypeId);
     if (ecsInventoryService.isCentralTenant(xOkapiTenant)) {
