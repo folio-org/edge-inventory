@@ -1,6 +1,7 @@
 {
   "mappings": [
     {
+      "priority": 1,
       "request": {
         "method": "GET",
         "urlPath": "/inventory-view/instances",
@@ -27,17 +28,13 @@
       }
     },
     {
+      "priority": 1,
       "request": {
         "method": "GET",
         "urlPath": "/inventory-view/instances",
-        "headers": {
-          "x-okapi-tenant": {
-            "equalTo": "test"
-          }
-        },
         "queryParameters": {
           "query": {
-            "contains": "f1e82a1e-fc06-4b82-bb1d-da326cb378ce"
+            "contains": "f1e82a1e-fc06-4b82-bb1d-da326cb378ce or 31fcc8e7-a019-43f4-b642-2edc389f4501"
           },
           "withBoundedItems": {
             "equalTo": "false"
@@ -93,29 +90,6 @@
       "response": {
         "status": 200,
         "bodyFileName": "responses/holdings_response.json",
-        "headers": {
-          "Content-Type": "application/json"
-        }
-      }
-    },
-    {
-      "request": {
-        "method": "GET",
-        "urlPath": "/holdings-storage/holdings",
-        "headers": {
-          "x-okapi-tenant": {
-            "equalTo": "test"
-          }
-        },
-        "queryParameters": {
-          "query": {
-            "contains": "31fcc8e7-a019-43f4-b642-2edc389f4501"
-          }
-        }
-      },
-      "response": {
-        "status": 200,
-        "body": "{}",
         "headers": {
           "Content-Type": "application/json"
         }

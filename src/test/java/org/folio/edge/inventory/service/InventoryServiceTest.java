@@ -34,18 +34,27 @@ import static org.folio.edge.inventory.TestConstants.SOURCE_RECORD_RESPONSE_PATH
 import static org.folio.edge.inventory.TestConstants.VALID_AUTHORITY_ID;
 import static org.folio.edge.inventory.TestConstants.VALID_INSTANCE_ID;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyMap;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.isNull;
+import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.when;
 
+import java.util.Collections;
 import org.folio.edge.inventory.TestUtil;
 import org.folio.edge.inventory.client.InventoryClient;
+import org.folio.edge.inventory.service.mapper.RequestQueryParametersMapper;
 import org.folio.inventory.domain.dto.RequestQueryParameters;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ObjectMapper;
 
 @ExtendWith(MockitoExtension.class)
 class InventoryServiceTest {
@@ -58,17 +67,27 @@ class InventoryServiceTest {
   private static final String TOTAL_RECORDS = "totalRecords";
   private static final String EFFECTIVE_SHELVING_ORDER = "effectiveShelvingOrder";
 
-  @InjectMocks
   private InventoryService inventoryService;
   @Mock
   private InventoryClient inventoryClient;
+  @Mock
+  private RequestQueryParametersMapper requestQueryParametersMapper;
+
+  @BeforeEach
+  void setUp() {
+    inventoryService = new InventoryService(inventoryClient, requestQueryParametersMapper);
+    var emptyQueryMap = Collections.emptyMap();
+    lenient().doReturn(emptyQueryMap)
+        .when(requestQueryParametersMapper).toMap(any(RequestQueryParameters.class));
+    lenient().doReturn(emptyQueryMap)
+        .when(requestQueryParametersMapper).toMap(isNull());
+  }
 
   @Test
   void getInstanceById_shouldReturnInstance() throws JSONException {
-    String expectedInventoryContent = TestUtil.readFileContentFromResources(INSTANCE_RESPONSE_PATH);
     when(inventoryClient
         .getInstance(VALID_INSTANCE_ID, LANG_PARAM_VALID_VALUE))
-        .thenReturn(expectedInventoryContent);
+        .thenReturn(jsonNode(INSTANCE_RESPONSE_PATH));
 
     JSONObject actualInstance = new JSONObject(inventoryService.getInstance(VALID_INSTANCE_ID, LANG_PARAM_VALID_VALUE));
 
@@ -80,10 +99,9 @@ class InventoryServiceTest {
 
   @Test
   void getAuthorityById_shouldReturnAuthority() throws JSONException {
-    String expectedInventoryContent = TestUtil.readFileContentFromResources(AUTHORITY_RESPONSE_PATH);
     when(inventoryClient
         .getAuthority(VALID_AUTHORITY_ID))
-        .thenReturn(expectedInventoryContent);
+        .thenReturn(jsonNode(AUTHORITY_RESPONSE_PATH));
 
     JSONObject actualAuthority = new JSONObject(inventoryService.getAuthority(VALID_AUTHORITY_ID));
 
@@ -95,11 +113,10 @@ class InventoryServiceTest {
 
   @Test
   void getHoldings_shouldReturnHoldings() throws JSONException {
-    String expectedHoldings = TestUtil.readFileContentFromResources(HOLDINGS_RESPONSE_PATH);
     RequestQueryParameters requestQueryParameters = new RequestQueryParameters();
     when(inventoryClient
-        .getHoldings(requestQueryParameters))
-        .thenReturn(expectedHoldings);
+        .getHoldings(anyMap()))
+        .thenReturn(jsonNode(HOLDINGS_RESPONSE_PATH));
 
     JSONObject holdings = new JSONObject(inventoryService.getHoldings(requestQueryParameters));
     JSONObject actualHoldongs = holdings.getJSONArray("holdingsRecords").getJSONObject(0);
@@ -112,11 +129,10 @@ class InventoryServiceTest {
 
   @Test
   void getIdentifierTypes_shouldReturnIdentifierTypes() throws JSONException {
-    String expectedIdentifierTypesContent = TestUtil.readFileContentFromResources(IDENTIFIER_TYPES_RESPONSE_PATH);
     RequestQueryParameters requestQueryParameters = new RequestQueryParameters();
     when(inventoryClient
-        .getIdentifierTypes(requestQueryParameters))
-        .thenReturn(expectedIdentifierTypesContent);
+        .getIdentifierTypes(anyMap()))
+        .thenReturn(jsonNode(IDENTIFIER_TYPES_RESPONSE_PATH));
 
     JSONObject identifierTypes = new JSONObject(inventoryService.getIdentifierTypes(requestQueryParameters))
         .getJSONArray("identifierTypes").getJSONObject(0);
@@ -128,12 +144,10 @@ class InventoryServiceTest {
 
   @Test
   void getClassificationTypes_shouldReturnClassificationTypes() throws JSONException {
-    String expectedClassificationTypesContent = TestUtil.readFileContentFromResources(
-        CLASSIFICATION_TYPES_RESPONSE_PATH);
     RequestQueryParameters requestQueryParameters = new RequestQueryParameters();
     when(inventoryClient
-        .getClassificationTypes(requestQueryParameters))
-        .thenReturn(expectedClassificationTypesContent);
+        .getClassificationTypes(anyMap()))
+        .thenReturn(jsonNode(CLASSIFICATION_TYPES_RESPONSE_PATH));
 
     JSONObject classificationTypes = new JSONObject(inventoryService.getClassificationTypes(requestQueryParameters))
         .getJSONArray("classificationTypes").getJSONObject(0);
@@ -145,11 +159,10 @@ class InventoryServiceTest {
 
   @Test
   void getContributorTypes_shouldReturnContributorTypes() throws JSONException {
-    String expectedContributorTypesContent = TestUtil.readFileContentFromResources(CONTRIBUTOR_TYPES_RESPONSE_PATH);
     RequestQueryParameters requestQueryParameters = new RequestQueryParameters();
     when(inventoryClient
-        .getContributorTypes(requestQueryParameters))
-        .thenReturn(expectedContributorTypesContent);
+        .getContributorTypes(anyMap()))
+        .thenReturn(jsonNode(CONTRIBUTOR_TYPES_RESPONSE_PATH));
 
     JSONObject contributorTypes = new JSONObject(inventoryService.getContributorTypes(requestQueryParameters))
         .getJSONArray("contributorTypes").getJSONObject(0);
@@ -162,9 +175,8 @@ class InventoryServiceTest {
 
   @Test
   void getContributorNameTypes_shouldReturnContributorNameTypes() throws JSONException {
-    String expectedContent = TestUtil.readFileContentFromResources(CONTRIBUTOR_NAME_TYPES_RESPONSE_PATH);
     RequestQueryParameters requestQueryParameters = new RequestQueryParameters();
-    when(inventoryClient.getContributorNameTypes(requestQueryParameters)).thenReturn(expectedContent);
+    when(inventoryClient.getContributorNameTypes(anyMap())).thenReturn(jsonNode(CONTRIBUTOR_NAME_TYPES_RESPONSE_PATH));
 
     JSONObject contributorNameType = new JSONObject(inventoryService.getContributorNameTypes(requestQueryParameters))
         .getJSONArray("contributorNameTypes").getJSONObject(0);
@@ -176,11 +188,10 @@ class InventoryServiceTest {
 
   @Test
   void getLocations_shouldReturnLocations() throws JSONException {
-    String expectedLocationsContent = TestUtil.readFileContentFromResources(LOCATIONS_RESPONSE_PATH);
     RequestQueryParameters requestQueryParameters = new RequestQueryParameters();
     when(inventoryClient
-        .getLocations(requestQueryParameters))
-        .thenReturn(expectedLocationsContent);
+        .getLocations(anyMap()))
+        .thenReturn(jsonNode(LOCATIONS_RESPONSE_PATH));
 
     JSONObject locations = new JSONObject(inventoryService.getLocations(requestQueryParameters))
         .getJSONArray("locations").getJSONObject(0);
@@ -192,11 +203,10 @@ class InventoryServiceTest {
 
   @Test
   void getServicePoints_shouldReturnServicePoints() throws JSONException {
-    String expectedServicePointsContent = TestUtil.readFileContentFromResources(SERVICE_POINTS_RESPONSE_PATH);
     RequestQueryParameters requestQueryParameters = new RequestQueryParameters();
     when(inventoryClient
-        .getServicePoints(requestQueryParameters))
-        .thenReturn(expectedServicePointsContent);
+        .getServicePoints(anyMap()))
+        .thenReturn(jsonNode(SERVICE_POINTS_RESPONSE_PATH));
 
     JSONObject servicePoints = new JSONObject(inventoryService.getServicePoints(requestQueryParameters))
         .getJSONArray("servicepoints").getJSONObject(0);
@@ -208,11 +218,10 @@ class InventoryServiceTest {
 
   @Test
   void getNatureOfContentTerms_shouldReturnNatureOfContentTerms() throws JSONException {
-    String expectedNatureOfContentTerms = TestUtil.readFileContentFromResources(NATURE_OF_CONTENT_TERMS_RESPONSE_PATH);
     RequestQueryParameters requestQueryParameters = new RequestQueryParameters();
     when(inventoryClient
-        .getNatureOfContentTerms(requestQueryParameters))
-        .thenReturn(expectedNatureOfContentTerms);
+        .getNatureOfContentTerms(anyMap()))
+        .thenReturn(jsonNode(NATURE_OF_CONTENT_TERMS_RESPONSE_PATH));
 
     JSONObject natureOfContentTermsResponse = new JSONObject(
         inventoryService.getNatureOfContentTerms(requestQueryParameters));
@@ -227,11 +236,10 @@ class InventoryServiceTest {
 
   @Test
   void getModesOfIssuance_shouldReturnModesOfIssuance() throws JSONException {
-    String expectedModesOfIssuance = TestUtil.readFileContentFromResources(MODES_OF_ISSUANCE_RESPONSE_PATH);
     RequestQueryParameters requestQueryParameters = new RequestQueryParameters();
     when(inventoryClient
-        .getModesOfIssuance(requestQueryParameters))
-        .thenReturn(expectedModesOfIssuance);
+        .getModesOfIssuance(anyMap()))
+        .thenReturn(jsonNode(MODES_OF_ISSUANCE_RESPONSE_PATH));
 
     JSONObject modesOfIssuance = new JSONObject(inventoryService.getModesOfIssuance(requestQueryParameters));
     JSONObject actualNatureOfContentTerm = modesOfIssuance.getJSONArray("issuanceModes").getJSONObject(0);
@@ -244,11 +252,10 @@ class InventoryServiceTest {
 
   @Test
   void getInstanceFormats_shouldReturnInstanceFormats() throws JSONException {
-    String expectedInstanceFormatsResponse = TestUtil.readFileContentFromResources(INSTANCE_FORMATS_RESPONSE_PATH);
     RequestQueryParameters requestQueryParameters = new RequestQueryParameters();
     when(inventoryClient
-        .getInstanceFormats(requestQueryParameters))
-        .thenReturn(expectedInstanceFormatsResponse);
+        .getInstanceFormats(anyMap()))
+        .thenReturn(jsonNode(INSTANCE_FORMATS_RESPONSE_PATH));
 
     JSONObject instanceFormats = new JSONObject(inventoryService.getInstanceFormats(requestQueryParameters));
     JSONObject actualInstanceFormat = instanceFormats.getJSONArray("instanceFormats").getJSONObject(0);
@@ -261,11 +268,10 @@ class InventoryServiceTest {
 
   @Test
   void getItems_shouldReturnItems() throws JSONException {
-    String expectedInstanceFormatsResponse = TestUtil.readFileContentFromResources(ITEMS_RESPONSE_PATH);
     RequestQueryParameters requestQueryParameters = new RequestQueryParameters();
     when(inventoryClient
-        .getItems(requestQueryParameters))
-        .thenReturn(expectedInstanceFormatsResponse);
+        .getItems(anyMap()))
+        .thenReturn(jsonNode(ITEMS_RESPONSE_PATH));
 
     JSONObject itemsJson = new JSONObject(inventoryService.getItems(requestQueryParameters));
     JSONObject items = itemsJson.getJSONArray("items").getJSONObject(0);
@@ -277,11 +283,10 @@ class InventoryServiceTest {
 
   @Test
   void getInstanceTypes_shouldReturnInstanceTypes() throws JSONException {
-    String expectedInstanceFormatsResponse = TestUtil.readFileContentFromResources(INSTANCE_TYPES_RESPONSE_PATH);
     RequestQueryParameters requestQueryParameters = new RequestQueryParameters();
     when(inventoryClient
-        .getInstanceTypes(requestQueryParameters))
-        .thenReturn(expectedInstanceFormatsResponse);
+        .getInstanceTypes(anyMap()))
+        .thenReturn(jsonNode(INSTANCE_TYPES_RESPONSE_PATH));
 
     JSONObject itemsJson = new JSONObject(inventoryService.getInstanceTypes(requestQueryParameters));
     JSONObject firstInstanceType = itemsJson.getJSONArray("instanceTypes").getJSONObject(0);
@@ -300,11 +305,10 @@ class InventoryServiceTest {
 
   @Test
   void getInstanceNoteTypes_shouldReturnInstanceNoteTypes() throws JSONException {
-    String expectedInstanceNoteTypesResponse = TestUtil.readFileContentFromResources(INSTANCE_NOTE_TYPES_RESPONSE_PATH);
     RequestQueryParameters requestQueryParameters = new RequestQueryParameters();
     when(inventoryClient
-        .getInstanceNoteTypes(requestQueryParameters))
-        .thenReturn(expectedInstanceNoteTypesResponse);
+        .getInstanceNoteTypes(anyMap()))
+        .thenReturn(jsonNode(INSTANCE_NOTE_TYPES_RESPONSE_PATH));
 
     JSONObject itemsJson = new JSONObject(inventoryService.getInstanceNoteTypes(requestQueryParameters));
     JSONObject firstInstanceType = itemsJson.getJSONArray("instanceNoteTypes").getJSONObject(0);
@@ -321,11 +325,10 @@ class InventoryServiceTest {
 
   @Test
   void getAlternativeTitleTypes_shouldReturnAlternativeTitleTypes() throws JSONException {
-    String expectedInstanceFormatsResponse = TestUtil.readFileContentFromResources(GET_ALTERNATIVE_TITLE_TYPES_PATH);
     RequestQueryParameters requestQueryParameters = new RequestQueryParameters();
     when(inventoryClient
-        .getAlternativeTitleTypes(requestQueryParameters))
-        .thenReturn(expectedInstanceFormatsResponse);
+        .getAlternativeTitleTypes(anyMap()))
+        .thenReturn(jsonNode(GET_ALTERNATIVE_TITLE_TYPES_PATH));
 
     JSONObject itemsJson = new JSONObject(inventoryService.getAlternativeTitleTypes(requestQueryParameters));
     JSONObject firstAlternativeTitleTypes = itemsJson.getJSONArray("alternativeTitleTypes").getJSONObject(0);
@@ -343,11 +346,10 @@ class InventoryServiceTest {
 
   @Test
   void getInventoryViewInstances_shouldReturnInventoryViewInstances() throws JSONException {
-    String expectedInstanceFormatsResponse = TestUtil.readFileContentFromResources(GET_VIEW_INSTANCES_PATH);
     RequestQueryParameters requestQueryParameters = new RequestQueryParameters();
     when(inventoryClient
-        .getInventoryViewInstances(requestQueryParameters, false))
-        .thenReturn(expectedInstanceFormatsResponse);
+        .getInventoryViewInstances(anyMap(), eq(false)))
+        .thenReturn(jsonNode(GET_VIEW_INSTANCES_PATH));
 
     JSONObject itemsJson = new JSONObject(inventoryService.getInventoryViewInstances(requestQueryParameters, false));
     JSONObject firstViewInstance = itemsJson.getJSONArray("instances").getJSONObject(0);
@@ -362,10 +364,9 @@ class InventoryServiceTest {
 
   @Test
   void getInstitutionById_shouldReturnInstitution() throws JSONException {
-    String expectedInstitutionResponse = TestUtil.readFileContentFromResources(INSTITUTION_BY_ID_PATH);
     when(inventoryClient
         .getInstitutionById(INSTITUTION_ID))
-        .thenReturn(expectedInstitutionResponse);
+        .thenReturn(jsonNode(INSTITUTION_BY_ID_PATH));
 
     JSONObject institutionJson = new JSONObject(inventoryService.getInstitutionById(INSTITUTION_ID));
 
@@ -376,10 +377,9 @@ class InventoryServiceTest {
 
   @Test
   void getLibraryById_shouldReturnLibrary() throws JSONException {
-    String expectedLibraryResponse = TestUtil.readFileContentFromResources(LIBRARY_BY_ID_PATH);
     when(inventoryClient
         .getLibraryById(LIBRARY_ID))
-        .thenReturn(expectedLibraryResponse);
+        .thenReturn(jsonNode(LIBRARY_BY_ID_PATH));
 
     JSONObject libraryJson = new JSONObject(inventoryService.getLibraryById(LIBRARY_ID));
 
@@ -391,10 +391,9 @@ class InventoryServiceTest {
 
   @Test
   void getCampusById_shouldReturnCampus() throws JSONException {
-    String expectedCampusResponse = TestUtil.readFileContentFromResources(CAMPUS_BY_ID_PATH);
     when(inventoryClient
         .getCampusById(CAMPUS_ID))
-        .thenReturn(expectedCampusResponse);
+        .thenReturn(jsonNode(CAMPUS_BY_ID_PATH));
 
     JSONObject campusJson = new JSONObject(inventoryService.getCampusById(CAMPUS_ID));
 
@@ -406,9 +405,8 @@ class InventoryServiceTest {
 
   @Test
   void getMaterialTypes_shouldReturnMaterialTypes() throws JSONException {
-    String expectedMaterialTypesContent = TestUtil.readFileContentFromResources(MATERIAL_TYPES_RESPONSE_PATH);
     RequestQueryParameters requestQueryParameters = new RequestQueryParameters();
-    when(inventoryClient.getMaterialTypes(requestQueryParameters)).thenReturn(expectedMaterialTypesContent);
+    when(inventoryClient.getMaterialTypes(anyMap())).thenReturn(jsonNode(MATERIAL_TYPES_RESPONSE_PATH));
 
     JSONObject materialTypes = new JSONObject(inventoryService.getMaterialTypes(requestQueryParameters));
     JSONObject firstMaterialType = materialTypes.getJSONArray("mtypes").getJSONObject(0);
@@ -421,10 +419,9 @@ class InventoryServiceTest {
 
   @Test
   void getMaterialTypeById_shouldReturnMaterialType() throws JSONException {
-    String expectedMaterialTypeResponse = TestUtil.readFileContentFromResources(MATERIAL_TYPE_BY_ID_PATH);
     when(inventoryClient
         .getMaterialTypeById(MATERIAL_TYPE_ID))
-        .thenReturn(expectedMaterialTypeResponse);
+        .thenReturn(jsonNode(MATERIAL_TYPE_BY_ID_PATH));
 
     JSONObject materialTypeJson = new JSONObject(inventoryService.getMaterialTypeById(MATERIAL_TYPE_ID));
 
@@ -435,13 +432,12 @@ class InventoryServiceTest {
 
   @Test
   void getSourceRecordById_shouldReturnSourceRecord() throws JSONException {
-    String expectedSourceRecord = TestUtil.readFileContentFromResources(SOURCE_RECORD_RESPONSE_PATH);
+    JSONObject expected = new JSONObject(TestUtil.readFileContentFromResources(SOURCE_RECORD_RESPONSE_PATH));
     when(inventoryClient
         .getSourceRecords(VALID_INSTANCE_ID))
-        .thenReturn(expectedSourceRecord);
+        .thenReturn(jsonNode(SOURCE_RECORD_RESPONSE_PATH));
 
-    JSONObject expected = new JSONObject(expectedSourceRecord);
-    JSONObject actual = new JSONObject(inventoryClient.getSourceRecords(VALID_INSTANCE_ID));
+    JSONObject actual = new JSONObject(inventoryService.getSourceRecords(VALID_INSTANCE_ID));
 
     assertEquals(VALID_INSTANCE_ID, actual.get("id"));
     assertEquals("11a796d5-923d-42a6-b9ad-733a4a10b2d9", actual.get("snapshotId"));
@@ -455,13 +451,12 @@ class InventoryServiceTest {
 
   @Test
   void getAuthoritySourceRecordById_shouldReturnAuthoritySourceRecord() throws JSONException {
-    String expectedSourceRecord = TestUtil.readFileContentFromResources(AUTHORITY_SOURCE_RECORD_RESPONSE_PATH);
+    JSONObject expected = new JSONObject(TestUtil.readFileContentFromResources(AUTHORITY_SOURCE_RECORD_RESPONSE_PATH));
     when(inventoryClient
         .getAuthoritySourceRecords(VALID_AUTHORITY_ID))
-        .thenReturn(expectedSourceRecord);
+        .thenReturn(jsonNode(AUTHORITY_SOURCE_RECORD_RESPONSE_PATH));
 
-    JSONObject expected = new JSONObject(expectedSourceRecord);
-    JSONObject actual = new JSONObject(inventoryClient.getAuthoritySourceRecords(VALID_AUTHORITY_ID));
+    JSONObject actual = new JSONObject(inventoryService.getAuthoritySourceRecords(VALID_AUTHORITY_ID));
 
     assertEquals("73f57292-6c90-4a4e-8b16-21cf383a62b5", actual.get("id"));
     assertEquals("e82ffbaa-49d3-4f07-a8fa-1ea660cde325", actual.get("snapshotId"));
@@ -474,11 +469,10 @@ class InventoryServiceTest {
 
   @Test
   void getSubjectSources_shouldReturnSubjectSources() throws JSONException {
-    String expectedInstanceFormatsResponse = TestUtil.readFileContentFromResources(GET_SUBJECT_SOURCES_PATH);
     RequestQueryParameters requestQueryParameters = new RequestQueryParameters();
     when(inventoryClient
-        .getSubjectSources(requestQueryParameters))
-        .thenReturn(expectedInstanceFormatsResponse);
+        .getSubjectSources(anyMap()))
+        .thenReturn(jsonNode(GET_SUBJECT_SOURCES_PATH));
 
     JSONObject itemsJson = new JSONObject(inventoryService.getSubjectSources(requestQueryParameters));
     JSONObject firstSubjectSource = itemsJson.getJSONArray("subjectSources").getJSONObject(0);
@@ -499,11 +493,10 @@ class InventoryServiceTest {
 
   @Test
   void getSubjectTypes_shouldReturnSubjectTypes() throws JSONException {
-    String expectedInstanceFormatsResponse = TestUtil.readFileContentFromResources(GET_SUBJECT_TYPES_PATH);
     RequestQueryParameters requestQueryParameters = new RequestQueryParameters();
     when(inventoryClient
-        .getSubjectTypes(requestQueryParameters))
-        .thenReturn(expectedInstanceFormatsResponse);
+        .getSubjectTypes(anyMap()))
+        .thenReturn(jsonNode(GET_SUBJECT_TYPES_PATH));
 
     JSONObject itemsJson = new JSONObject(inventoryService.getSubjectTypes(requestQueryParameters));
     JSONObject firstSubjectType = itemsJson.getJSONArray("subjectTypes").getJSONObject(0);
@@ -520,5 +513,9 @@ class InventoryServiceTest {
     assertEquals("6e09d47d-95e2-4d8a-831b-f777b8ef6d99", thirdSubjectType.get(ID));
     assertEquals("Phone number", thirdSubjectType.get(NAME));
     assertEquals("local", thirdSubjectType.get(SOURCE));
+  }
+
+  private JsonNode jsonNode(String resourcePath) {
+    return new ObjectMapper().readTree(TestUtil.readFileContentFromResources(resourcePath));
   }
 }

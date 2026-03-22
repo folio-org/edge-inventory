@@ -3,17 +3,18 @@ package org.folio.edge.inventory.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.folio.edge.inventory.client.DataExportClient;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClient;
 
 @Service
 @RequiredArgsConstructor
 @Log4j2
 public class DataExportService {
 
-  private final DataExportClient dataExportClient;
+  private final RestClient dataExportRestClient;
 
   /**
    * Downloads the authority data for a given authority ID.
@@ -23,7 +24,7 @@ public class DataExportService {
    * @return A ResponseEntity containing the downloaded authority data as a Resource.
    */
   public ResponseEntity<Resource> downloadAuthority(String authorityId, boolean isUtf, Boolean suppress999ff){
-    return dataExportClient.downloadRecord(authorityId, isUtf, "AUTHORITY", suppress999ff);
+    return downloadRecord(authorityId, isUtf, "AUTHORITY", suppress999ff);
   }
 
   /**
@@ -34,6 +35,20 @@ public class DataExportService {
    * @return A ResponseEntity containing the downloaded instance data as a Resource.
    */
   public ResponseEntity<Resource> downloadInstance(String instanceId, boolean isUtf){
-    return dataExportClient.downloadRecord(instanceId, isUtf, "INSTANCE", false);
+    return downloadRecord(instanceId, isUtf, "INSTANCE", false);
+  }
+
+  private ResponseEntity<Resource> downloadRecord(String recordId, boolean isUtf, String idType, Boolean suppress999ff) {
+    return dataExportRestClient.get()
+        .uri(uriBuilder -> uriBuilder
+            .path("/download-record/{recordId}")
+            .queryParam("utf", isUtf)
+            .queryParam("idType", idType)
+            .queryParam("suppress999ff", suppress999ff)
+            .build(recordId))
+        .exchange((request, response) -> ResponseEntity
+            .status(response.getStatusCode())
+            .headers(response.getHeaders())
+            .body(new ByteArrayResource(response.getBody().readAllBytes())));
   }
 }

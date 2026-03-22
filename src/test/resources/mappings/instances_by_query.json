@@ -3,7 +3,13 @@
     {
       "request": {
         "method": "GET",
-        "url": "/inventory/instances?offset=0&query=id%3D%3D5b1eb450-ff9f-412d-a9e7-887f6eaeb5b4&limit=10&lang=en"
+        "urlPath": "/inventory/instances",
+        "queryParameters": {
+          "offset": { "equalTo": "0" },
+          "query": { "equalTo": "id==5b1eb450-ff9f-412d-a9e7-887f6eaeb5b4" },
+          "limit": { "equalTo": "10" },
+          "lang": { "equalTo": "en" }
+        }
       },
       "response": {
         "status": 200,
@@ -16,7 +22,13 @@
     {
       "request": {
         "method": "GET",
-        "url": "/inventory/instances?offset=0&query=id%3D%3D5b1eb450-ff9f-412d-a9e7-887f6eaeb5b0&limit=10&lang=en"
+        "urlPath": "/inventory/instances",
+        "queryParameters": {
+          "offset": { "equalTo": "0" },
+          "query": { "equalTo": "id==5b1eb450-ff9f-412d-a9e7-887f6eaeb5b0" },
+          "limit": { "equalTo": "10" },
+          "lang": { "equalTo": "en" }
+        }
       },
       "response": {
         "status": 200,

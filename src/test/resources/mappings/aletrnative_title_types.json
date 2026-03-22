@@ -3,7 +3,12 @@
     {
       "request": {
         "method": "GET",
-        "url": "/alternative-title-types?offset=0&limit=10&lang=en"
+        "urlPath": "/alternative-title-types",
+        "queryParameters": {
+          "offset": { "equalTo": "0" },
+          "limit": { "equalTo": "10" },
+          "lang": { "equalTo": "en" }
+        }
       },
       "response": {
         "status": 200,

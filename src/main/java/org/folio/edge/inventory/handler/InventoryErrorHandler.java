@@ -1,6 +1,5 @@
 package org.folio.edge.inventory.handler;
 
-import feign.FeignException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.log4j.Log4j2;
@@ -9,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.client.RestClientResponseException;
 
 @Log4j2
 @RestControllerAdvice
@@ -21,11 +21,11 @@ public class InventoryErrorHandler {
         .body(errorResponse);
   }
 
-  @ExceptionHandler(FeignException.class)
-  public ResponseEntity<Error> handleFeignException(FeignException exception) {
-    String properErrorMessage = exception.contentUTF8();
-    Error errorResponse = buildErrorResponse(exception.status(), properErrorMessage);
-    return ResponseEntity.status(exception.status())
+  @ExceptionHandler(RestClientResponseException.class)
+  public ResponseEntity<Error> handleRestClientResponseException(RestClientResponseException exception) {
+    String properErrorMessage = exception.getResponseBodyAsString();
+    Error errorResponse = buildErrorResponse(exception.getStatusCode().value(), properErrorMessage);
+    return ResponseEntity.status(exception.getStatusCode())
         .body(errorResponse);
   }
 

@@ -3,7 +3,12 @@
     {
       "request": {
         "method": "GET",
-        "url": "/modes-of-issuance?offset=0&limit=10&lang=en"
+        "urlPath": "/modes-of-issuance",
+        "queryParameters": {
+          "offset": { "equalTo": "0" },
+          "limit": { "equalTo": "10" },
+          "lang": { "equalTo": "en" }
+        }
       },
       "response": {
         "status": 200,
@@ -16,7 +21,13 @@
     {
       "request": {
         "method": "GET",
-        "url": "/modes-of-issuance?offset=0&query=id%3D%3Dtest&limit=10&lang=en"
+        "urlPath": "/modes-of-issuance",
+        "queryParameters": {
+          "offset": { "equalTo": "0" },
+          "query": { "equalTo": "id==test" },
+          "limit": { "equalTo": "10" },
+          "lang": { "equalTo": "en" }
+        }
       },
       "response": {
         "status": 200,

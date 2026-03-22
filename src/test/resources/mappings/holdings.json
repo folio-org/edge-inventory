@@ -3,7 +3,29 @@
     {
       "request": {
         "method": "GET",
-        "url": "/holdings-storage/holdings?offset=0&limit=10&lang=en"
+        "urlPath": "/holdings-storage/holdings",
+        "queryParameters": {
+          "query": { "contains": "31fcc8e7-a019-43f4-b642-2edc389f4501" }
+        }
+      },
+      "response": {
+        "status": 200,
+        "bodyFileName": "responses/holdings_empty_response.json",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "urlPath": "/holdings-storage/holdings",
+        "queryParameters": {
+          "query": { "doesNotMatch": "instanceId==31fcc8e7-a019-43f4-b642-2edc389f4501%20not%20discoverySuppress==true" },
+          "offset": { "equalTo": "0" },
+          "limit": { "equalTo": "10" },
+          "lang": { "equalTo": "en" }
+        }
       },
       "response": {
         "status": 200,
@@ -16,7 +38,13 @@
     {
       "request": {
         "method": "GET",
-        "url": "/holdings-storage/holdings?offset=0&query=id%3D%3Dtest&limit=10&lang=en"
+        "urlPath": "/holdings-storage/holdings",
+        "queryParameters": {
+          "offset": { "equalTo": "0" },
+          "query": { "equalTo": "id==test" },
+          "limit": { "equalTo": "10" },
+          "lang": { "equalTo": "en" }
+        }
       },
       "response": {
         "status": 200,

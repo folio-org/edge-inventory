@@ -1,121 +1,121 @@
 package org.folio.edge.inventory.client;
 
-import org.folio.edge.inventory.config.InventoryClientConfig;
+import java.util.Map;
 import org.folio.spring.integration.XOkapiHeaders;
-import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.cloud.openfeign.SpringQueryMap;
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
+import tools.jackson.databind.JsonNode;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.service.annotation.GetExchange;
+import org.springframework.web.service.annotation.HttpExchange;
 
-@FeignClient(name = "inventory", configuration = InventoryClientConfig.class)
+@HttpExchange(contentType = "application/json")
 public interface InventoryClient {
 
-  @GetMapping(value = "/inventory/instances/{instanceId}", consumes = MediaType.APPLICATION_JSON_VALUE)
-  String getInstance(@PathVariable("instanceId") String instanceId, @RequestParam String lang);
+  @GetExchange("inventory/instances/{instanceId}")
+  JsonNode getInstance(@PathVariable("instanceId") String instanceId, @RequestParam String lang);
 
-  @GetMapping(value = "/inventory/instances", consumes = MediaType.APPLICATION_JSON_VALUE)
-  String getInstancesByQuery(@SpringQueryMap Object requestQueryParameters);
+  @GetExchange("inventory/instances")
+  JsonNode getInstancesByQuery(@RequestParam Map<String, ?> requestQueryParameters);
 
-  @GetMapping(value = "/holdings-storage/holdings", consumes = MediaType.APPLICATION_JSON_VALUE)
-  String getHoldings(@SpringQueryMap Object requestQueryParameters);
+  @GetExchange("holdings-storage/holdings")
+  JsonNode getHoldings(@RequestParam Map<String, ?> requestQueryParameters);
 
-  @GetMapping(value = "/holdings-storage/holdings", consumes = MediaType.APPLICATION_JSON_VALUE)
-  String getHoldings(@SpringQueryMap Object requestQueryParameters,
+  @GetExchange("holdings-storage/holdings")
+  JsonNode getHoldings(@RequestParam Map<String, ?> requestQueryParameters,
       @RequestHeader(XOkapiHeaders.TENANT) String tenantId);
 
-  @GetMapping(value = "/identifier-types", consumes = MediaType.APPLICATION_JSON_VALUE)
-  String getIdentifierTypes(@SpringQueryMap Object requestQueryParameters);
+  @GetExchange("identifier-types")
+  JsonNode getIdentifierTypes(@RequestParam Map<String, ?> requestQueryParameters);
 
-  @GetMapping(value = "/locations", consumes = MediaType.APPLICATION_JSON_VALUE)
-  String getLocations(@SpringQueryMap Object requestQueryParameters);
+  @GetExchange("locations")
+  JsonNode getLocations(@RequestParam Map<String, ?> requestQueryParameters);
 
-  @GetMapping(value = "/locations/{locationId}", consumes = MediaType.APPLICATION_JSON_VALUE)
-  String getLocationById(@PathVariable("locationId") String locationId);
+  @GetExchange("locations/{locationId}")
+  JsonNode getLocationById(@PathVariable("locationId") String locationId);
 
-  @GetMapping(value = "/location-units/institutions/{institutionId}", consumes = MediaType.APPLICATION_JSON_VALUE)
-  String getInstitutionById(@PathVariable("institutionId") String institutionId);
+  @GetExchange("location-units/institutions/{institutionId}")
+  JsonNode getInstitutionById(@PathVariable("institutionId") String institutionId);
 
-  @GetMapping(value = "/location-units/libraries/{libraryId}", consumes = MediaType.APPLICATION_JSON_VALUE)
-  String getLibraryById(@PathVariable("libraryId") String libraryId);
+  @GetExchange("location-units/libraries/{libraryId}")
+  JsonNode getLibraryById(@PathVariable("libraryId") String libraryId);
 
-  @GetMapping(value = "/location-units/campuses/{campusId}", consumes = MediaType.APPLICATION_JSON_VALUE)
-  String getCampusById(@PathVariable("campusId") String campusId);
+  @GetExchange("location-units/campuses/{campusId}")
+  JsonNode getCampusById(@PathVariable("campusId") String campusId);
 
-  @GetMapping(value = "/service-points", consumes = MediaType.APPLICATION_JSON_VALUE)
-  String getServicePoints(@SpringQueryMap Object requestQueryParameters);
+  @GetExchange("service-points")
+  JsonNode getServicePoints(@RequestParam Map<String, ?> requestQueryParameters);
 
-  @GetMapping(value = "/nature-of-content-terms", consumes = MediaType.APPLICATION_JSON_VALUE)
-  String getNatureOfContentTerms(@SpringQueryMap Object requestQueryParameters);
+  @GetExchange("nature-of-content-terms")
+  JsonNode getNatureOfContentTerms(@RequestParam Map<String, ?> requestQueryParameters);
 
-  @GetMapping(value = "/modes-of-issuance", consumes = MediaType.APPLICATION_JSON_VALUE)
-  String getModesOfIssuance(@SpringQueryMap Object requestQueryParameters);
+  @GetExchange("modes-of-issuance")
+  JsonNode getModesOfIssuance(@RequestParam Map<String, ?> requestQueryParameters);
 
-  @GetMapping(value = "/instance-formats", consumes = MediaType.APPLICATION_JSON_VALUE)
-  String getInstanceFormats(@SpringQueryMap Object requestQueryParameters);
+  @GetExchange("instance-formats")
+  JsonNode getInstanceFormats(@RequestParam Map<String, ?> requestQueryParameters);
 
-  @GetMapping(value = "/inventory/items", consumes = MediaType.APPLICATION_JSON_VALUE)
-  String getItems(@SpringQueryMap Object requestQueryParameters);
+  @GetExchange("inventory/items")
+  JsonNode getItems(@RequestParam Map<String, ?> requestQueryParameters);
 
-  @GetMapping(value = "/inventory/items", consumes = MediaType.APPLICATION_JSON_VALUE)
-  String getItems(@SpringQueryMap Object requestQueryParameters, @RequestHeader(XOkapiHeaders.TENANT) String tenantId);
+  @GetExchange("inventory/items")
+  JsonNode getItems(@RequestParam Map<String, ?> requestQueryParameters,
+      @RequestHeader(XOkapiHeaders.TENANT) String tenantId);
 
-  @GetMapping(value = "/instance-types", consumes = MediaType.APPLICATION_JSON_VALUE)
-  String getInstanceTypes(@SpringQueryMap Object requestQueryParameters);
+  @GetExchange("instance-types")
+  JsonNode getInstanceTypes(@RequestParam Map<String, ?> requestQueryParameters);
 
-  @GetMapping(value = "/classification-types", consumes = MediaType.APPLICATION_JSON_VALUE)
-  String getClassificationTypes(@SpringQueryMap Object requestQueryParameters);
+  @GetExchange("classification-types")
+  JsonNode getClassificationTypes(@RequestParam Map<String, ?> requestQueryParameters);
 
-  @GetMapping(value = "/contributor-types", consumes = MediaType.APPLICATION_JSON_VALUE)
-  String getContributorTypes(@SpringQueryMap Object requestQueryParameters);
+  @GetExchange("contributor-types")
+  JsonNode getContributorTypes(@RequestParam Map<String, ?> requestQueryParameters);
 
-  @GetMapping(value = "/contributor-name-types", consumes = MediaType.APPLICATION_JSON_VALUE)
-  String getContributorNameTypes(@SpringQueryMap Object requestQueryParameters);
+  @GetExchange("contributor-name-types")
+  JsonNode getContributorNameTypes(@RequestParam Map<String, ?> requestQueryParameters);
 
-  @GetMapping(value = "/instance-note-types", consumes = MediaType.APPLICATION_JSON_VALUE)
-  String getInstanceNoteTypes(@SpringQueryMap Object requestQueryParameters);
+  @GetExchange("instance-note-types")
+  JsonNode getInstanceNoteTypes(@RequestParam Map<String, ?> requestQueryParameters);
 
-  @GetMapping(value = "/inventory-view/instances", consumes = MediaType.APPLICATION_JSON_VALUE)
-  String getInventoryViewInstances(@SpringQueryMap Object requestQueryParameters,
+  @GetExchange("inventory-view/instances")
+  JsonNode getInventoryViewInstances(@RequestParam Map<String, ?> requestQueryParameters,
       @RequestParam Boolean withBoundedItems);
 
-  @GetMapping(value = "/inventory-view/instances", consumes = MediaType.APPLICATION_JSON_VALUE)
-  String getInventoryViewInstances(@SpringQueryMap Object requestQueryParameters,
+  @GetExchange("inventory-view/instances")
+  JsonNode getInventoryViewInstances(@RequestParam Map<String, ?> requestQueryParameters,
       @RequestParam Boolean withBoundedItems, @RequestHeader(XOkapiHeaders.TENANT) String tenantId);
 
-  @GetMapping(value = "/alternative-title-types", consumes = MediaType.APPLICATION_JSON_VALUE)
-  String getAlternativeTitleTypes(@SpringQueryMap Object requestQueryParameters);
+  @GetExchange("alternative-title-types")
+  JsonNode getAlternativeTitleTypes(@RequestParam Map<String, ?> requestQueryParameters);
 
-  @GetMapping(value = "/material-types", consumes = MediaType.APPLICATION_JSON_VALUE)
-  String getMaterialTypes(@SpringQueryMap Object requestQueryParameters);
+  @GetExchange("material-types")
+  JsonNode getMaterialTypes(@RequestParam Map<String, ?> requestQueryParameters);
 
-  @GetMapping(value = "/material-types/{materialTypeId}", consumes = MediaType.APPLICATION_JSON_VALUE)
-  String getMaterialTypeById(@PathVariable("materialTypeId") String materialTypeId);
+  @GetExchange("material-types/{materialTypeId}")
+  JsonNode getMaterialTypeById(@PathVariable("materialTypeId") String materialTypeId);
 
-  @GetMapping(value = "/material-types/{materialTypeId}", consumes = MediaType.APPLICATION_JSON_VALUE)
-  String getMaterialTypeById(@PathVariable("materialTypeId") String materialTypeId,
+  @GetExchange("material-types/{materialTypeId}")
+  JsonNode getMaterialTypeById(@PathVariable("materialTypeId") String materialTypeId,
       @RequestHeader(XOkapiHeaders.TENANT) String tenantId);
 
-  @GetMapping(value = "/source-storage/records/{instanceId}/formatted?idType=INSTANCE", consumes = MediaType.APPLICATION_JSON_VALUE)
-  String getSourceRecords(@PathVariable("instanceId") String instanceId);
+  @GetExchange("source-storage/records/{instanceId}/formatted?idType=INSTANCE")
+  JsonNode getSourceRecords(@PathVariable("instanceId") String instanceId);
 
-  @GetMapping(value = "/source-storage/records/{authorityId}/formatted?idType=AUTHORITY", consumes = MediaType.APPLICATION_JSON_VALUE)
-  String getAuthoritySourceRecords(@PathVariable("authorityId") String authorityId);
+  @GetExchange("source-storage/records/{authorityId}/formatted?idType=AUTHORITY")
+  JsonNode getAuthoritySourceRecords(@PathVariable("authorityId") String authorityId);
 
-  @GetMapping(value = "/authority-storage/authorities/{authorityId}", consumes = MediaType.APPLICATION_JSON_VALUE)
-  String getAuthority(@PathVariable("authorityId") String authorityId);
+  @GetExchange("authority-storage/authorities/{authorityId}")
+  JsonNode getAuthority(@PathVariable("authorityId") String authorityId);
 
-  @GetMapping(value = "/authority-storage/authorities", consumes = MediaType.APPLICATION_JSON_VALUE)
-  String getAuthoritiesByQuery(@SpringQueryMap Object requestQueryParameters);
+  @GetExchange("authority-storage/authorities")
+  JsonNode getAuthoritiesByQuery(@RequestParam Map<String, ?> requestQueryParameters);
 
-  @GetMapping(value = "/subject-sources", consumes = MediaType.APPLICATION_JSON_VALUE)
-  String getSubjectSources(@SpringQueryMap Object requestQueryParameters);
+  @GetExchange("subject-sources")
+  JsonNode getSubjectSources(@RequestParam Map<String, ?> requestQueryParameters);
 
-  @GetMapping(value = "/subject-types", consumes = MediaType.APPLICATION_JSON_VALUE)
-  String getSubjectTypes(@SpringQueryMap Object requestQueryParameters);
+  @GetExchange("subject-types")
+  JsonNode getSubjectTypes(@RequestParam Map<String, ?> requestQueryParameters);
 
-  @GetMapping(value = "/holdings-note-types", consumes = MediaType.APPLICATION_JSON_VALUE)
-  String getHoldingsNoteTypes(@SpringQueryMap Object requestQueryParameters);
+  @GetExchange("holdings-note-types")
+  JsonNode getHoldingsNoteTypes(@RequestParam Map<String, ?> requestQueryParameters);
 }

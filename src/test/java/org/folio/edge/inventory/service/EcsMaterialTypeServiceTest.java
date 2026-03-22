@@ -13,13 +13,12 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.when;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.SneakyThrows;
 import org.folio.edge.inventory.TestUtil;
 import org.folio.edge.inventory.client.ConsortiaClient;
 import org.folio.edge.inventory.client.InventoryClient;
-import org.folio.edge.inventory.client.UsersClient;
+import org.folio.edge.inventory.client.UserClient;
 import org.folio.edge.inventory.util.JsonConverter;
 import org.folio.inventory.domain.dto.TenantCollection;
 import org.folio.inventory.domain.dto.UserTenants;
@@ -32,6 +31,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ObjectMapper;
 
 @ExtendWith(MockitoExtension.class)
 public class EcsMaterialTypeServiceTest {
@@ -39,7 +40,7 @@ public class EcsMaterialTypeServiceTest {
   @Mock
   private ConsortiaClient consortiaClient;
   @Mock
-  private UsersClient usersClient;
+  private UserClient usersClient;
   @Mock
   private InventoryClient inventoryClient;
   @Mock
@@ -65,14 +66,13 @@ public class EcsMaterialTypeServiceTest {
   }
 
   @Test
-  void getEcsMaterialTypeById_shouldReturnMaterialTypeFromMemberTenant()
-      throws JsonProcessingException {
+  @SneakyThrows
+  void getEcsMaterialTypeById_shouldReturnMaterialTypeFromMemberTenant() {
     var userTenants = objectMapper.readValue(TestUtil.readFileContentFromResources(USER_TENANTS_RESPONSE_PATH),
         UserTenants.class);
     var consortiaTenants = objectMapper.readValue(
         TestUtil.readFileContentFromResources(CONSORTIA_TENANTS_RESPONSE_PATH), TenantCollection.class);
-    var expectedMaterialTypeResponse = TestUtil.readFileContentFromResources(
-        MATERIAL_TYPE_OF_MEMBER_FROM_CENTRAL_TENANT_PATH);
+    var expectedMaterialTypeResponse = getJsonNode(MATERIAL_TYPE_OF_MEMBER_FROM_CENTRAL_TENANT_PATH);
 
     when(usersClient.getUserTenants()).thenReturn(userTenants);
     when(consortiaClient.getTenants(any())).thenReturn(consortiaTenants);
@@ -87,14 +87,13 @@ public class EcsMaterialTypeServiceTest {
   }
 
   @Test
-  void getEcsMaterialTypeById_shouldThrowEntityNotFound_whenMaterialTypeNotFoundInAllTenants()
-      throws JsonProcessingException {
+  @SneakyThrows
+  void getEcsMaterialTypeById_shouldThrowEntityNotFound_whenMaterialTypeNotFoundInAllTenants() {
     var userTenants = objectMapper.readValue(TestUtil.readFileContentFromResources(USER_TENANTS_RESPONSE_PATH),
         UserTenants.class);
     var consortiaTenants = objectMapper.readValue(
         TestUtil.readFileContentFromResources(CONSORTIA_TENANTS_RESPONSE_PATH), TenantCollection.class);
-    var errorResponse = TestUtil.readFileContentFromResources(
-        MATERIAL_TYPE_OF_MEMBER_FROM_CENTRAL_TENANT_NOT_FOUND_PATH);
+    var errorResponse = getJsonNode(MATERIAL_TYPE_OF_MEMBER_FROM_CENTRAL_TENANT_NOT_FOUND_PATH);
 
     when(usersClient.getUserTenants()).thenReturn(userTenants);
     when(consortiaClient.getTenants(any())).thenReturn(consortiaTenants);
@@ -106,5 +105,9 @@ public class EcsMaterialTypeServiceTest {
     );
 
     assertTrue(exception.getMessage().contains("Material type not found"));
+  }
+
+  private JsonNode getJsonNode(String resourcePath) {
+    return objectMapper.readTree(TestUtil.readFileContentFromResources(resourcePath));
   }
 }
