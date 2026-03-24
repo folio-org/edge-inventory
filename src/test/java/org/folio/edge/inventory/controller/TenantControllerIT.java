@@ -5,7 +5,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import org.folio.edge.inventory.BaseIntegrationTests;
 import org.junit.jupiter.api.Test;
-import org.springframework.test.annotation.DirtiesContext;
 
 
 class TenantControllerIT extends BaseIntegrationTests {

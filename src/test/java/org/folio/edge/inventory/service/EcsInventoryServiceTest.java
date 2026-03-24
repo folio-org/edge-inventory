@@ -30,7 +30,6 @@ import org.folio.edge.inventory.client.InventoryClient;
 import org.folio.edge.inventory.client.SearchClient;
 import org.folio.edge.inventory.client.UserClient;
 import org.folio.edge.inventory.service.mapper.RequestQueryParametersMapper;
-import org.folio.edge.inventory.util.JsonConverter;
 import org.folio.inventory.domain.dto.FacetResponse;
 import org.folio.inventory.domain.dto.HoldingResponse;
 import org.folio.inventory.domain.dto.RequestQueryParameters;
@@ -57,9 +56,9 @@ public class EcsInventoryServiceTest {
   private FolioExecutionContext folioExecutionContext;
   @Mock
   private RequestQueryParametersMapper requestQueryParametersMapper;
-  private final ObjectMapper objectMapper = new ObjectMapper();
-  private final JsonConverter jsonConverter = new JsonConverter(objectMapper);
+
   private EcsInventoryService ecsInventoryService;
+  private final ObjectMapper objectMapper = new ObjectMapper();
 
   @BeforeEach
   void setUp() {
@@ -85,7 +84,8 @@ public class EcsInventoryServiceTest {
     when(inventoryClient.getInventoryViewInstances(anyMap(), eq(false), eq(TestConstants.TEST_TENANT)))
         .thenReturn(getJsonNode(GET_VIEW_INSTANCES_WITH_HOLDINGS_PATH));
 
-    var response = jsonConverter.readAsTree(ecsInventoryService.getEcsInventoryViewInstances(request, false));
+    var response = objectMapper.readTree(ecsInventoryService.getEcsInventoryViewInstances(request, false));
+
     assertTrue(response.findValue(INSTANCES).isArray());
     assertTrue(response.findValue(INSTANCES).get(0).has(HOLDINGS_RECORDS));
     assertTrue(response.findValue(INSTANCES).get(0).has(ITEMS));
@@ -107,7 +107,8 @@ public class EcsInventoryServiceTest {
     when(inventoryClient.getHoldings(anyMap(), eq(TestConstants.TEST_TENANT)))
         .thenReturn(getJsonNode(HOLDINGS_RESPONSE_PATH));
 
-    var response = jsonConverter.readAsTree(ecsInventoryService.getEcsInventoryHoldings(request));
+    var response = objectMapper.readTree(ecsInventoryService.getEcsInventoryHoldings(request));
+
     assertTrue(response.has(HOLDINGS_RECORDS));
     assertTrue(response.has(TOTAL_RECORDS));
   }
@@ -126,7 +127,8 @@ public class EcsInventoryServiceTest {
     when(inventoryClient.getItems(anyMap(), eq(TestConstants.TEST_TENANT)))
         .thenReturn(getJsonNode(ITEMS_RESPONSE_PATH));
 
-    var response = jsonConverter.readAsTree(ecsInventoryService.getEcsInventoryItems(request));
+    var response = objectMapper.readTree(ecsInventoryService.getEcsInventoryItems(request));
+
     assertTrue(response.has(ITEMS));
     assertTrue(response.has(TOTAL_RECORDS));
   }
@@ -148,7 +150,8 @@ public class EcsInventoryServiceTest {
     when(inventoryClient.getItems(anyMap(), eq(TestConstants.TEST_TENANT)))
         .thenReturn(getJsonNode(ITEMS_RESPONSE_PATH));
 
-    var response = jsonConverter.readAsTree(ecsInventoryService.getEcsInventoryItems(request));
+    var response = objectMapper.readTree(ecsInventoryService.getEcsInventoryItems(request));
+
     assertTrue(response.has(ITEMS));
     assertTrue(response.has(TOTAL_RECORDS));
   }

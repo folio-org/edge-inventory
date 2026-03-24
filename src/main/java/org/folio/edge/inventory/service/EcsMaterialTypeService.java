@@ -8,7 +8,6 @@ import lombok.extern.log4j.Log4j2;
 import org.folio.edge.inventory.client.ConsortiaClient;
 import org.folio.edge.inventory.client.InventoryClient;
 import org.folio.edge.inventory.client.UserClient;
-import org.folio.edge.inventory.util.JsonConverter;
 import org.folio.inventory.domain.dto.TenantCollection;
 import org.folio.inventory.domain.dto.UserTenantsUserTenantsInner;
 import org.folio.spring.FolioExecutionContext;
@@ -26,7 +25,6 @@ public class EcsMaterialTypeService {
   private final UserClient userClient;
   private final ConsortiaClient consortiaClient;
   private final InventoryClient inventoryClient;
-  private final JsonConverter jsonConverter;
   private final FolioExecutionContext folioExecutionContext;
 
   public String getEcsMaterialTypeById(String materialTypeId) {

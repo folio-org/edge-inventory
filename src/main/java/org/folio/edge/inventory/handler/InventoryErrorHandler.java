@@ -17,7 +17,7 @@ public class InventoryErrorHandler {
   @ExceptionHandler(ConstraintViolationException.class)
   public ResponseEntity<Error> handleConstraintViolationException(ConstraintViolationException exception) {
     Error errorResponse = buildErrorResponse(400, exception.getMessage());
-    return ResponseEntity.status(errorResponse.getCode())
+    return ResponseEntity.status(400)
         .body(errorResponse);
   }
 

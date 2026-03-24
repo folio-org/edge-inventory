@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class RequestQueryParametersMapper {
 
-  public Map<String, ?> toMap(RequestQueryParameters p) {
+  public Map<String, Object> toMap(RequestQueryParameters p) {
     Map<String, Object> map = new LinkedHashMap<>();
     if (p == null) {
       return map;
