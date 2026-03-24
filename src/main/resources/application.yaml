@@ -1,5 +1,5 @@
 server:
-  port: 8081
+  port: 8080
 secure_store: ephemeral
 secure_store_props: src/main/resources/ephemeral.properties
 spring:
@@ -27,17 +27,15 @@ folio:
     username: dummy # This isn't actually used, but we get dependency injection errors from folio-spring-system-user if we don't have it
     password: dummy # This isn't actually used, but we get dependency injection errors from folio-spring-system-user if we don't have it
   environment: dev # Overridden at runtime in production, but causes folio-spring-system-user DI errors if it's not set
+  okapiUrl: {okapi_url:http://localhost:9130}
   client:
-    okapiUrl: https://localhost:9130
+    okapiUrl: http://localhost:9130
     tls:
       enabled: false
 #      trustStorePath: classpath:test/test.truststore.bcfks
 #      trustStorePassword: "SecretPassword"
 #      trustStoreType: bcfks
-edge:
-  security:
-    filter:
-      enabled: true
+
 management:
   endpoints:
     web:
