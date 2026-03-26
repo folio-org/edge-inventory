@@ -8,10 +8,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestClientResponseException;
 
-@Log4j2
 @RestControllerAdvice
+@Log4j2
 public class InventoryErrorHandler {
 
   @ExceptionHandler(ConstraintViolationException.class)
@@ -21,7 +22,7 @@ public class InventoryErrorHandler {
         .body(errorResponse);
   }
 
-  @ExceptionHandler(RestClientResponseException.class)
+  @ExceptionHandler(HttpStatusCodeException.class)
   public ResponseEntity<Error> handleRestClientResponseException(RestClientResponseException exception) {
     String properErrorMessage = exception.getResponseBodyAsString();
     Error errorResponse = buildErrorResponse(exception.getStatusCode().value(), properErrorMessage);

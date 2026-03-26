@@ -8,6 +8,8 @@ import com.github.tomakehurst.wiremock.WireMockServer;
 import java.util.List;
 import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j2;
+import org.folio.edgecommonspring.client.EdgeClientProperties;
+import org.folio.spring.config.properties.FolioEnvironment;
 import org.folio.spring.integration.XOkapiHeaders;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -17,8 +19,7 @@ import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.http.HttpHeaders;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.DynamicPropertyRegistry;
-import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
@@ -40,17 +41,12 @@ public abstract class BaseIntegrationTests {
   @Autowired
   protected MockMvc mockMvc;
 
-  @DynamicPropertySource
-  static void registerOkapiURL(DynamicPropertyRegistry registry) {
-    registry.add("folio.client.okapiUrl", WIRE_MOCK::baseUrl);
-    registry.add("folio.okapiUrl", WIRE_MOCK::baseUrl);
-    registry.add("folio.client.tls.enabled", () -> false);
-    log.info("OKAPI Url: {}", WIRE_MOCK.baseUrl());
-  }
-
   @BeforeAll
-  static void beforeAll() {
+  static void beforeAll(@Autowired EdgeClientProperties edgeClientProperties,
+      @Autowired FolioEnvironment folioEnvironment) {
     WIRE_MOCK.start();
+    ReflectionTestUtils.setField(edgeClientProperties, TestConstants.OKAPI_URL_FIELD, WIRE_MOCK.baseUrl());
+    ReflectionTestUtils.setField(folioEnvironment, TestConstants.OKAPI_URL_FIELD, null);
     log.info("Wire mock started");
   }
 
