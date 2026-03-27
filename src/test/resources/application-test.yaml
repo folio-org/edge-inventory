@@ -1,7 +1,4 @@
 secure_store_props: src/test/resources/ephemeral.properties
-folio:
-  client:
-    okapiUrl: http://localhost:9130
 spring:
   application:
     name: edge-inventory
