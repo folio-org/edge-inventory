@@ -7,39 +7,39 @@ import org.folio.inventory.domain.dto.Error;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.client.HttpStatusCodeException;
-import org.springframework.web.client.RestClientResponseException;
 
-@RestControllerAdvice
 @Log4j2
+@RestControllerAdvice
 public class InventoryErrorHandler {
 
-  @ExceptionHandler(ConstraintViolationException.class)
-  public ResponseEntity<Error> handleConstraintViolationException(ConstraintViolationException exception) {
-    Error errorResponse = buildErrorResponse(400, exception.getMessage());
-    return ResponseEntity.status(400)
-        .body(errorResponse);
-  }
-
   @ExceptionHandler(HttpStatusCodeException.class)
-  public ResponseEntity<Error> handleRestClientResponseException(RestClientResponseException exception) {
-    String properErrorMessage = exception.getResponseBodyAsString();
-    Error errorResponse = buildErrorResponse(exception.getStatusCode().value(), properErrorMessage);
+  public ResponseEntity<Error> handleRestClientResponseException(HttpStatusCodeException exception) {
+    var properErrorMessage = exception.getResponseBodyAsString();
+    var status = exception.getStatusCode().value();
+    var errorResponse = buildErrorResponse(status, properErrorMessage, exception);
     return ResponseEntity.status(exception.getStatusCode())
         .body(errorResponse);
   }
 
-  @ExceptionHandler(EntityNotFoundException.class)
-  public ResponseEntity<Error> handleEntityNotFoundException(EntityNotFoundException exception) {
-    Error errorResponse = buildErrorResponse(HttpStatus.NOT_FOUND.value(), exception.getMessage());
-    return ResponseEntity.status(HttpStatus.NOT_FOUND.value())
-        .body(errorResponse);
+  @ExceptionHandler({ConstraintViolationException.class})
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  public Error handleExceptionWithBadRequestStatus(RuntimeException exception) {
+    return buildErrorResponse(HttpStatus.BAD_REQUEST.value(), exception.getMessage(), exception);
   }
 
-  private Error buildErrorResponse(int status, String message) {
-    log.error("Error occurred during service chain call, {}", message);
-    Error errorResponse = new Error();
+  @ExceptionHandler(EntityNotFoundException.class)
+  @ResponseStatus(HttpStatus.NOT_FOUND)
+  public Error handleEntityNotFoundException(EntityNotFoundException exception) {
+    return buildErrorResponse(HttpStatus.NOT_FOUND.value(), exception.getMessage(), exception);
+  }
+
+  private Error buildErrorResponse(int status, String message, Exception exception) {
+    log.error("Not valid request cause, {}", message);
+    log.debug(message, exception);
+    var errorResponse = new Error();
     errorResponse.setCode(status);
     errorResponse.setErrorMessage(message);
     return errorResponse;
