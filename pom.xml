@@ -22,10 +22,6 @@
     <openapi-generator.version>7.20.0</openapi-generator.version>
     <folio-spring-support.version>10.0.0-RC1</folio-spring-support.version>
     <edge-inventory.yaml.file>${project.basedir}/src/main/resources/swagger.api/edge-inventory.yaml</edge-inventory.yaml.file>
-    <sonar.exclusions>
-      src/main/java/org/folio/edge/inventory/EdgeInventoryApplication.java,
-      src/main/java/org/folio/edge/inventory/config/**
-    </sonar.exclusions>
 
     <!-- Test dependencies versions -->
     <wiremock-standalone.version>3.13.2</wiremock-standalone.version>

@@ -46,7 +46,6 @@ public abstract class BaseIntegrationTests {
       @Autowired FolioEnvironment folioEnvironment) {
     WIRE_MOCK.start();
     ReflectionTestUtils.setField(edgeClientProperties, TestConstants.OKAPI_URL_FIELD, WIRE_MOCK.baseUrl());
-    ReflectionTestUtils.setField(folioEnvironment, TestConstants.OKAPI_URL_FIELD, null);
     log.info("Wire mock started");
   }
 
