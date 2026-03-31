@@ -6,7 +6,6 @@ import static org.folio.edge.inventory.models.InventoryViewJsonFields.TOTAL_RECO
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.folio.edge.inventory.client.SearchClient;
-import org.folio.edge.inventory.util.JsonConverter;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,10 +17,9 @@ public class EcsLocationsService {
   public static final String CAMPUSES = "campuses";
   public static final String INSTITUTIONS = "institutions";
   private final SearchClient searchClient;
-  private final JsonConverter jsonConverter;
 
   public String getInstitutionById(String institutionId) {
-    var locations = jsonConverter.readAsTree(searchClient.getConsortiumInstitutions(institutionId));
+    var locations = searchClient.getConsortiumInstitutions(institutionId);
     if (locations.findValue(TOTAL_RECORDS).asInt() == 0) {
       throw new EntityNotFoundException("Institution with specified id not found: " + institutionId);
     }
@@ -29,7 +27,7 @@ public class EcsLocationsService {
   }
 
   public String getLibraryById(String libraryId) {
-    var locations = jsonConverter.readAsTree(searchClient.getConsortiumLibraries(libraryId));
+    var locations = searchClient.getConsortiumLibraries(libraryId);
     if (locations.findValue(TOTAL_RECORDS).asInt() == 0) {
       throw new EntityNotFoundException("Library with specified id not found: " + libraryId);
     }
@@ -37,7 +35,7 @@ public class EcsLocationsService {
   }
 
   public String getCampusById(String campusId) {
-    var locations = jsonConverter.readAsTree(searchClient.getConsortiumCampuses(campusId));
+    var locations = searchClient.getConsortiumCampuses(campusId);
     if (locations.findValue(TOTAL_RECORDS).asInt() == 0) {
       throw new EntityNotFoundException("Campus with specified id not found: " + campusId);
     }
@@ -45,7 +43,7 @@ public class EcsLocationsService {
   }
 
   public String getLocationById(String locationId) {
-    var locations = jsonConverter.readAsTree(searchClient.getConsortiumLocations(locationId));
+    var locations = searchClient.getConsortiumLocations(locationId);
     if (locations.findValue(TOTAL_RECORDS).asInt() == 0) {
       throw new EntityNotFoundException("Location with specified id not found: " + locationId);
     }
@@ -53,7 +51,7 @@ public class EcsLocationsService {
   }
 
   public String getConsortiumLocations() {
-    return searchClient.getConsortiumLocations(null);
+    return searchClient.getConsortiumLocations(null).toString();
   }
 
 }

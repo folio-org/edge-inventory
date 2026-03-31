@@ -1,15 +1,13 @@
 package org.folio.edge.inventory.client;
 
-import org.folio.edge.inventory.config.InventoryClientConfig;
 import org.folio.inventory.domain.dto.TenantCollection;
-import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.service.annotation.GetExchange;
+import org.springframework.web.service.annotation.HttpExchange;
 
-@FeignClient(name = "consortia", configuration = InventoryClientConfig.class)
+@HttpExchange(url = "consortia", contentType = "application/json")
 public interface ConsortiaClient {
 
-  @GetMapping(value = "/consortia/{consortiumId}/tenants", consumes = MediaType.APPLICATION_JSON_VALUE)
-  TenantCollection getTenants(@PathVariable String consortiumId);
+  @GetExchange("/{consortiumId}/tenants")
+  TenantCollection getTenants(@PathVariable("consortiumId") String consortiumId);
 }

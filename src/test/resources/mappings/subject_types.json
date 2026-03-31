@@ -3,7 +3,12 @@
     {
       "request": {
         "method": "GET",
-        "url": "/subject-types?offset=0&limit=10&lang=en"
+        "urlPath": "/subject-types",
+        "queryParameters": {
+          "offset": { "equalTo": "0" },
+          "limit": { "equalTo": "10" },
+          "lang": { "equalTo": "en" }
+        }
       },
       "response": {
         "status": 200,

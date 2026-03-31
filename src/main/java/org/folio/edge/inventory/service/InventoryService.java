@@ -2,6 +2,7 @@ package org.folio.edge.inventory.service;
 
 import lombok.RequiredArgsConstructor;
 import org.folio.edge.inventory.client.InventoryClient;
+import org.folio.edge.inventory.service.mapper.RequestQueryParametersMapper;
 import org.folio.inventory.domain.dto.RequestQueryParameters;
 import org.springframework.stereotype.Service;
 
@@ -10,124 +11,146 @@ import org.springframework.stereotype.Service;
 public class InventoryService {
 
   private final InventoryClient inventoryClient;
+  private final RequestQueryParametersMapper requestQueryParametersMapper;
 
   public String getInstance(String instanceId, String lang) {
-    return inventoryClient.getInstance(instanceId, lang);
+    return inventoryClient.getInstance(instanceId, lang).toString();
   }
 
   public String getInstancesByQuery(RequestQueryParameters requestQueryParameters) {
-    return inventoryClient.getInstancesByQuery(requestQueryParameters);
+    var requestQueryParametersMap = requestQueryParametersMapper.toMap(requestQueryParameters);
+    return inventoryClient.getInstancesByQuery(requestQueryParametersMap).toString();
   }
 
   public String getHoldings(RequestQueryParameters requestQueryParameters) {
-    return inventoryClient.getHoldings(requestQueryParameters);
+    var requestQueryParametersMap = requestQueryParametersMapper.toMap(requestQueryParameters);
+    return inventoryClient.getHoldings(requestQueryParametersMap).toString();
   }
 
   public String getIdentifierTypes(RequestQueryParameters requestQueryParameters) {
-    return inventoryClient.getIdentifierTypes(requestQueryParameters);
+    var requestQueryParametersMap = requestQueryParametersMapper.toMap(requestQueryParameters);
+    return inventoryClient.getIdentifierTypes(requestQueryParametersMap).toString();
   }
 
   public String getServicePoints(RequestQueryParameters requestQueryParameters) {
-    return inventoryClient.getServicePoints(requestQueryParameters);
+    var requestQueryParametersMap = requestQueryParametersMapper.toMap(requestQueryParameters);
+    return inventoryClient.getServicePoints(requestQueryParametersMap).toString();
   }
 
   public String getLocationById(String locationId) {
-    return inventoryClient.getLocationById(locationId);
+    return inventoryClient.getLocationById(locationId).toString();
   }
 
   public String getLocations(RequestQueryParameters requestQueryParameters) {
-    return inventoryClient.getLocations(requestQueryParameters);
+    var requestQueryParametersMap = requestQueryParametersMapper.toMap(requestQueryParameters);
+    return inventoryClient.getLocations(requestQueryParametersMap).toString();
   }
 
   public String getInstitutionById(String institutionById) {
-    return inventoryClient.getInstitutionById(institutionById);
+    return inventoryClient.getInstitutionById(institutionById).toString();
   }
 
   public String getLibraryById(String libraryId) {
-    return inventoryClient.getLibraryById(libraryId);
+    return inventoryClient.getLibraryById(libraryId).toString();
   }
 
   public String getCampusById(String campusId) {
-    return inventoryClient.getCampusById(campusId);
+    return inventoryClient.getCampusById(campusId).toString();
   }
 
   public String getNatureOfContentTerms(RequestQueryParameters requestQueryParameters) {
-    return inventoryClient.getNatureOfContentTerms(requestQueryParameters);
+    var requestQueryParametersMap = requestQueryParametersMapper.toMap(requestQueryParameters);
+    return inventoryClient.getNatureOfContentTerms(requestQueryParametersMap).toString();
   }
 
   public String getModesOfIssuance(RequestQueryParameters requestQueryParameters) {
-    return inventoryClient.getModesOfIssuance(requestQueryParameters);
+    var requestQueryParametersMap = requestQueryParametersMapper.toMap(requestQueryParameters);
+    return inventoryClient.getModesOfIssuance(requestQueryParametersMap).toString();
   }
 
   public String getInstanceFormats(RequestQueryParameters requestQueryParameters) {
-    return inventoryClient.getInstanceFormats(requestQueryParameters);
+    var requestQueryParametersMap = requestQueryParametersMapper.toMap(requestQueryParameters);
+    return inventoryClient.getInstanceFormats(requestQueryParametersMap).toString();
   }
 
   public String getItems(RequestQueryParameters requestQueryParameters) {
-    return inventoryClient.getItems(requestQueryParameters);
+    var requestQueryParametersMap = requestQueryParametersMapper.toMap(requestQueryParameters);
+    return inventoryClient.getItems(requestQueryParametersMap).toString();
   }
 
   public String getInstanceTypes(RequestQueryParameters requestQueryParameters) {
-    return inventoryClient.getInstanceTypes(requestQueryParameters);
+    var requestQueryParametersMap = requestQueryParametersMapper.toMap(requestQueryParameters);
+    return inventoryClient.getInstanceTypes(requestQueryParametersMap).toString();
   }
 
   public String getClassificationTypes(RequestQueryParameters requestQueryParameters) {
-    return inventoryClient.getClassificationTypes(requestQueryParameters);
+    var requestQueryParametersMap = requestQueryParametersMapper.toMap(requestQueryParameters);
+    return inventoryClient.getClassificationTypes(requestQueryParametersMap).toString();
   }
 
   public String getContributorTypes(RequestQueryParameters requestQueryParameters) {
-    return inventoryClient.getContributorTypes(requestQueryParameters);
+    var requestQueryParametersMap = requestQueryParametersMapper.toMap(requestQueryParameters);
+    return inventoryClient.getContributorTypes(requestQueryParametersMap).toString();
   }
 
   public String getContributorNameTypes(RequestQueryParameters requestQueryParameters) {
-    return inventoryClient.getContributorNameTypes(requestQueryParameters);
+    var requestQueryParametersMap = requestQueryParametersMapper.toMap(requestQueryParameters);
+    return inventoryClient.getContributorNameTypes(requestQueryParametersMap).toString();
   }
 
   public String getInstanceNoteTypes(RequestQueryParameters requestQueryParameters) {
-    return inventoryClient.getInstanceNoteTypes(requestQueryParameters);
+    var requestQueryParametersMap = requestQueryParametersMapper.toMap(requestQueryParameters);
+    return inventoryClient.getInstanceNoteTypes(requestQueryParametersMap).toString();
   }
 
   public String getAlternativeTitleTypes(RequestQueryParameters requestQueryParameters) {
-    return inventoryClient.getAlternativeTitleTypes(requestQueryParameters);
+    var requestQueryParametersMap = requestQueryParametersMapper.toMap(requestQueryParameters);
+    return inventoryClient.getAlternativeTitleTypes(requestQueryParametersMap).toString();
   }
 
   public String getInventoryViewInstances(RequestQueryParameters requestQueryParameters, Boolean withBoundedItems) {
-    return inventoryClient.getInventoryViewInstances(requestQueryParameters, withBoundedItems);
+    var requestQueryParametersMap = requestQueryParametersMapper.toMap(requestQueryParameters);
+    return inventoryClient.getInventoryViewInstances(requestQueryParametersMap, withBoundedItems).toString();
   }
 
   public String getMaterialTypes(RequestQueryParameters requestQueryParameters) {
-    return inventoryClient.getMaterialTypes(requestQueryParameters);
+    var requestQueryParametersMap = requestQueryParametersMapper.toMap(requestQueryParameters);
+    return inventoryClient.getMaterialTypes(requestQueryParametersMap).toString();
   }
 
   public String getMaterialTypeById(String materialTypeId) {
-    return inventoryClient.getMaterialTypeById(materialTypeId);
+    return inventoryClient.getMaterialTypeById(materialTypeId).toString();
   }
 
   public String getSourceRecords(String id) {
-    return inventoryClient.getSourceRecords(id);
+    return inventoryClient.getSourceRecords(id).toString();
   }
 
   public String getAuthoritySourceRecords(String id) {
-    return inventoryClient.getAuthoritySourceRecords(id);
+    return inventoryClient.getAuthoritySourceRecords(id).toString();
   }
 
   public String getAuthority(String authorityId) {
-    return inventoryClient.getAuthority(authorityId);
+    return inventoryClient.getAuthority(authorityId).toString();
   }
 
   public String getAuthoritiesByQuery(RequestQueryParameters requestQueryParameters) {
-    return inventoryClient.getAuthoritiesByQuery(requestQueryParameters);
+    var requestQueryParametersMap = requestQueryParametersMapper.toMap(requestQueryParameters);
+    return inventoryClient.getAuthoritiesByQuery(requestQueryParametersMap).toString();
   }
 
   public String getSubjectSources(RequestQueryParameters requestQueryParameters) {
-    return inventoryClient.getSubjectSources(requestQueryParameters);
+    var requestQueryParametersMap = requestQueryParametersMapper.toMap(requestQueryParameters);
+    return inventoryClient.getSubjectSources(requestQueryParametersMap).toString();
   }
 
   public String getSubjectTypes(RequestQueryParameters requestQueryParameters) {
-    return inventoryClient.getSubjectTypes(requestQueryParameters);
+    var requestQueryParametersMap = requestQueryParametersMapper.toMap(requestQueryParameters);
+    return inventoryClient.getSubjectTypes(requestQueryParametersMap).toString();
   }
 
   public String getHoldingsNoteTypes(RequestQueryParameters requestQueryParameters) {
-    return inventoryClient.getHoldingsNoteTypes(requestQueryParameters);
+    var requestQueryParametersMap = requestQueryParametersMapper.toMap(requestQueryParameters);
+    return inventoryClient.getHoldingsNoteTypes(requestQueryParametersMap).toString();
   }
 }

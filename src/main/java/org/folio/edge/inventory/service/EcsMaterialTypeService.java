@@ -1,6 +1,5 @@
 package org.folio.edge.inventory.service;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Objects;
@@ -8,12 +7,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.folio.edge.inventory.client.ConsortiaClient;
 import org.folio.edge.inventory.client.InventoryClient;
-import org.folio.edge.inventory.client.UsersClient;
-import org.folio.edge.inventory.util.JsonConverter;
+import org.folio.edge.inventory.client.UserClient;
 import org.folio.inventory.domain.dto.TenantCollection;
 import org.folio.inventory.domain.dto.UserTenantsUserTenantsInner;
 import org.folio.spring.FolioExecutionContext;
 import org.springframework.stereotype.Service;
+import tools.jackson.databind.JsonNode;
 
 @Service
 @RequiredArgsConstructor
@@ -23,14 +22,13 @@ public class EcsMaterialTypeService {
   public static final String NAME = "name";
   public static final String SECURE_TENANT_CODE = "SEC";
 
-  private final UsersClient usersClient;
+  private final UserClient userClient;
   private final ConsortiaClient consortiaClient;
   private final InventoryClient inventoryClient;
-  private final JsonConverter jsonConverter;
   private final FolioExecutionContext folioExecutionContext;
 
   public String getEcsMaterialTypeById(String materialTypeId) {
-    var userTenants = usersClient.getUserTenants();
+    var userTenants = userClient.getUserTenants();
 
     if (userTenants != null) {
       var consortiumId = userTenants.getUserTenants().stream().map(
@@ -74,8 +72,7 @@ public class EcsMaterialTypeService {
           try {
             return instance.execute(() -> {
               log.info("Requesting material type {} for tenant {}", materialTypeId, tenant.getName());
-              var response = inventoryClient.getMaterialTypeById(materialTypeId, tenant.getId());
-              return jsonConverter.readAsTree(response);
+              return inventoryClient.getMaterialTypeById(materialTypeId, tenant.getId());
             });
           } catch (Exception e) {
             log.warn("Material type {} not found for tenant {}: {}", materialTypeId, tenant.getName(), e.getMessage());

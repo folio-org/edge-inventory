@@ -692,9 +692,8 @@ class InventoryControllerIT extends BaseIntegrationTests {
   void downloadAuthority_shouldReturnError_whenInventoryRespondWithError() throws Exception {
     doGet(mockMvc, "/inventory/download-authority/1831576a-c421-47dd-9285-ebab3351faa8?utf=true")
         .andExpect(status().isInternalServerError())
-        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-        .andExpect(jsonPath("$.code").value(500))
-        .andExpect(jsonPath("$.errorMessage").value(
+        .andExpect(content().contentType(MediaType.TEXT_PLAIN))
+        .andExpect(content().string(
             "Couldn't find authority in db for ID: 1831576a-c421-47dd-9285-ebab3351faa8"));
   }
 
@@ -732,9 +731,8 @@ class InventoryControllerIT extends BaseIntegrationTests {
   void downloadInstance_shouldReturnError_whenInventoryRespondWithError() throws Exception {
     doGet(mockMvc, "/inventory/download-instance/1831576a-c421-47dd-9285-ebab3351faa8?utf=true")
         .andExpect(status().isInternalServerError())
-        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-        .andExpect(jsonPath("$.code").value(500))
-        .andExpect(jsonPath("$.errorMessage").value(
+        .andExpect(content().contentType(MediaType.TEXT_PLAIN))
+        .andExpect(content().string(
             "Couldn't find instance in db for ID: 1831576a-c421-47dd-9285-ebab3351faa8"));
   }
 

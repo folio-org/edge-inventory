@@ -3,7 +3,12 @@
     {
       "request": {
         "method": "GET",
-        "url": "/inventory/items?offset=0&limit=10&lang=en"
+        "urlPath": "/inventory/items",
+        "queryParameters": {
+          "offset": { "equalTo": "0" },
+          "limit": { "equalTo": "10" },
+          "lang": { "equalTo": "en" }
+        }
       },
       "response": {
         "status": 200,
@@ -16,7 +21,32 @@
     {
       "request": {
         "method": "GET",
-        "url": "/inventory/items?offset=0&query=id%3D%3Dtest&limit=10&lang=en"
+        "urlPath": "/inventory/items",
+        "queryParameters": {
+          "offset": { "equalTo": "0" },
+          "query": { "equalTo": "instance.id==31fcc8e7-a019-43f4-b642-2edc389f4501" },
+          "limit": { "equalTo": "10" },
+          "lang": { "equalTo": "en" }
+        }
+      },
+      "response": {
+        "status": 200,
+        "bodyFileName": "responses/items_empty_response.json",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "urlPath": "/inventory/items",
+        "queryParameters": {
+          "offset": { "equalTo": "0" },
+          "query": { "equalTo": "id==test" },
+          "limit": { "equalTo": "10" },
+          "lang": { "equalTo": "en" }
+        }
       },
       "response": {
         "status": 200,

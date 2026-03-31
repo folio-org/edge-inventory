@@ -1,17 +1,15 @@
 package org.folio.edge.inventory.util;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ArrayNode;
 import lombok.experimental.UtilityClass;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.node.ArrayNode;
 
 @UtilityClass
 public class JsonNodeUtil {
 
   public static JsonNode findNodeInArrayWith(ArrayNode node, String fieldName, String value) {
-    var elements = node.elements();
-    while (elements.hasNext()) {
-      var jsonNode = elements.next();
-      if (jsonNode.has(fieldName) && jsonNode.findValue(fieldName).asText().equals(value)) {
+    for (JsonNode jsonNode : node.elements()) {
+      if (jsonNode.has(fieldName) && jsonNode.findValue(fieldName).asString().equals(value)) {
         return jsonNode;
       }
     }

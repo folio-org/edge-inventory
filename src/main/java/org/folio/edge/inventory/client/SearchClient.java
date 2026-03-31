@@ -1,33 +1,32 @@
 package org.folio.edge.inventory.client;
 
-import org.folio.edge.inventory.config.InventoryClientConfig;
 import org.folio.inventory.domain.dto.FacetResponse;
 import org.folio.inventory.domain.dto.HoldingResponse;
-import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.service.annotation.GetExchange;
+import org.springframework.web.service.annotation.HttpExchange;
+import tools.jackson.databind.JsonNode;
 
-@FeignClient(name = "search", configuration = InventoryClientConfig.class)
+@HttpExchange(url = "search", contentType = "application/json")
 public interface SearchClient {
 
-  @GetMapping(value = "/search/instances/facets", consumes = MediaType.APPLICATION_JSON_VALUE)
+  @GetExchange(value = "/instances/facets", accept = "application/json")
   FacetResponse getInstanceFacet(@RequestParam String facet, @RequestParam String query);
 
-  @GetMapping(value = "/search/consortium/locations")
-  String getConsortiumLocations(@RequestParam String id);
+  @GetExchange("/consortium/locations")
+  JsonNode getConsortiumLocations(@RequestParam String id);
 
-  @GetMapping(value = "/search/consortium/libraries")
-  String getConsortiumLibraries(@RequestParam String id);
+  @GetExchange("/consortium/libraries")
+  JsonNode getConsortiumLibraries(@RequestParam String id);
 
-  @GetMapping(value = "/search/consortium/institutions")
-  String getConsortiumInstitutions(@RequestParam String id);
+  @GetExchange("/consortium/institutions")
+  JsonNode getConsortiumInstitutions(@RequestParam String id);
 
-  @GetMapping(value = "/search/consortium/campuses")
-  String getConsortiumCampuses(@RequestParam String id);
+  @GetExchange("/consortium/campuses")
+  JsonNode getConsortiumCampuses(@RequestParam String id);
 
-  @GetMapping(value = "/search/consortium/holding/{id}")
-  HoldingResponse getConsortiumHolding(@PathVariable String id);
+  @GetExchange("/consortium/holding/{id}")
+  HoldingResponse getConsortiumHolding(@PathVariable("id") String id);
 
 }
