@@ -5,7 +5,7 @@
   "requires": [
     {
       "id": "inventory",
-      "version": "14.3"
+      "version": "14.4"
     },
     {
       "id": "login",
@@ -33,7 +33,7 @@
     },
     {
       "id": "holdings-storage",
-      "version": "8.1"
+      "version": "8.2"
     },
     {
       "id": "instance-types",
