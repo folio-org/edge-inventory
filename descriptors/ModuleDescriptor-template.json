@@ -83,5 +83,6 @@
         "value": "-XX:MaxRAMPercentage=66.0"
       }
     ]
-  }
+  },
+  "env": []
 }

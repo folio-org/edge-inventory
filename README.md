@@ -15,7 +15,7 @@ See [edge-common-spring](https://github.com/folio-org/edge-common-spring)
 ## Requires Permissions
 
 Institutional users should be granted the following permission in order to use this edge API:
-- `"inventory.instances.item.get"`
+- `inventory.instances.item.get`
 
 ## Configuration
 
