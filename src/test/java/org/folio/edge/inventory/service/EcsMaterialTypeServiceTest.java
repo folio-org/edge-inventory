@@ -34,7 +34,7 @@ import tools.jackson.databind.JsonNode;
 import tools.jackson.databind.ObjectMapper;
 
 @ExtendWith(MockitoExtension.class)
-public class EcsMaterialTypeServiceTest {
+class EcsMaterialTypeServiceTest {
 
   @Mock
   private ConsortiaClient consortiaClient;

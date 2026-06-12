@@ -17,7 +17,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import tools.jackson.databind.ObjectMapper;
 
 @ExtendWith(MockitoExtension.class)
-public class EcsLocationsServiceTest {
+class EcsLocationsServiceTest {
 
   @Mock
   private SearchClient searchClient;
