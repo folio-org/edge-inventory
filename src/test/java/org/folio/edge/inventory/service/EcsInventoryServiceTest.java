@@ -44,7 +44,7 @@ import tools.jackson.databind.JsonNode;
 import tools.jackson.databind.ObjectMapper;
 
 @ExtendWith(MockitoExtension.class)
-public class EcsInventoryServiceTest {
+class EcsInventoryServiceTest {
 
   @Mock
   private UserClient usersClient;

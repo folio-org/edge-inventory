@@ -35,6 +35,7 @@ public class EcsInventoryService {
   public static final String FACET = "holdings.tenantId";
   private static final Pattern HOLDINGS_ID_PATTERN = Pattern.compile(HOLDINGS_RECORD_ID + "==\\(([^)]+)\\)");
   private static final Pattern INSTANCE_ID_PATTERN = Pattern.compile("(instance(?:\\.id|Id))==([a-fA-F0-9\\-]{36})");
+  private static final Pattern HOLDINGS_ID_SEPARATOR_PATTERN = Pattern.compile(" or ");
   private final UserClient userClient;
   private final InventoryClient inventoryClient;
   private final SearchClient searchClient;
@@ -66,7 +67,7 @@ public class EcsInventoryService {
   private List<String> getInstanceIdsFromView(JsonNode instanceView) {
     var instanceIds = new ArrayList<String>();
     instanceView.withArray(INSTANCES).elements()
-        .forEach((instance) -> instanceIds.add(instance.get(INSTANCE_ID).asString()));
+        .forEach(instance -> instanceIds.add(instance.get(INSTANCE_ID).asString()));
     return instanceIds;
   }
 
@@ -236,7 +237,7 @@ public class EcsInventoryService {
     var matcher = HOLDINGS_ID_PATTERN.matcher(query);
     if (matcher.find()) {
       var insideParentheses = matcher.group(1);
-      var ids = insideParentheses.split(" or ");
+      var ids = HOLDINGS_ID_SEPARATOR_PATTERN.split(insideParentheses);
       if (ids.length > 0) {
         return ids[0].trim();
       }
