@@ -107,7 +107,7 @@
       "name": "FOLIO_CLIENT_OKAPIURL",
       "value": "",
       "description": "Okapi base URL used for outbound FOLIO service calls.",
-      "required": true
+      "required": false
     },
     {
       "name": "FOLIO_CLIENT_TLS_ENABLED",
