@@ -13,7 +13,7 @@ Generic Spring Boot environment variables are supported by the framework and are
 | `FOLIO_CLIENT_TLS_TRUSTSTOREPATH` |  | false | Path to the outbound client TLS truststore. Required only when `FOLIO_CLIENT_TLS_ENABLED` is true and the server certificate is not trusted by the default JVM truststore. |
 | `FOLIO_CLIENT_TLS_TRUSTSTOREPASSWORD` |  | false | Password for the outbound client TLS truststore. |
 | `FOLIO_CLIENT_TLS_TRUSTSTORETYPE` |  | false | Type of the outbound client TLS truststore, for example `JKS`, `PKCS12`, or `BCFKS`. If unset, the JVM default truststore type is used. |
-| `SECURE_STORE_PROPS` | `src/main/resources/ephemeral.properties` | false | Path or URL to the edge secure-store properties file used to configure the secure store for institutional user credentials. |
+| `SECURE_STORE_PROPS` | `src/main/resources/ephemeral.properties` | false | Path or URL to the edge secure-store properties file used to configure the secure store for institutional user credentials. In the FOLIO container image this relative default resolves from /usr/verticles, so operators using the default must mount the file at /usr/verticles/src/main/resources/ephemeral.properties, or set SECURE_STORE_PROPS to another absolute path or URL. |
 | `API_KEY_SOURCES` | `PARAM,HEADER,PATH` | false | Comma-separated list of locations where the edge API key is accepted. Valid values are `PARAM`, `HEADER`, and `PATH`. |
 | `TOKEN_CACHE_TTL_MS` | `3600000` | false | Time to live, in milliseconds, for successful Okapi token cache entries. |
 | `NULL_TOKEN_CACHE_TTL_MS` | `30000` | false | Time to live, in milliseconds, for failed or null Okapi token cache entries. |
