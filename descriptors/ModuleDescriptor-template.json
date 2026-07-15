@@ -40,6 +40,10 @@
       "version": "2.0"
     },
     {
+      "id": "instance-storage",
+      "version": "11.4"
+    },
+    {
       "id": "instance-note-types",
       "version": "1.0"
     },

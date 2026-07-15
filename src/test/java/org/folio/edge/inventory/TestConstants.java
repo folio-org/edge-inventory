@@ -9,6 +9,9 @@ public class TestConstants {
   public static final String GET_EDGE_IDENTIFIER_TYPES_BY_VALID_URL = StringUtils
       .join(OKAPI_URL, "/inventory/identifier-types");
   public static final String INSTANCE_RESPONSE_PATH = "__files/responses/instance_response.json";
+  public static final String INSTANCE_SUMMARY_RESPONSE_PATH = "__files/responses/instance_summary_response.json";
+  public static final String INSTANCE_SUMMARY_MEMBER_1_RESPONSE_PATH = "__files/responses/instance_summary_member_1_response.json";
+  public static final String INSTANCE_SUMMARY_MEMBER_2_RESPONSE_PATH = "__files/responses/instance_summary_member_2_response.json";
   public static final String AUTHORITY_RESPONSE_PATH = "__files/responses/authority_response.json";
   public static final String IDENTIFIER_TYPES_RESPONSE_PATH = "__files/responses/identifier_types_response.json";
   public static final String LOCATIONS_RESPONSE_PATH = "__files/responses/locations_response.json";
@@ -39,6 +42,8 @@ public class TestConstants {
   public static final String SOURCE_RECORD_RESPONSE_PATH ="__files/responses/source-records.json";
   public static final String AUTHORITY_SOURCE_RECORD_RESPONSE_PATH = "__files/responses/authority_source_records.json";
   public static final String HOLDINGS_FACET_RESPONSE_PATH = "__files/responses/holdings_facet_response.json";
+  public static final String HOLDINGS_FACET_WITH_TWO_TENANTS_RESPONSE_PATH =
+      "__files/responses/holdings_facet_with_two_tenants_response.json";
   public static final String HOLDING_RESPONSE_PATH = "__files/responses/holding_response.json";
   public static final String USER_TENANTS_RESPONSE_PATH = "__files/responses/user_tenants_response.json";
   public static final String USER_TENANTS_NON_CONSORTIA_RESPONSE_PATH = "__files/responses/user_tenants_non_consortia_response.json";
@@ -60,6 +65,7 @@ public class TestConstants {
   public static final String LANG_PARAM_INVALID_VALUE = "invalid";
   public static final String VALID_INSTANCE_ID = "e6bc03c6-c137-4221-b679-a7c5c31f986c";
   public static final String INSTANCE_BY_VALID_INSTANCE_ID_URL = "/inventory/instances/e6bc03c6-c137-4221-b679-a7c5c31f986c";
+  public static final String INSTANCE_SUMMARY_BY_VALID_INSTANCE_ID_URL = "/inventory/instances/e6bc03c6-c137-4221-b679-a7c5c31f986c/summary";
   public static final String INSTANCE_BY_INVALID_INSTANCE_ID_URL = "/inventory/instances/invalidid";
   public static final String INSTANCE_BY_NOT_FOUND_INSTANCE_ID_URL = "/inventory/instances/b48afa82-779c-4460-86bd-de78b6ab866f";
   public static final String VALID_AUTHORITY_ID = "9eba0866-8195-457c-ac72-dbfc279cc496";

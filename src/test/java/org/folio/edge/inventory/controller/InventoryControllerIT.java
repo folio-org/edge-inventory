@@ -38,6 +38,7 @@ import static org.folio.edge.inventory.TestConstants.INSTANCES_WITH_QUERY_URL_NO
 import static org.folio.edge.inventory.TestConstants.INSTANCE_BY_INVALID_INSTANCE_ID_URL;
 import static org.folio.edge.inventory.TestConstants.INSTANCE_BY_NOT_FOUND_INSTANCE_ID_URL;
 import static org.folio.edge.inventory.TestConstants.INSTANCE_BY_VALID_INSTANCE_ID_URL;
+import static org.folio.edge.inventory.TestConstants.INSTANCE_SUMMARY_BY_VALID_INSTANCE_ID_URL;
 import static org.folio.edge.inventory.TestConstants.LANG_PARAM_INVALID_VALUE;
 import static org.folio.edge.inventory.TestConstants.LANG_PARAM_NAME;
 import static org.folio.edge.inventory.TestConstants.LANG_PARAM_VALID_VALUE;
@@ -80,6 +81,16 @@ class InventoryControllerIT extends BaseIntegrationTests {
         .andExpect(
             jsonPath("title", is("Organisations- und Prozessentwicklung Harald Augustin (Hrsg.)")))
         .andExpect(jsonPath("source", is("FOLIO")));
+  }
+
+  @Test
+  void getInstanceSummary_shouldReturnInstanceSummary_whenInstanceIdValid() throws Exception {
+    doGet(mockMvc, INSTANCE_SUMMARY_BY_VALID_INSTANCE_ID_URL)
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("instance.id", is("e6bc03c6-c137-4221-b679-a7c5c31f986c")))
+        .andExpect(jsonPath("recordCounts.holdings.total", is(1)))
+        .andExpect(jsonPath("recordCounts.items.total", is(1)))
+        .andExpect(jsonPath("aggregates.allRecords.itemDerivedFields.effectiveShelvingOrder", is("CN 002")));
   }
 
   @Test

@@ -16,6 +16,7 @@ import static org.folio.edge.inventory.TestConstants.IDENTIFIER_TYPES_RESPONSE_P
 import static org.folio.edge.inventory.TestConstants.INSTANCE_FORMATS_RESPONSE_PATH;
 import static org.folio.edge.inventory.TestConstants.INSTANCE_NOTE_TYPES_RESPONSE_PATH;
 import static org.folio.edge.inventory.TestConstants.INSTANCE_RESPONSE_PATH;
+import static org.folio.edge.inventory.TestConstants.INSTANCE_SUMMARY_RESPONSE_PATH;
 import static org.folio.edge.inventory.TestConstants.INSTANCE_TYPES_RESPONSE_PATH;
 import static org.folio.edge.inventory.TestConstants.INSTITUTION_BY_ID_PATH;
 import static org.folio.edge.inventory.TestConstants.INSTITUTION_ID;
@@ -95,6 +96,22 @@ class InventoryServiceTest {
     assertEquals("inst000000000027", actualInstance.get("hrid"));
     assertEquals("Organisations- und Prozessentwicklung Harald Augustin (Hrsg.)", actualInstance.get("title"));
     assertEquals("FOLIO", actualInstance.get(SOURCE));
+  }
+
+  @Test
+  void getInstanceSummaryById_shouldReturnInstanceSummary() throws JSONException {
+    when(inventoryClient
+        .getInstanceSummary(VALID_INSTANCE_ID))
+        .thenReturn(jsonNode(INSTANCE_SUMMARY_RESPONSE_PATH));
+
+    JSONObject actualSummary = new JSONObject(inventoryService.getInstanceSummary(VALID_INSTANCE_ID));
+
+    assertEquals(VALID_INSTANCE_ID, actualSummary.getJSONObject("instance").get(ID));
+    assertEquals(1, actualSummary.getJSONObject("recordCounts").getJSONObject("holdings").get("total"));
+    assertEquals("CN 002", actualSummary.getJSONObject("aggregates")
+        .getJSONObject("allRecords")
+        .getJSONObject("itemDerivedFields")
+        .get(EFFECTIVE_SHELVING_ORDER));
   }
 
   @Test

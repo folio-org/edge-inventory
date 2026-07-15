@@ -7,12 +7,17 @@ import static org.folio.edge.inventory.models.InventoryViewJsonFields.INSTANCES;
 import static org.folio.edge.inventory.models.InventoryViewJsonFields.INSTANCE_ID;
 import static org.folio.edge.inventory.models.InventoryViewJsonFields.ITEMS;
 import static org.folio.edge.inventory.models.InventoryViewJsonFields.TOTAL_RECORDS;
+import static org.folio.spring.utils.FolioExecutionContextUtils.prepareContextForTenant;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.function.Function;
 import java.util.regex.Pattern;
 import lombok.RequiredArgsConstructor;
 import org.folio.edge.inventory.client.InventoryClient;
@@ -26,13 +31,34 @@ import org.folio.inventory.domain.dto.RequestQueryParameters;
 import org.folio.spring.FolioExecutionContext;
 import org.springframework.stereotype.Service;
 import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.node.ArrayNode;
 import tools.jackson.databind.node.JsonNodeFactory;
+import tools.jackson.databind.node.ObjectNode;
 
 @Service
 @RequiredArgsConstructor
 public class EcsInventoryService {
 
   public static final String FACET = "holdings.tenantId";
+  private static final String AGGREGATES = "aggregates";
+  private static final String ALL_RECORDS = "allRecords";
+  private static final String ELECTRONIC_ACCESS = "electronicAccess";
+  private static final String EFFECTIVE_SHELVING_ORDER = "effectiveShelvingOrder";
+  private static final String ID_FIELD = "id";
+  private static final String IS_BOUND_WITH = "isBoundWith";
+  private static final String ITEM_DERIVED_FIELDS = "itemDerivedFields";
+  private static final String ITEM_MATERIAL_TYPES = "itemMaterialTypes";
+  private static final String NAME = "name";
+  private static final String NOT_SUPPRESSED_FROM_DISCOVERY_RECORDS = "notSuppressedFromDiscoveryRecords";
+  private static final String RECORD_COUNTS = "recordCounts";
+  private static final String REFERENCE_VALUES = "referenceValues";
+  private static final String SUMMARY_HOLDINGS = "holdings";
+  private static final String SUPPRESSED_BY_HOLDINGS = "suppressedByHoldings";
+  private static final String SUPPRESSED_FROM_DISCOVERY = "suppressedFromDiscovery";
+  private static final String SUPPRESSED_FROM_DISCOVERY_OR_BY_HOLDINGS = "suppressedFromDiscoveryOrByHoldings";
+  private static final String NOT_SUPPRESSED_FROM_DISCOVERY = "notSuppressedFromDiscovery";
+  private static final String SUMMARY_TOTAL = "total";
+  private static final String URI = "uri";
   private static final Pattern HOLDINGS_ID_PATTERN = Pattern.compile(HOLDINGS_RECORD_ID + "==\\(([^)]+)\\)");
   private static final Pattern INSTANCE_ID_PATTERN = Pattern.compile("(instance(?:\\.id|Id))==([a-fA-F0-9\\-]{36})");
   private final UserClient userClient;
@@ -42,11 +68,32 @@ public class EcsInventoryService {
   private final RequestQueryParametersMapper requestQueryParametersMapper;
 
   public boolean isCentralTenant(String tenantId) {
+    var effectiveTenantId = effectiveTenantId(tenantId);
     var userTenants = userClient.getUserTenants();
     if (userTenants.getTotalRecords() > 0) {
-      return tenantId.equals(userTenants.getUserTenants().get(0).getCentralTenantId());
+      return effectiveTenantId != null && effectiveTenantId.equals(userTenants.getUserTenants().get(0).getCentralTenantId());
     }
     return false;
+  }
+
+  public String getEcsInstanceSummary(String instanceId, String currentTenantId) {
+    var centralSummary = inventoryClient.getInstanceSummary(instanceId);
+    var effectiveTenantId = effectiveTenantId(currentTenantId);
+    var memberTenantIds = getInstanceTenants(instanceId).tenantIds().stream()
+        .filter(tenantId -> !Objects.equals(tenantId, effectiveTenantId))
+        .toList();
+    if (memberTenantIds.isEmpty()) {
+      return centralSummary.toString();
+    }
+
+    getInstanceSummaries(instanceId, memberTenantIds)
+        .forEach(memberSummary -> mergeInstanceSummary(centralSummary, memberSummary));
+    return centralSummary.toString();
+  }
+
+  private String effectiveTenantId(String tenantId) {
+    var contextTenantId = folioExecutionContext.getTenantId();
+    return contextTenantId == null ? tenantId : contextTenantId;
   }
 
   public String getEcsInventoryViewInstances(RequestQueryParameters requestQueryParameters, Boolean withBoundedItems) {
@@ -95,6 +142,14 @@ public class EcsInventoryService {
         .toList();
   }
 
+  private List<JsonNode> getInstanceSummaries(String instanceId, List<String> tenantIds) {
+    var context = (FolioExecutionContext) folioExecutionContext.getInstance();
+    return tenantIds.parallelStream()
+        .map(tenantId -> prepareContextForTenant(tenantId, context.getFolioModuleMetadata(), context)
+            .execute(() -> inventoryClient.getInstanceSummary(instanceId)))
+        .toList();
+  }
+
   private void mergeInstanceViews(JsonNode instanceView1, JsonNode instanceView2) {
     var instances1 = instanceView1.withArrayProperty(INSTANCES);
     var instances2 = instanceView2.withArrayProperty(INSTANCES);
@@ -108,6 +163,138 @@ public class EcsInventoryService {
         instance1.withArrayProperty(ITEMS).addAll(instance2.withArrayProperty(ITEMS));
       }
     }
+  }
+
+  private void mergeInstanceSummary(JsonNode target, JsonNode source) {
+    mergeBoundWith(target, source);
+    mergeRecordCounts(target, source);
+    mergeAggregateScope(target, source, ALL_RECORDS);
+    mergeAggregateScope(target, source, NOT_SUPPRESSED_FROM_DISCOVERY_RECORDS);
+  }
+
+  private void mergeBoundWith(JsonNode target, JsonNode source) {
+    if (target instanceof ObjectNode targetObject) {
+      targetObject.put(IS_BOUND_WITH, booleanValue(target, IS_BOUND_WITH) || booleanValue(source, IS_BOUND_WITH));
+    }
+  }
+
+  private void mergeRecordCounts(JsonNode target, JsonNode source) {
+    addCount(target, source, SUMMARY_HOLDINGS, SUMMARY_TOTAL);
+    addCount(target, source, SUMMARY_HOLDINGS, SUPPRESSED_FROM_DISCOVERY);
+    addCount(target, source, SUMMARY_HOLDINGS, NOT_SUPPRESSED_FROM_DISCOVERY);
+    addCount(target, source, ITEMS, SUMMARY_TOTAL);
+    addCount(target, source, ITEMS, SUPPRESSED_FROM_DISCOVERY);
+    addCount(target, source, ITEMS, SUPPRESSED_BY_HOLDINGS);
+    addCount(target, source, ITEMS, SUPPRESSED_FROM_DISCOVERY_OR_BY_HOLDINGS);
+    addCount(target, source, ITEMS, NOT_SUPPRESSED_FROM_DISCOVERY);
+  }
+
+  private void addCount(JsonNode target, JsonNode source, String recordType, String fieldName) {
+    var targetCounts = target.withObject("/" + RECORD_COUNTS + "/" + recordType);
+    var sourceCounts = getNode(source, RECORD_COUNTS, recordType);
+    targetCounts.put(fieldName, intValue(targetCounts, fieldName) + intValue(sourceCounts, fieldName));
+  }
+
+  private void mergeAggregateScope(JsonNode target, JsonNode source, String scope) {
+    Comparator<JsonNode> namedValueComparator = Comparator
+        .comparing((JsonNode node) -> stringValue(node, NAME), Comparator.nullsLast(String::compareTo))
+        .thenComparing(this::namedValueKey);
+    mergeEffectiveShelvingOrder(target, source, scope);
+    mergeArray(target, source, "/" + AGGREGATES + "/" + scope, ELECTRONIC_ACCESS,
+        this::electronicAccessKey, null);
+    mergeArray(target, source, "/" + AGGREGATES + "/" + scope + "/" + REFERENCE_VALUES, ITEM_MATERIAL_TYPES,
+        this::namedValueKey, namedValueComparator);
+  }
+
+  private void mergeEffectiveShelvingOrder(JsonNode target, JsonNode source, String scope) {
+    var targetFields = target.withObject("/" + AGGREGATES + "/" + scope + "/" + ITEM_DERIVED_FIELDS);
+    var targetValue = stringValue(targetFields, EFFECTIVE_SHELVING_ORDER);
+    var sourceValue = stringValue(getNode(source, AGGREGATES, scope, ITEM_DERIVED_FIELDS), EFFECTIVE_SHELVING_ORDER);
+    var mergedValue = firstShelvingOrder(targetValue, sourceValue);
+    if (mergedValue != null) {
+      targetFields.put(EFFECTIVE_SHELVING_ORDER, mergedValue);
+    }
+  }
+
+  private String firstShelvingOrder(String value1, String value2) {
+    if (value1 == null) {
+      return value2;
+    }
+    if (value2 == null) {
+      return value1;
+    }
+    return value1.compareTo(value2) <= 0 ? value1 : value2;
+  }
+
+  private void mergeArray(JsonNode target, JsonNode source, String parentPointer, String arrayName,
+      Function<JsonNode, String> keyProvider, Comparator<JsonNode> comparator) {
+    var merged = new LinkedHashMap<String, JsonNode>();
+    addArrayValues(merged, getNode(target.withObject(parentPointer), arrayName), keyProvider);
+    addArrayValues(merged, getNode(source, path(parentPointer, arrayName)), keyProvider);
+
+    var values = new ArrayList<>(merged.values());
+    if (comparator != null) {
+      values.sort(comparator);
+    }
+
+    var mergedArray = JsonNodeFactory.instance.arrayNode();
+    values.forEach(mergedArray::add);
+    target.withObject(parentPointer).set(arrayName, mergedArray);
+  }
+
+  private void addArrayValues(Map<String, JsonNode> valuesByKey, JsonNode arrayNode,
+      Function<JsonNode, String> keyProvider) {
+    if (!(arrayNode instanceof ArrayNode values)) {
+      return;
+    }
+    for (JsonNode value : values.elements()) {
+      valuesByKey.putIfAbsent(keyProvider.apply(value), value);
+    }
+  }
+
+  private String electronicAccessKey(JsonNode electronicAccess) {
+    var uri = stringValue(electronicAccess, URI);
+    return uri == null ? electronicAccess.toString() : uri;
+  }
+
+  private String namedValueKey(JsonNode namedValue) {
+    var id = stringValue(namedValue, ID_FIELD);
+    return id == null ? namedValue.toString() : id;
+  }
+
+  private String[] path(String parentPointer, String fieldName) {
+    var path = parentPointer.substring(1) + "/" + fieldName;
+    return path.split("/");
+  }
+
+  private JsonNode getNode(JsonNode node, String... fieldNames) {
+    var current = node;
+    for (String fieldName : fieldNames) {
+      if (current == null) {
+        return null;
+      }
+      current = current.get(fieldName);
+    }
+    return current;
+  }
+
+  private int intValue(JsonNode node, String fieldName) {
+    var value = node == null ? null : node.get(fieldName);
+    return value == null ? 0 : value.asInt();
+  }
+
+  private boolean booleanValue(JsonNode node, String fieldName) {
+    var value = node == null ? null : node.get(fieldName);
+    return value != null && value.asBoolean();
+  }
+
+  private String stringValue(JsonNode node, String fieldName) {
+    var value = node == null ? null : node.get(fieldName);
+    if (value == null || value.isNull()) {
+      return null;
+    }
+    var stringValue = value.asString();
+    return stringValue == null || stringValue.isBlank() ? null : stringValue;
   }
 
   private RequestQueryParameters getRequestQueryParams(List<String> instanceIds) {
