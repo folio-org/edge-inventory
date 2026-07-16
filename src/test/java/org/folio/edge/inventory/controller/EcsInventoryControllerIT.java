@@ -12,12 +12,16 @@ import static org.folio.edge.inventory.TestConstants.GET_VIEW_INSTANCES_URL;
 import static org.folio.edge.inventory.TestConstants.INSTITUTION_ID;
 import static org.folio.edge.inventory.TestConstants.LIBRARY_ID;
 import static org.folio.edge.inventory.TestConstants.LOCATION_ID;
+import static com.github.tomakehurst.wiremock.client.WireMock.equalTo;
+import static com.github.tomakehurst.wiremock.client.WireMock.getRequestedFor;
+import static com.github.tomakehurst.wiremock.client.WireMock.urlPathEqualTo;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.folio.edge.inventory.BaseIntegrationTests;
+import org.folio.spring.integration.XOkapiHeaders;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Test;
@@ -59,6 +63,24 @@ class EcsInventoryControllerIT extends BaseIntegrationTests {
         .andExpect(jsonPath("holdingsRecords[3].instanceId", is("e54b1f4d-7d05-4b1a-9368-3c36b75d8ac6")))
         .andExpect(jsonPath("holdingsRecords[3].id", is("e9285a1c-1dfc-4380-868c-e74073003f43")))
         .andExpect(jsonPath("totalRecords", is(4)));
+  }
+
+  @Test
+  void getInventoryHoldings_sendsMemberTenantHeaderNotCentral() throws Exception {
+    WIRE_MOCK.resetRequests();
+
+    doGetWithParams(mockMvc, GET_HOLDINGS_URL, "query",
+        "instanceId==d41d9172-1869-11eb-adc1-0242ac120002%20not%20discoverySuppress==true", true)
+        .andExpect(status().isOk());
+
+    // The facet response resolves this instance to member tenants test1 and test2; holdings must be
+    // fetched from those member tenants, not from the central tenant carried by the execution context.
+    WIRE_MOCK.verify(getRequestedFor(urlPathEqualTo("/holdings-storage/holdings"))
+        .withHeader(XOkapiHeaders.TENANT, equalTo("test1")));
+    WIRE_MOCK.verify(getRequestedFor(urlPathEqualTo("/holdings-storage/holdings"))
+        .withHeader(XOkapiHeaders.TENANT, equalTo("test2")));
+    WIRE_MOCK.verify(0, getRequestedFor(urlPathEqualTo("/holdings-storage/holdings"))
+        .withHeader(XOkapiHeaders.TENANT, equalTo("central_test")));
   }
 
   @Test
