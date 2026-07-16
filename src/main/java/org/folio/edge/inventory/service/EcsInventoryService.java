@@ -27,6 +27,7 @@ import org.folio.edge.inventory.models.InstanceTenants;
 import org.folio.edge.inventory.service.mapper.RequestQueryParametersMapper;
 import org.folio.edge.inventory.util.JsonNodeUtil;
 import org.folio.edge.inventory.util.QueryUtil;
+import org.folio.inventory.domain.dto.FacetResponseFacetsHoldingsTenantIdValuesInner;
 import org.folio.inventory.domain.dto.RequestQueryParameters;
 import org.folio.spring.FolioExecutionContext;
 import org.springframework.stereotype.Service;
@@ -48,6 +49,7 @@ public class EcsInventoryService {
   private static final String IS_BOUND_WITH = "isBoundWith";
   private static final String ITEM_DERIVED_FIELDS = "itemDerivedFields";
   private static final String ITEM_MATERIAL_TYPES = "itemMaterialTypes";
+  private static final char JSON_POINTER_SEPARATOR = '/';
   private static final String NAME = "name";
   private static final String NOT_SUPPRESSED_FROM_DISCOVERY_RECORDS = "notSuppressedFromDiscoveryRecords";
   private static final String RECORD_COUNTS = "recordCounts";
@@ -71,7 +73,7 @@ public class EcsInventoryService {
     var effectiveTenantId = effectiveTenantId(tenantId);
     var userTenants = userClient.getUserTenants();
     if (userTenants.getTotalRecords() > 0) {
-      return effectiveTenantId != null && effectiveTenantId.equals(userTenants.getUserTenants().get(0).getCentralTenantId());
+      return effectiveTenantId != null && effectiveTenantId.equals(userTenants.getUserTenants().getFirst().getCentralTenantId());
     }
     return false;
   }
@@ -113,7 +115,7 @@ public class EcsInventoryService {
   private List<String> getInstanceIdsFromView(JsonNode instanceView) {
     var instanceIds = new ArrayList<String>();
     instanceView.withArray(INSTANCES).elements()
-        .forEach((instance) -> instanceIds.add(instance.get(INSTANCE_ID).asString()));
+        .forEach(instance -> instanceIds.add(instance.get(INSTANCE_ID).asString()));
     return instanceIds;
   }
 
@@ -190,9 +192,11 @@ public class EcsInventoryService {
   }
 
   private void addCount(JsonNode target, JsonNode source, String recordType, String fieldName) {
-    var targetCounts = target.withObject("/" + RECORD_COUNTS + "/" + recordType);
+    var targetCounts = target.withObject(jsonPointer(RECORD_COUNTS, recordType));
     var sourceCounts = getNode(source, RECORD_COUNTS, recordType);
-    targetCounts.put(fieldName, intValue(targetCounts, fieldName) + intValue(sourceCounts, fieldName));
+    if (targetCounts != null) {
+      targetCounts.put(fieldName, intValue(targetCounts, fieldName) + intValue(sourceCounts, fieldName));
+    }
   }
 
   private void mergeAggregateScope(JsonNode target, JsonNode source, String scope) {
@@ -200,19 +204,21 @@ public class EcsInventoryService {
         .comparing((JsonNode node) -> stringValue(node, NAME), Comparator.nullsLast(String::compareTo))
         .thenComparing(this::namedValueKey);
     mergeEffectiveShelvingOrder(target, source, scope);
-    mergeArray(target, source, "/" + AGGREGATES + "/" + scope, ELECTRONIC_ACCESS,
+    mergeArray(target, source, jsonPointer(AGGREGATES, scope), ELECTRONIC_ACCESS,
         this::electronicAccessKey, null);
-    mergeArray(target, source, "/" + AGGREGATES + "/" + scope + "/" + REFERENCE_VALUES, ITEM_MATERIAL_TYPES,
+    mergeArray(target, source, jsonPointer(AGGREGATES, scope, REFERENCE_VALUES), ITEM_MATERIAL_TYPES,
         this::namedValueKey, namedValueComparator);
   }
 
   private void mergeEffectiveShelvingOrder(JsonNode target, JsonNode source, String scope) {
-    var targetFields = target.withObject("/" + AGGREGATES + "/" + scope + "/" + ITEM_DERIVED_FIELDS);
-    var targetValue = stringValue(targetFields, EFFECTIVE_SHELVING_ORDER);
-    var sourceValue = stringValue(getNode(source, AGGREGATES, scope, ITEM_DERIVED_FIELDS), EFFECTIVE_SHELVING_ORDER);
-    var mergedValue = firstShelvingOrder(targetValue, sourceValue);
-    if (mergedValue != null) {
-      targetFields.put(EFFECTIVE_SHELVING_ORDER, mergedValue);
+    var targetFields = target.withObject(jsonPointer(AGGREGATES, scope, ITEM_DERIVED_FIELDS));
+    if (targetFields != null) {
+      var targetValue = stringValue(targetFields, EFFECTIVE_SHELVING_ORDER);
+      var sourceValue = stringValue(getNode(source, AGGREGATES, scope, ITEM_DERIVED_FIELDS), EFFECTIVE_SHELVING_ORDER);
+      var mergedValue = firstShelvingOrder(targetValue, sourceValue);
+      if (mergedValue != null) {
+        targetFields.put(EFFECTIVE_SHELVING_ORDER, mergedValue);
+      }
     }
   }
 
@@ -229,7 +235,8 @@ public class EcsInventoryService {
   private void mergeArray(JsonNode target, JsonNode source, String parentPointer, String arrayName,
       Function<JsonNode, String> keyProvider, Comparator<JsonNode> comparator) {
     var merged = new LinkedHashMap<String, JsonNode>();
-    addArrayValues(merged, getNode(target.withObject(parentPointer), arrayName), keyProvider);
+    var targetParent = target.withObject(parentPointer);
+    addArrayValues(merged, getNode(targetParent, arrayName), keyProvider);
     addArrayValues(merged, getNode(source, path(parentPointer, arrayName)), keyProvider);
 
     var values = new ArrayList<>(merged.values());
@@ -239,7 +246,9 @@ public class EcsInventoryService {
 
     var mergedArray = JsonNodeFactory.instance.arrayNode();
     values.forEach(mergedArray::add);
-    target.withObject(parentPointer).set(arrayName, mergedArray);
+    if (targetParent != null) {
+      targetParent.set(arrayName, mergedArray);
+    }
   }
 
   private void addArrayValues(Map<String, JsonNode> valuesByKey, JsonNode arrayNode,
@@ -263,8 +272,12 @@ public class EcsInventoryService {
   }
 
   private String[] path(String parentPointer, String fieldName) {
-    var path = parentPointer.substring(1) + "/" + fieldName;
-    return path.split("/");
+    var path = parentPointer.substring(1) + JSON_POINTER_SEPARATOR + fieldName;
+    return path.split(String.valueOf(JSON_POINTER_SEPARATOR));
+  }
+
+  private String jsonPointer(String... pathSegments) {
+    return JSON_POINTER_SEPARATOR + String.join(String.valueOf(JSON_POINTER_SEPARATOR), pathSegments);
   }
 
   private JsonNode getNode(JsonNode node, String... fieldNames) {
@@ -308,11 +321,13 @@ public class EcsInventoryService {
 
   private InstanceTenants getInstanceTenants(String instanceId) {
     var response = searchClient.getInstanceFacet(FACET, "id==" + instanceId);
-    if (response.getFacets().getHoldingsTenantId().getTotalRecords() == 0) {
+    var holdingsTenantId = response.getFacets().getHoldingsTenantId();
+    var totalRecords = holdingsTenantId == null ? null : holdingsTenantId.getTotalRecords();
+    if (totalRecords == null || totalRecords == 0) {
       return new InstanceTenants(instanceId, Collections.<String>emptyList());
     }
-    var tenantIds = response.getFacets().getHoldingsTenantId().getValues()
-        .stream().map(value -> value.getId()).toList();
+    var tenantIds = holdingsTenantId.getValues()
+        .stream().map(FacetResponseFacetsHoldingsTenantIdValuesInner::getId).toList();
     return new InstanceTenants(instanceId, tenantIds);
   }
 
