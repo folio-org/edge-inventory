@@ -70,19 +70,17 @@ public class EcsInventoryService {
   private final RequestQueryParametersMapper requestQueryParametersMapper;
 
   public boolean isCentralTenant(String tenantId) {
-    var effectiveTenantId = effectiveTenantId(tenantId);
     var userTenants = userClient.getUserTenants();
     if (userTenants.getTotalRecords() > 0) {
-      return effectiveTenantId != null && effectiveTenantId.equals(userTenants.getUserTenants().getFirst().getCentralTenantId());
+      return tenantId.equals(userTenants.getUserTenants().getFirst().getCentralTenantId());
     }
     return false;
   }
 
   public String getEcsInstanceSummary(String instanceId, String currentTenantId) {
     var centralSummary = inventoryClient.getInstanceSummary(instanceId);
-    var effectiveTenantId = effectiveTenantId(currentTenantId);
     var memberTenantIds = getInstanceTenants(instanceId).tenantIds().stream()
-        .filter(tenantId -> !Objects.equals(tenantId, effectiveTenantId))
+        .filter(tenantId -> !Objects.equals(tenantId, currentTenantId))
         .toList();
     if (memberTenantIds.isEmpty()) {
       return centralSummary.toString();
@@ -91,11 +89,6 @@ public class EcsInventoryService {
     getInstanceSummaries(instanceId, memberTenantIds)
         .forEach(memberSummary -> mergeInstanceSummary(centralSummary, memberSummary));
     return centralSummary.toString();
-  }
-
-  private String effectiveTenantId(String tenantId) {
-    var contextTenantId = folioExecutionContext.getTenantId();
-    return contextTenantId == null ? tenantId : contextTenantId;
   }
 
   public String getEcsInventoryViewInstances(RequestQueryParameters requestQueryParameters, Boolean withBoundedItems) {
