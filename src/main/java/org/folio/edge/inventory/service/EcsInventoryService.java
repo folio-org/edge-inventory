@@ -10,6 +10,7 @@ import static org.folio.edge.inventory.models.InventoryViewJsonFields.TOTAL_RECO
 import static org.folio.spring.utils.FolioExecutionContextUtils.prepareContextForTenant;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -196,10 +197,13 @@ public class EcsInventoryService {
     Comparator<JsonNode> namedValueComparator = Comparator
         .comparing((JsonNode node) -> stringValue(node, NAME), Comparator.nullsLast(String::compareTo))
         .thenComparing(this::namedValueKey);
+    Comparator<JsonNode> electronicAccessComparator = Comparator
+        .comparing((JsonNode node) -> stringValue(node, URI), Comparator.nullsLast(String::compareTo))
+        .thenComparing(this::electronicAccessKey);
     mergeEffectiveShelvingOrder(target, source, scope);
-    mergeArray(target, source, jsonPointer(AGGREGATES, scope), ELECTRONIC_ACCESS,
-        this::electronicAccessKey, null);
-    mergeArray(target, source, jsonPointer(AGGREGATES, scope, REFERENCE_VALUES), ITEM_MATERIAL_TYPES,
+    mergeArray(target, source, new String[] {AGGREGATES, scope}, ELECTRONIC_ACCESS,
+        this::electronicAccessKey, electronicAccessComparator);
+    mergeArray(target, source, new String[] {AGGREGATES, scope, REFERENCE_VALUES}, ITEM_MATERIAL_TYPES,
         this::namedValueKey, namedValueComparator);
   }
 
@@ -225,12 +229,12 @@ public class EcsInventoryService {
     return value1.compareTo(value2) <= 0 ? value1 : value2;
   }
 
-  private void mergeArray(JsonNode target, JsonNode source, String parentPointer, String arrayName,
+  private void mergeArray(JsonNode target, JsonNode source, String[] parentPath, String arrayName,
       Function<JsonNode, String> keyProvider, Comparator<JsonNode> comparator) {
     var merged = new LinkedHashMap<String, JsonNode>();
-    var targetParent = target.withObject(parentPointer);
+    var targetParent = target.withObject(jsonPointer(parentPath));
     addArrayValues(merged, getNode(targetParent, arrayName), keyProvider);
-    addArrayValues(merged, getNode(source, path(parentPointer, arrayName)), keyProvider);
+    addArrayValues(merged, getNode(source, append(parentPath, arrayName)), keyProvider);
 
     var values = new ArrayList<>(merged.values());
     if (comparator != null) {
@@ -264,9 +268,10 @@ public class EcsInventoryService {
     return id == null ? namedValue.toString() : id;
   }
 
-  private String[] path(String parentPointer, String fieldName) {
-    var path = parentPointer.substring(1) + JSON_POINTER_SEPARATOR + fieldName;
-    return path.split(String.valueOf(JSON_POINTER_SEPARATOR));
+  private String[] append(String[] pathSegments, String fieldName) {
+    var extendedPath = Arrays.copyOf(pathSegments, pathSegments.length + 1);
+    extendedPath[pathSegments.length] = fieldName;
+    return extendedPath;
   }
 
   private String jsonPointer(String... pathSegments) {

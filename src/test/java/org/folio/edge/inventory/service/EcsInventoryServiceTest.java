@@ -20,6 +20,7 @@ import static org.folio.edge.inventory.models.InventoryViewJsonFields.ITEMS;
 import static org.folio.edge.inventory.models.InventoryViewJsonFields.TOTAL_RECORDS;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyMap;
@@ -115,8 +116,31 @@ public class EcsInventoryServiceTest {
     var allRecords = response.get("aggregates").get("allRecords");
     assertEquals("CN 001", allRecords.get("itemDerivedFields").get("effectiveShelvingOrder").asString());
     assertEquals(3, allRecords.get("electronicAccess").size());
+    assertEquals("https://example.org/central", allRecords.get("electronicAccess").get(0).get("uri").asString());
+    assertEquals("https://example.org/member-one", allRecords.get("electronicAccess").get(1).get("uri").asString());
+    assertEquals("https://example.org/member-two", allRecords.get("electronicAccess").get(2).get("uri").asString());
     assertEquals(3, allRecords.get("referenceValues").get("itemMaterialTypes").size());
     assertEquals("book", allRecords.get("referenceValues").get("itemMaterialTypes").get(0).get("name").asString());
+  }
+
+  @Test
+  @SneakyThrows
+  void getEcsInstanceSummary_shouldFailWhenMemberTenantSummaryFails() {
+    when(folioExecutionContext.getInstance()).thenReturn(folioExecutionContext);
+    when(folioExecutionContext.getAllHeaders()).thenReturn(okapiHeaders(CENTRAL_TEST_TENANT));
+    when(folioExecutionContext.getOkapiHeaders()).thenReturn(okapiHeaders(CENTRAL_TEST_TENANT));
+    when(inventoryClient.getInstanceSummary(VALID_INSTANCE_ID))
+        .thenReturn(getJsonNode(INSTANCE_SUMMARY_RESPONSE_PATH))
+        .thenThrow(new IllegalStateException("member summary failed"));
+    var facetResponse = objectMapper.readValue(
+        TestUtil.readFileContentFromResources(HOLDINGS_FACET_RESPONSE_PATH), FacetResponse.class);
+    when(searchClient.getInstanceFacet(eq(ecsInventoryService.FACET), anyString()))
+        .thenReturn(facetResponse);
+
+    assertThrows(RuntimeException.class, () ->
+        ecsInventoryService.getEcsInstanceSummary(VALID_INSTANCE_ID, CENTRAL_TEST_TENANT));
+
+    verify(inventoryClient, times(2)).getInstanceSummary(VALID_INSTANCE_ID);
   }
 
   @Test
