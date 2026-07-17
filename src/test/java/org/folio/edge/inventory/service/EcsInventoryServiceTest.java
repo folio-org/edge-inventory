@@ -52,6 +52,7 @@ import org.folio.spring.integration.XOkapiHeaders;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import tools.jackson.databind.JsonNode;
@@ -71,13 +72,12 @@ public class EcsInventoryServiceTest {
   @Mock
   private RequestQueryParametersMapper requestQueryParametersMapper;
 
+  @InjectMocks
   private EcsInventoryService ecsInventoryService;
   private final ObjectMapper objectMapper = new ObjectMapper();
 
   @BeforeEach
   void setUp() {
-    ecsInventoryService = new EcsInventoryService(usersClient, inventoryClient, searchClient,
-        folioExecutionContext, requestQueryParametersMapper);
     var emptyQueryMap = Collections.emptyMap();
     lenient().doReturn(emptyQueryMap)
         .when(requestQueryParametersMapper).toMap(any(RequestQueryParameters.class));

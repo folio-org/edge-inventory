@@ -52,6 +52,7 @@ import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import tools.jackson.databind.JsonNode;
@@ -68,6 +69,7 @@ class InventoryServiceTest {
   private static final String TOTAL_RECORDS = "totalRecords";
   private static final String EFFECTIVE_SHELVING_ORDER = "effectiveShelvingOrder";
 
+  @InjectMocks
   private InventoryService inventoryService;
   @Mock
   private InventoryClient inventoryClient;
@@ -76,7 +78,6 @@ class InventoryServiceTest {
 
   @BeforeEach
   void setUp() {
-    inventoryService = new InventoryService(inventoryClient, requestQueryParametersMapper);
     var emptyQueryMap = Collections.emptyMap();
     lenient().doReturn(emptyQueryMap)
         .when(requestQueryParametersMapper).toMap(any(RequestQueryParameters.class));
