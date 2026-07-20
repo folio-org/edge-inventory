@@ -6,9 +6,6 @@
   },
   "isBoundWith": false,
   "recordCounts": {
-    "instance": {
-      "suppressedFromDiscovery": false
-    },
     "holdings": {
       "total": 2,
       "suppressedFromDiscovery": 1,
