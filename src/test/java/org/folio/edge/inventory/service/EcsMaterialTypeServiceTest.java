@@ -56,9 +56,6 @@ class EcsMaterialTypeServiceTest {
     lenient().when(folioExecutionContext.getFolioModuleMetadata()).thenReturn(folioModuleMetadata);
     lenient().when(folioModuleMetadata.getModuleName()).thenReturn("edge-inventory");
     when(folioExecutionContext.getInstance()).thenReturn(folioExecutionContext);
-
-    ecsMaterialTypeService = new EcsMaterialTypeService(usersClient, consortiaClient, inventoryClient,
-        folioExecutionContext);
   }
 
   @Test
