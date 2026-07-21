@@ -75,8 +75,6 @@ class EcsInventoryServiceTest {
     var request = new RequestQueryParameters();
     when(folioExecutionContext.getInstance()).thenReturn(folioExecutionContext);
     when(folioExecutionContext.execute(any())).thenCallRealMethod();
-    // Tenant is now selected via the execution context, so central and member calls hit the same
-    // client method. The central view is fetched first, member views afterwards.
     when(inventoryClient.getInventoryViewInstances(anyMap(), eq(false)))
         .thenReturn(getJsonNode(GET_VIEW_INSTANCES_WITHOUT_HOLDINGS_PATH))
         .thenReturn(getJsonNode(GET_VIEW_INSTANCES_WITH_HOLDINGS_PATH));

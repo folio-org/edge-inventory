@@ -73,8 +73,6 @@ class EcsInventoryControllerIT extends BaseIntegrationTests {
         "instanceId==d41d9172-1869-11eb-adc1-0242ac120002%20not%20discoverySuppress==true", true)
         .andExpect(status().isOk());
 
-    // The facet response resolves this instance to member tenants test1 and test2; holdings must be
-    // fetched from those member tenants, not from the central tenant carried by the execution context.
     WIRE_MOCK.verify(getRequestedFor(urlPathEqualTo("/holdings-storage/holdings"))
         .withHeader(XOkapiHeaders.TENANT, equalTo("test1")));
     WIRE_MOCK.verify(getRequestedFor(urlPathEqualTo("/holdings-storage/holdings"))
