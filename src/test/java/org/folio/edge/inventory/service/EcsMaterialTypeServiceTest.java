@@ -1,6 +1,5 @@
 package org.folio.edge.inventory.service;
 
-import static org.folio.edge.inventory.TestConstants.CENTRAL_TEST_TENANT;
 import static org.folio.edge.inventory.TestConstants.CONSORTIA_TENANTS_RESPONSE_PATH;
 import static org.folio.edge.inventory.TestConstants.MATERIAL_TYPE_ID;
 import static org.folio.edge.inventory.TestConstants.MATERIAL_TYPE_ID_NOT_FOUND;
@@ -57,10 +56,6 @@ class EcsMaterialTypeServiceTest {
     lenient().when(folioExecutionContext.getFolioModuleMetadata()).thenReturn(folioModuleMetadata);
     lenient().when(folioModuleMetadata.getModuleName()).thenReturn("edge-inventory");
     when(folioExecutionContext.getInstance()).thenReturn(folioExecutionContext);
-    when(folioExecutionContext.execute(any())).thenCallRealMethod();
-
-    ecsMaterialTypeService = new EcsMaterialTypeService(usersClient, consortiaClient, inventoryClient,
-        folioExecutionContext);
   }
 
   @Test
@@ -73,7 +68,7 @@ class EcsMaterialTypeServiceTest {
     var expectedMaterialTypeResponse = getJsonNodeByPath(MATERIAL_TYPE_OF_MEMBER_FROM_CENTRAL_TENANT_PATH);
     when(usersClient.getUserTenants()).thenReturn(userTenants);
     when(consortiaClient.getTenants(any())).thenReturn(consortiaTenants);
-    when(inventoryClient.getMaterialTypeById(MATERIAL_TYPE_ID, CENTRAL_TEST_TENANT)).thenReturn(
+    when(inventoryClient.getMaterialTypeById(MATERIAL_TYPE_ID)).thenReturn(
         expectedMaterialTypeResponse);
 
     var materialTypeJson = objectMapper.readTree(ecsMaterialTypeService.getEcsMaterialTypeById(MATERIAL_TYPE_ID));
@@ -93,7 +88,7 @@ class EcsMaterialTypeServiceTest {
     var errorResponse = getJsonNodeByPath(MATERIAL_TYPE_OF_MEMBER_FROM_CENTRAL_TENANT_NOT_FOUND_PATH);
     when(usersClient.getUserTenants()).thenReturn(userTenants);
     when(consortiaClient.getTenants(any())).thenReturn(consortiaTenants);
-    when(inventoryClient.getMaterialTypeById(MATERIAL_TYPE_ID_NOT_FOUND, CENTRAL_TEST_TENANT)).thenReturn(
+    when(inventoryClient.getMaterialTypeById(MATERIAL_TYPE_ID_NOT_FOUND)).thenReturn(
         errorResponse);
 
     EntityNotFoundException exception = assertThrows(EntityNotFoundException.class, () ->

@@ -1,10 +1,8 @@
 package org.folio.edge.inventory.client;
 
 import java.util.Map;
-import org.folio.spring.integration.XOkapiHeaders;
 import tools.jackson.databind.JsonNode;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.service.annotation.GetExchange;
 import org.springframework.web.service.annotation.HttpExchange;
@@ -20,10 +18,6 @@ public interface InventoryClient {
 
   @GetExchange("holdings-storage/holdings")
   JsonNode getHoldings(@RequestParam Map<String, ?> requestQueryParameters);
-
-  @GetExchange("holdings-storage/holdings")
-  JsonNode getHoldings(@RequestParam Map<String, ?> requestQueryParameters,
-      @RequestHeader(XOkapiHeaders.TENANT) String tenantId);
 
   @GetExchange("identifier-types")
   JsonNode getIdentifierTypes(@RequestParam Map<String, ?> requestQueryParameters);
@@ -58,10 +52,6 @@ public interface InventoryClient {
   @GetExchange("inventory/items")
   JsonNode getItems(@RequestParam Map<String, ?> requestQueryParameters);
 
-  @GetExchange("inventory/items")
-  JsonNode getItems(@RequestParam Map<String, ?> requestQueryParameters,
-      @RequestHeader(XOkapiHeaders.TENANT) String tenantId);
-
   @GetExchange("instance-types")
   JsonNode getInstanceTypes(@RequestParam Map<String, ?> requestQueryParameters);
 
@@ -81,10 +71,6 @@ public interface InventoryClient {
   JsonNode getInventoryViewInstances(@RequestParam Map<String, ?> requestQueryParameters,
       @RequestParam Boolean withBoundedItems);
 
-  @GetExchange("inventory-view/instances")
-  JsonNode getInventoryViewInstances(@RequestParam Map<String, ?> requestQueryParameters,
-      @RequestParam Boolean withBoundedItems, @RequestHeader(XOkapiHeaders.TENANT) String tenantId);
-
   @GetExchange("alternative-title-types")
   JsonNode getAlternativeTitleTypes(@RequestParam Map<String, ?> requestQueryParameters);
 
@@ -93,10 +79,6 @@ public interface InventoryClient {
 
   @GetExchange("material-types/{materialTypeId}")
   JsonNode getMaterialTypeById(@PathVariable("materialTypeId") String materialTypeId);
-
-  @GetExchange("material-types/{materialTypeId}")
-  JsonNode getMaterialTypeById(@PathVariable("materialTypeId") String materialTypeId,
-      @RequestHeader(XOkapiHeaders.TENANT) String tenantId);
 
   @GetExchange("source-storage/records/{instanceId}/formatted?idType=INSTANCE")
   JsonNode getSourceRecords(@PathVariable("instanceId") String instanceId);
