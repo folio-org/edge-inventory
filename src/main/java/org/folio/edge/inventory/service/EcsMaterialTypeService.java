@@ -8,6 +8,7 @@ import lombok.extern.log4j.Log4j2;
 import org.folio.edge.inventory.client.ConsortiaClient;
 import org.folio.edge.inventory.client.InventoryClient;
 import org.folio.edge.inventory.client.UserClient;
+import org.folio.edge.inventory.util.FolioExecutionContextHelper;
 import org.folio.inventory.domain.dto.TenantCollection;
 import org.folio.inventory.domain.dto.UserTenantsUserTenantsInner;
 import org.folio.spring.FolioExecutionContext;
@@ -70,9 +71,9 @@ public class EcsMaterialTypeService {
         })
         .map(tenant -> {
           try {
-            return instance.execute(() -> {
+            return FolioExecutionContextHelper.contextForTenant(instance, tenant.getId()).execute(() -> {
               log.info("Requesting material type {} for tenant {}", materialTypeId, tenant.getName());
-              return inventoryClient.getMaterialTypeById(materialTypeId, tenant.getId());
+              return inventoryClient.getMaterialTypeById(materialTypeId);
             });
           } catch (Exception e) {
             log.warn("Material type {} not found for tenant {}: {}", materialTypeId, tenant.getName(), e.getMessage());

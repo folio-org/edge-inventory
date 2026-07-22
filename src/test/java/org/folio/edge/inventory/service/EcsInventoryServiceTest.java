@@ -38,6 +38,7 @@ import org.folio.spring.FolioExecutionContext;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import tools.jackson.databind.JsonNode;
@@ -57,13 +58,12 @@ public class EcsInventoryServiceTest {
   @Mock
   private RequestQueryParametersMapper requestQueryParametersMapper;
 
+  @InjectMocks
   private EcsInventoryService ecsInventoryService;
   private final ObjectMapper objectMapper = new ObjectMapper();
 
   @BeforeEach
   void setUp() {
-    ecsInventoryService = new EcsInventoryService(usersClient, inventoryClient, searchClient,
-        folioExecutionContext, requestQueryParametersMapper);
     var emptyQueryMap = Collections.emptyMap();
     lenient().doReturn(emptyQueryMap)
         .when(requestQueryParametersMapper).toMap(any(RequestQueryParameters.class));
@@ -76,13 +76,12 @@ public class EcsInventoryServiceTest {
     when(folioExecutionContext.getInstance()).thenReturn(folioExecutionContext);
     when(folioExecutionContext.execute(any())).thenCallRealMethod();
     when(inventoryClient.getInventoryViewInstances(anyMap(), eq(false)))
-        .thenReturn(getJsonNode(GET_VIEW_INSTANCES_WITHOUT_HOLDINGS_PATH));
+        .thenReturn(getJsonNode(GET_VIEW_INSTANCES_WITHOUT_HOLDINGS_PATH))
+        .thenReturn(getJsonNode(GET_VIEW_INSTANCES_WITH_HOLDINGS_PATH));
     var facetResponse = objectMapper.readValue(TestUtil.readFileContentFromResources(HOLDINGS_FACET_RESPONSE_PATH),
         FacetResponse.class);
     when(searchClient.getInstanceFacet(eq(ecsInventoryService.FACET), anyString()))
         .thenReturn(facetResponse);
-    when(inventoryClient.getInventoryViewInstances(anyMap(), eq(false), eq(TestConstants.TEST_TENANT)))
-        .thenReturn(getJsonNode(GET_VIEW_INSTANCES_WITH_HOLDINGS_PATH));
 
     var response = objectMapper.readTree(ecsInventoryService.getEcsInventoryViewInstances(request, false));
 
@@ -99,12 +98,11 @@ public class EcsInventoryServiceTest {
     var request = new RequestQueryParameters();
     request.setQuery("instanceId==d41d9172-1869-11eb-adc1-0242ac120002%20not%20discoverySuppress==true");
     when(folioExecutionContext.getInstance()).thenReturn(folioExecutionContext);
-    when(folioExecutionContext.execute(any())).thenCallRealMethod();
     var facetResponse = objectMapper.readValue(TestUtil.readFileContentFromResources(HOLDINGS_FACET_RESPONSE_PATH),
         FacetResponse.class);
     when(searchClient.getInstanceFacet(eq(ecsInventoryService.FACET), anyString()))
         .thenReturn(facetResponse);
-    when(inventoryClient.getHoldings(anyMap(), eq(TestConstants.TEST_TENANT)))
+    when(inventoryClient.getHoldings(anyMap()))
         .thenReturn(getJsonNode(HOLDINGS_RESPONSE_PATH));
 
     var response = objectMapper.readTree(ecsInventoryService.getEcsInventoryHoldings(request));
@@ -119,12 +117,11 @@ public class EcsInventoryServiceTest {
     var request = new RequestQueryParameters();
     request.setQuery("instance.id==d41d9172-1869-11eb-adc1-0242ac120002");
     when(folioExecutionContext.getInstance()).thenReturn(folioExecutionContext);
-    when(folioExecutionContext.execute(any())).thenCallRealMethod();
     var facetResponse = objectMapper.readValue(TestUtil.readFileContentFromResources(HOLDINGS_FACET_RESPONSE_PATH),
         FacetResponse.class);
     when(searchClient.getInstanceFacet(eq(ecsInventoryService.FACET), anyString()))
         .thenReturn(facetResponse);
-    when(inventoryClient.getItems(anyMap(), eq(TestConstants.TEST_TENANT)))
+    when(inventoryClient.getItems(anyMap()))
         .thenReturn(getJsonNode(ITEMS_RESPONSE_PATH));
 
     var response = objectMapper.readTree(ecsInventoryService.getEcsInventoryItems(request));
@@ -139,7 +136,6 @@ public class EcsInventoryServiceTest {
     var request = new RequestQueryParameters();
     request.setQuery("cql.allRecords=1%20NOT%20discoverySuppress==true%20and%20holdingsRecordId==(e3ff6133-b9a2-4d4c-a1c9-dc1867d4df19)");
     when(folioExecutionContext.getInstance()).thenReturn(folioExecutionContext);
-    when(folioExecutionContext.execute(any())).thenCallRealMethod();
     var holdingResponse = objectMapper.readValue(TestUtil.readFileContentFromResources(HOLDING_RESPONSE_PATH),
         HoldingResponse.class);
     when(searchClient.getConsortiumHolding(any())).thenReturn(holdingResponse);
@@ -147,7 +143,7 @@ public class EcsInventoryServiceTest {
         FacetResponse.class);
     when(searchClient.getInstanceFacet(eq(ecsInventoryService.FACET), anyString()))
         .thenReturn(facetResponse);
-    when(inventoryClient.getItems(anyMap(), eq(TestConstants.TEST_TENANT)))
+    when(inventoryClient.getItems(anyMap()))
         .thenReturn(getJsonNode(ITEMS_RESPONSE_PATH));
 
     var response = objectMapper.readTree(ecsInventoryService.getEcsInventoryItems(request));

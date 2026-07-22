@@ -20,6 +20,7 @@ import org.folio.edge.inventory.client.SearchClient;
 import org.folio.edge.inventory.client.UserClient;
 import org.folio.edge.inventory.models.InstanceTenants;
 import org.folio.edge.inventory.service.mapper.RequestQueryParametersMapper;
+import org.folio.edge.inventory.util.FolioExecutionContextHelper;
 import org.folio.edge.inventory.util.JsonNodeUtil;
 import org.folio.edge.inventory.util.QueryUtil;
 import org.folio.inventory.domain.dto.RequestQueryParameters;
@@ -86,12 +87,12 @@ public class EcsInventoryService {
       Boolean withBoundedItems) {
     var context = (FolioExecutionContext) folioExecutionContext.getInstance();
     return tenantInstanceMap.entrySet().parallelStream()
-        .map(tenantInstances -> context.execute(() -> {
-          var requestQueryParametersMap = requestQueryParametersMapper.toMap(
-              getRequestQueryParams(tenantInstances.getValue()));
-          return inventoryClient.getInventoryViewInstances(
-              requestQueryParametersMap, withBoundedItems, tenantInstances.getKey());
-        }))
+        .map(tenantInstances -> FolioExecutionContextHelper.contextForTenant(context, tenantInstances.getKey())
+            .execute(() -> {
+              var requestQueryParametersMap = requestQueryParametersMapper.toMap(
+                  getRequestQueryParams(tenantInstances.getValue()));
+              return inventoryClient.getInventoryViewInstances(requestQueryParametersMap, withBoundedItems);
+            }))
         .toList();
   }
 
@@ -143,9 +144,9 @@ public class EcsInventoryService {
   private List<JsonNode> getHoldings(InstanceTenants instanceTenants, RequestQueryParameters requestQueryParameters) {
     var context = (FolioExecutionContext) folioExecutionContext.getInstance();
     return instanceTenants.tenantIds().parallelStream()
-        .map(tenantId -> context.execute(() -> {
+        .map(tenantId -> FolioExecutionContextHelper.contextForTenant(context, tenantId).execute(() -> {
           var requestQueryParametersMap = requestQueryParametersMapper.toMap(requestQueryParameters);
-          return inventoryClient.getHoldings(requestQueryParametersMap, tenantId);
+          return inventoryClient.getHoldings(requestQueryParametersMap);
         }))
         .toList();
   }
@@ -222,9 +223,9 @@ public class EcsInventoryService {
   private List<JsonNode> getItems(InstanceTenants instanceTenants, RequestQueryParameters requestQueryParameters) {
     var context = (FolioExecutionContext) folioExecutionContext.getInstance();
     return instanceTenants.tenantIds().parallelStream()
-        .map(tenantId -> context.execute(() -> {
+        .map(tenantId -> FolioExecutionContextHelper.contextForTenant(context, tenantId).execute(() -> {
           var requestQueryParametersMap = requestQueryParametersMapper.toMap(requestQueryParameters);
-          return inventoryClient.getItems(requestQueryParametersMap, tenantId);
+          return inventoryClient.getItems(requestQueryParametersMap);
         }))
         .toList();
   }
