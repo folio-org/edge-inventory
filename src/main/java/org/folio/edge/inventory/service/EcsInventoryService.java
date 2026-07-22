@@ -254,16 +254,25 @@ public class EcsInventoryService {
       return;
     }
     for (JsonNode value : values.elements()) {
+      if (value == null || value.isNull()) {
+        continue;
+      }
       valuesByKey.putIfAbsent(keyProvider.apply(value), value);
     }
   }
 
   private String electronicAccessKey(JsonNode electronicAccess) {
+    if (electronicAccess == null || electronicAccess.isNull()) {
+      return "";
+    }
     var uri = stringValue(electronicAccess, URI);
     return uri == null ? electronicAccess.toString() : uri;
   }
 
   private String namedValueKey(JsonNode namedValue) {
+    if (namedValue == null || namedValue.isNull()) {
+      return "";
+    }
     var id = stringValue(namedValue, ID_FIELD);
     return id == null ? namedValue.toString() : id;
   }
