@@ -12,6 +12,10 @@ public class TestConstants {
   public static final String INSTANCE_SUMMARY_RESPONSE_PATH = "__files/responses/instance_summary_response.json";
   public static final String INSTANCE_SUMMARY_MEMBER_1_RESPONSE_PATH = "__files/responses/instance_summary_member_1_response.json";
   public static final String INSTANCE_SUMMARY_MEMBER_2_RESPONSE_PATH = "__files/responses/instance_summary_member_2_response.json";
+  public static final String INSTANCE_SUMMARY_SPARSE_CENTRAL_RESPONSE_PATH =
+      "__files/responses/instance_summary_sparse_central_response.json";
+  public static final String INSTANCE_SUMMARY_SPARSE_MEMBER_RESPONSE_PATH =
+      "__files/responses/instance_summary_sparse_member_response.json";
   public static final String AUTHORITY_RESPONSE_PATH = "__files/responses/authority_response.json";
   public static final String IDENTIFIER_TYPES_RESPONSE_PATH = "__files/responses/identifier_types_response.json";
   public static final String LOCATIONS_RESPONSE_PATH = "__files/responses/locations_response.json";
@@ -42,6 +46,7 @@ public class TestConstants {
   public static final String SOURCE_RECORD_RESPONSE_PATH ="__files/responses/source-records.json";
   public static final String AUTHORITY_SOURCE_RECORD_RESPONSE_PATH = "__files/responses/authority_source_records.json";
   public static final String HOLDINGS_FACET_RESPONSE_PATH = "__files/responses/holdings_facet_response.json";
+  public static final String HOLDINGS_FACET_EMPTY_RESPONSE_PATH = "__files/responses/holdings_facet_empty_response.json";
   public static final String HOLDINGS_FACET_WITH_TWO_TENANTS_RESPONSE_PATH =
       "__files/responses/holdings_facet_with_two_tenants_response.json";
   public static final String HOLDING_RESPONSE_PATH = "__files/responses/holding_response.json";

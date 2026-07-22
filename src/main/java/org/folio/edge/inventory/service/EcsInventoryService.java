@@ -188,9 +188,7 @@ public class EcsInventoryService {
   private void addCount(JsonNode target, JsonNode source, String recordType, String fieldName) {
     var targetCounts = target.withObject(jsonPointer(RECORD_COUNTS, recordType));
     var sourceCounts = getNode(source, RECORD_COUNTS, recordType);
-    if (targetCounts != null) {
-      targetCounts.put(fieldName, intValue(targetCounts, fieldName) + intValue(sourceCounts, fieldName));
-    }
+    targetCounts.put(fieldName, intValue(targetCounts, fieldName) + intValue(sourceCounts, fieldName));
   }
 
   private void mergeAggregateScope(JsonNode target, JsonNode source, String scope) {
@@ -209,13 +207,11 @@ public class EcsInventoryService {
 
   private void mergeEffectiveShelvingOrder(JsonNode target, JsonNode source, String scope) {
     var targetFields = target.withObject(jsonPointer(AGGREGATES, scope, ITEM_DERIVED_FIELDS));
-    if (targetFields != null) {
-      var targetValue = stringValue(targetFields, EFFECTIVE_SHELVING_ORDER);
-      var sourceValue = stringValue(getNode(source, AGGREGATES, scope, ITEM_DERIVED_FIELDS), EFFECTIVE_SHELVING_ORDER);
-      var mergedValue = firstShelvingOrder(targetValue, sourceValue);
-      if (mergedValue != null) {
-        targetFields.put(EFFECTIVE_SHELVING_ORDER, mergedValue);
-      }
+    var targetValue = stringValue(targetFields, EFFECTIVE_SHELVING_ORDER);
+    var sourceValue = stringValue(getNode(source, AGGREGATES, scope, ITEM_DERIVED_FIELDS), EFFECTIVE_SHELVING_ORDER);
+    var mergedValue = firstShelvingOrder(targetValue, sourceValue);
+    if (mergedValue != null) {
+      targetFields.put(EFFECTIVE_SHELVING_ORDER, mergedValue);
     }
   }
 
@@ -237,15 +233,11 @@ public class EcsInventoryService {
     addArrayValues(merged, getNode(source, append(parentPath, arrayName)), keyProvider);
 
     var values = new ArrayList<>(merged.values());
-    if (comparator != null) {
-      values.sort(comparator);
-    }
+    values.sort(comparator);
 
     var mergedArray = JsonNodeFactory.instance.arrayNode();
     values.forEach(mergedArray::add);
-    if (targetParent != null) {
-      targetParent.set(arrayName, mergedArray);
-    }
+    targetParent.set(arrayName, mergedArray);
   }
 
   private void addArrayValues(Map<String, JsonNode> valuesByKey, JsonNode arrayNode,
@@ -254,7 +246,7 @@ public class EcsInventoryService {
       return;
     }
     for (JsonNode value : values.elements()) {
-      if (value == null || value.isNull()) {
+      if (value.isNull()) {
         continue;
       }
       valuesByKey.putIfAbsent(keyProvider.apply(value), value);
@@ -262,19 +254,13 @@ public class EcsInventoryService {
   }
 
   private String electronicAccessKey(JsonNode electronicAccess) {
-    if (electronicAccess == null || electronicAccess.isNull()) {
-      return "";
-    }
     var uri = stringValue(electronicAccess, URI);
-    return uri == null ? electronicAccess.toString() : uri;
+    return uri == null ? Objects.toString(electronicAccess, "") : uri;
   }
 
   private String namedValueKey(JsonNode namedValue) {
-    if (namedValue == null || namedValue.isNull()) {
-      return "";
-    }
     var id = stringValue(namedValue, ID_FIELD);
-    return id == null ? namedValue.toString() : id;
+    return id == null ? Objects.toString(namedValue, "") : id;
   }
 
   private String[] append(String[] pathSegments, String fieldName) {

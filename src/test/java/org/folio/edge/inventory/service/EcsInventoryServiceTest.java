@@ -4,12 +4,15 @@ import static org.folio.edge.inventory.TestConstants.CENTRAL_TEST_TENANT;
 import static org.folio.edge.inventory.TestConstants.GET_VIEW_INSTANCES_WITHOUT_HOLDINGS_PATH;
 import static org.folio.edge.inventory.TestConstants.GET_VIEW_INSTANCES_WITH_HOLDINGS_PATH;
 import static org.folio.edge.inventory.TestConstants.HOLDINGS_FACET_RESPONSE_PATH;
+import static org.folio.edge.inventory.TestConstants.HOLDINGS_FACET_EMPTY_RESPONSE_PATH;
 import static org.folio.edge.inventory.TestConstants.HOLDINGS_FACET_WITH_TWO_TENANTS_RESPONSE_PATH;
 import static org.folio.edge.inventory.TestConstants.HOLDINGS_RESPONSE_PATH;
 import static org.folio.edge.inventory.TestConstants.HOLDING_RESPONSE_PATH;
 import static org.folio.edge.inventory.TestConstants.INSTANCE_SUMMARY_MEMBER_1_RESPONSE_PATH;
 import static org.folio.edge.inventory.TestConstants.INSTANCE_SUMMARY_MEMBER_2_RESPONSE_PATH;
 import static org.folio.edge.inventory.TestConstants.INSTANCE_SUMMARY_RESPONSE_PATH;
+import static org.folio.edge.inventory.TestConstants.INSTANCE_SUMMARY_SPARSE_CENTRAL_RESPONSE_PATH;
+import static org.folio.edge.inventory.TestConstants.INSTANCE_SUMMARY_SPARSE_MEMBER_RESPONSE_PATH;
 import static org.folio.edge.inventory.TestConstants.ITEMS_RESPONSE_PATH;
 import static org.folio.edge.inventory.TestConstants.USER_TENANTS_NON_CONSORTIA_RESPONSE_PATH;
 import static org.folio.edge.inventory.TestConstants.USER_TENANTS_RESPONSE_PATH;
@@ -121,6 +124,53 @@ public class EcsInventoryServiceTest {
     assertEquals("https://example.org/member-two", allRecords.get("electronicAccess").get(2).get("uri").asString());
     assertEquals(3, allRecords.get("referenceValues").get("itemMaterialTypes").size());
     assertEquals("book", allRecords.get("referenceValues").get("itemMaterialTypes").get(0).get("name").asString());
+  }
+
+  @Test
+  @SneakyThrows
+  void getEcsInstanceSummary_shouldReturnCentralSummaryWhenFacetHasNoHoldings() {
+    when(inventoryClient.getInstanceSummary(VALID_INSTANCE_ID))
+        .thenReturn(getJsonNode(INSTANCE_SUMMARY_RESPONSE_PATH));
+    when(searchClient.getInstanceFacet(eq(ecsInventoryService.FACET), anyString()))
+        .thenReturn(getFacetResponse(HOLDINGS_FACET_EMPTY_RESPONSE_PATH));
+
+    var response = objectMapper.readTree(
+        ecsInventoryService.getEcsInstanceSummary(VALID_INSTANCE_ID, CENTRAL_TEST_TENANT));
+
+    verify(inventoryClient).getInstanceSummary(VALID_INSTANCE_ID);
+    assertEquals("Central summary instance", response.get("instance").get("title").asString());
+    assertEquals(1, response.get("recordCounts").get("holdings").get("total").asInt());
+  }
+
+  @Test
+  @SneakyThrows
+  void getEcsInstanceSummary_shouldMergeSparseSummaryData() {
+    when(folioExecutionContext.getInstance()).thenReturn(folioExecutionContext);
+    when(folioExecutionContext.getAllHeaders()).thenReturn(okapiHeaders(CENTRAL_TEST_TENANT));
+    when(folioExecutionContext.getOkapiHeaders()).thenReturn(okapiHeaders(CENTRAL_TEST_TENANT));
+    when(inventoryClient.getInstanceSummary(VALID_INSTANCE_ID))
+        .thenReturn(getJsonNode(INSTANCE_SUMMARY_SPARSE_CENTRAL_RESPONSE_PATH))
+        .thenReturn(getJsonNode(INSTANCE_SUMMARY_SPARSE_MEMBER_RESPONSE_PATH));
+    var facetResponse = getFacetResponse(HOLDINGS_FACET_RESPONSE_PATH);
+    when(searchClient.getInstanceFacet(eq(ecsInventoryService.FACET), anyString()))
+        .thenReturn(facetResponse);
+
+    var response = objectMapper.readTree(
+        ecsInventoryService.getEcsInstanceSummary(VALID_INSTANCE_ID, CENTRAL_TEST_TENANT));
+
+    var allRecords = response.get("aggregates").get("allRecords");
+    assertEquals("CN 010", allRecords.get("itemDerivedFields").get("effectiveShelvingOrder").asString());
+    assertEquals(1, allRecords.get("electronicAccess").size());
+    assertEquals("Blank URI", allRecords.get("electronicAccess").get(0).get("linkText").asString());
+    assertEquals(1, allRecords.get("referenceValues").get("itemMaterialTypes").size());
+    assertEquals("unknown material",
+        allRecords.get("referenceValues").get("itemMaterialTypes").get(0).get("name").asString());
+
+    var notSuppressedRecords = response.get("aggregates").get("notSuppressedFromDiscoveryRecords");
+    assertEquals("CN 020",
+        notSuppressedRecords.get("itemDerivedFields").get("effectiveShelvingOrder").asString());
+    assertEquals(1, response.get("recordCounts").get("holdings").get("total").asInt());
+    assertFalse(response.get("isBoundWith").asBoolean());
   }
 
   @Test
@@ -250,6 +300,10 @@ public class EcsInventoryServiceTest {
 
   private JsonNode getJsonNode(String resourcePath) {
     return objectMapper.readTree(TestUtil.readFileContentFromResources(resourcePath));
+  }
+
+  private FacetResponse getFacetResponse(String resourcePath) {
+    return objectMapper.readValue(TestUtil.readFileContentFromResources(resourcePath), FacetResponse.class);
   }
 
   private Map<String, Collection<String>> okapiHeaders(String tenantId) {
