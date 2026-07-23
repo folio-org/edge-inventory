@@ -186,7 +186,7 @@ public class EcsInventoryService {
   }
 
   private void addCount(JsonNode target, JsonNode source, String recordType, String fieldName) {
-    var targetCounts = target.withObject(jsonPointer(RECORD_COUNTS, recordType));
+    var targetCounts = Objects.requireNonNull(target.withObject(jsonPointer(RECORD_COUNTS, recordType)));
     var sourceCounts = getNode(source, RECORD_COUNTS, recordType);
     targetCounts.put(fieldName, intValue(targetCounts, fieldName) + intValue(sourceCounts, fieldName));
   }
@@ -228,7 +228,7 @@ public class EcsInventoryService {
   private void mergeArray(JsonNode target, JsonNode source, String[] parentPath, String arrayName,
       Function<JsonNode, String> keyProvider, Comparator<JsonNode> comparator) {
     var merged = new LinkedHashMap<String, JsonNode>();
-    var targetParent = target.withObject(jsonPointer(parentPath));
+    var targetParent = Objects.requireNonNull(target.withObject(jsonPointer(parentPath)));
     addArrayValues(merged, getNode(targetParent, arrayName), keyProvider);
     addArrayValues(merged, getNode(source, append(parentPath, arrayName)), keyProvider);
 
