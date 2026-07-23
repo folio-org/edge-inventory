@@ -1,0 +1,78 @@
+{
+  "instance": {
+    "id": "e6bc03c6-c137-4221-b679-a7c5c31f986c",
+    "title": "Member one summary instance",
+    "source": "FOLIO"
+  },
+  "isBoundWith": false,
+  "recordCounts": {
+    "holdings": {
+      "total": 2,
+      "suppressedFromDiscovery": 1,
+      "notSuppressedFromDiscovery": 1
+    },
+    "items": {
+      "total": 3,
+      "suppressedFromDiscovery": 1,
+      "suppressedByHoldings": 1,
+      "suppressedFromDiscoveryOrByHoldings": 2,
+      "notSuppressedFromDiscovery": 1
+    }
+  },
+  "aggregates": {
+    "allRecords": {
+      "itemDerivedFields": {
+        "effectiveShelvingOrder": "CN 001"
+      },
+      "electronicAccess": [
+        {
+          "uri": "https://example.org/central",
+          "linkText": "Central duplicate"
+        },
+        {
+          "uri": "https://example.org/member-one",
+          "linkText": "Member one"
+        }
+      ],
+      "referenceValues": {
+        "itemMaterialTypes": [
+          {
+            "id": "11111111-1111-4111-8111-111111111111",
+            "name": "book"
+          },
+          {
+            "id": "22222222-2222-4222-8222-222222222222",
+            "name": "journal"
+          }
+        ]
+      }
+    },
+    "notSuppressedFromDiscoveryRecords": {
+      "itemDerivedFields": {
+        "effectiveShelvingOrder": "CN 001"
+      },
+      "electronicAccess": [
+        {
+          "uri": "https://example.org/member-one",
+          "linkText": "Member one"
+        }
+      ],
+      "referenceValues": {
+        "itemMaterialTypes": [
+          {
+            "id": "22222222-2222-4222-8222-222222222222",
+            "name": "journal"
+          }
+        ]
+      }
+    }
+  },
+  "referenceValues": {
+    "instanceFormats": [],
+    "natureOfContentTerms": [],
+    "instanceType": {
+      "id": "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb",
+      "name": "text"
+    }
+  }
+}

@@ -33,6 +33,15 @@ public class InventoryController implements InventoryApi {
   }
 
   @Override
+  public ResponseEntity<String> getInstanceSummary(String instanceId, String xOkapiTenant, String xOkapiToken) {
+    log.info("Retrieving instance summary by given id {}", instanceId);
+    if (ecsInventoryService.isCentralTenant(xOkapiTenant)) {
+      return ResponseEntity.ok(ecsInventoryService.getEcsInstanceSummary(instanceId, xOkapiTenant));
+    }
+    return ResponseEntity.ok(inventoryService.getInstanceSummary(instanceId));
+  }
+
+  @Override
   public ResponseEntity<String> getInstancesByQuery(String xOkapiTenant, String xOkapiToken,
       RequestQueryParameters requestQueryParameters) {
     log.info("Retrieving instances by query {}", requestQueryParameters.getQuery());

@@ -13,6 +13,9 @@ public interface InventoryClient {
   @GetExchange("inventory/instances/{instanceId}")
   JsonNode getInstance(@PathVariable("instanceId") String instanceId, @RequestParam String lang);
 
+  @GetExchange("instance-storage/instances/{instanceId}/summary")
+  JsonNode getInstanceSummary(@PathVariable("instanceId") String instanceId);
+
   @GetExchange("inventory/instances")
   JsonNode getInstancesByQuery(@RequestParam Map<String, ?> requestQueryParameters);
 

@@ -10,6 +10,7 @@ import static org.folio.edge.inventory.TestConstants.GET_LOCATION_BY_ID_URL;
 import static org.folio.edge.inventory.TestConstants.GET_MATERIAL_TYPES_URL;
 import static org.folio.edge.inventory.TestConstants.GET_VIEW_INSTANCES_URL;
 import static org.folio.edge.inventory.TestConstants.INSTITUTION_ID;
+import static org.folio.edge.inventory.TestConstants.INSTANCE_SUMMARY_BY_VALID_INSTANCE_ID_URL;
 import static org.folio.edge.inventory.TestConstants.LIBRARY_ID;
 import static org.folio.edge.inventory.TestConstants.LOCATION_ID;
 import static com.github.tomakehurst.wiremock.client.WireMock.equalTo;
@@ -34,6 +35,25 @@ class EcsInventoryControllerIT extends BaseIntegrationTests {
 
   @Autowired
   private MockMvc mockMvc;
+
+  @Test
+  void getInstanceSummary_shouldReturnMergedSummaryFromTenantsWithHoldings() throws Exception {
+    doGet(mockMvc, INSTANCE_SUMMARY_BY_VALID_INSTANCE_ID_URL, true)
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("instance.title", is("Central summary instance")))
+        .andExpect(jsonPath("isBoundWith", is(true)))
+        .andExpect(jsonPath("recordCounts.holdings.total", is(4)))
+        .andExpect(jsonPath("recordCounts.holdings.suppressedFromDiscovery", is(1)))
+        .andExpect(jsonPath("recordCounts.holdings.notSuppressedFromDiscovery", is(3)))
+        .andExpect(jsonPath("recordCounts.items.total", is(8)))
+        .andExpect(jsonPath("recordCounts.items.suppressedFromDiscovery", is(1)))
+        .andExpect(jsonPath("recordCounts.items.suppressedByHoldings", is(1)))
+        .andExpect(jsonPath("recordCounts.items.suppressedFromDiscoveryOrByHoldings", is(2)))
+        .andExpect(jsonPath("recordCounts.items.notSuppressedFromDiscovery", is(6)))
+        .andExpect(jsonPath("aggregates.allRecords.itemDerivedFields.effectiveShelvingOrder", is("CN 001")))
+        .andExpect(jsonPath("aggregates.allRecords.electronicAccess", hasSize(3)))
+        .andExpect(jsonPath("aggregates.allRecords.referenceValues.itemMaterialTypes", hasSize(3)));
+  }
 
   @Test
   void getInventoryViewInstances_shouldReturnInventoryViewInstancesWithHoldingsFromMemberTenant() throws Exception {
