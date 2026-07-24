@@ -1,3 +1,7 @@
+## v2.3.1 2026.07.24
+* [EDGEINV-37](https://folio-org.atlassian.net/browse/EDGEINV-37): Fix ECS endpoints not returning member tenant data by resolving tenant via execution context
+* [EDGEINV-38](https://folio-org.atlassian.net/browse/EDGEINV-38): Upgrade edge-common-spring in edge-inventory
+
 ## v2.3.0 2026.04.17
 * [EDGEINV-14](https://folio-org.atlassian.net/browse/EDGEINV-14): Update GET /inventory/material-types/{id} endpoint to retrieve consolidated material types across all tenants
 * [EDGEINV-15](https://folio-org.atlassian.net/browse/EDGEINV-15): Add ecs support for holdings and items
