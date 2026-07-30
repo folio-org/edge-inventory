@@ -1,0 +1,70 @@
+{
+  "instance": {
+    "id": "e6bc03c6-c137-4221-b679-a7c5c31f986c",
+    "title": "Member two summary instance",
+    "source": "FOLIO"
+  },
+  "isBoundWith": true,
+  "recordCounts": {
+    "holdings": {
+      "total": 1,
+      "suppressedFromDiscovery": 0,
+      "notSuppressedFromDiscovery": 1
+    },
+    "items": {
+      "total": 4,
+      "suppressedFromDiscovery": 0,
+      "suppressedByHoldings": 0,
+      "suppressedFromDiscoveryOrByHoldings": 0,
+      "notSuppressedFromDiscovery": 4
+    }
+  },
+  "aggregates": {
+    "allRecords": {
+      "itemDerivedFields": {
+        "effectiveShelvingOrder": "CN 003"
+      },
+      "electronicAccess": [
+        {
+          "uri": "https://example.org/member-two",
+          "linkText": "Member two"
+        }
+      ],
+      "referenceValues": {
+        "itemMaterialTypes": [
+          {
+            "id": "33333333-3333-4333-8333-333333333333",
+            "name": "map"
+          }
+        ]
+      }
+    },
+    "notSuppressedFromDiscoveryRecords": {
+      "itemDerivedFields": {
+        "effectiveShelvingOrder": "CN 003"
+      },
+      "electronicAccess": [
+        {
+          "uri": "https://example.org/member-two",
+          "linkText": "Member two"
+        }
+      ],
+      "referenceValues": {
+        "itemMaterialTypes": [
+          {
+            "id": "33333333-3333-4333-8333-333333333333",
+            "name": "map"
+          }
+        ]
+      }
+    }
+  },
+  "referenceValues": {
+    "instanceFormats": [],
+    "natureOfContentTerms": [],
+    "instanceType": {
+      "id": "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb",
+      "name": "text"
+    }
+  }
+}

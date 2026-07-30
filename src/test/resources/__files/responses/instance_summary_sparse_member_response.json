@@ -1,0 +1,16 @@
+{
+  "instance": {
+    "id": "e6bc03c6-c137-4221-b679-a7c5c31f986c",
+    "title": "Sparse member summary"
+  },
+  "aggregates": {
+    "allRecords": {
+      "itemDerivedFields": {
+        "effectiveShelvingOrder": "CN 010"
+      }
+    },
+    "notSuppressedFromDiscoveryRecords": {
+      "itemDerivedFields": {}
+    }
+  }
+}
