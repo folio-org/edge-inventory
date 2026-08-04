@@ -1,3 +1,6 @@
+## WIP
+* [FOLIO-4553](https://folio-org.atlassian.net/browse/FOLIO-4553): Set "permissions: contents: read" in maven.yml
+
 ## v2.3.0 2026.04.17
 * [EDGEINV-14](https://folio-org.atlassian.net/browse/EDGEINV-14): Update GET /inventory/material-types/{id} endpoint to retrieve consolidated material types across all tenants
 * [EDGEINV-15](https://folio-org.atlassian.net/browse/EDGEINV-15): Add ecs support for holdings and items
