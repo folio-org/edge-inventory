@@ -105,6 +105,15 @@ public class EcsLocationsServiceTest {
     Assertions.assertThrows(EntityNotFoundException.class, () -> ecsLocationsService.getLibraryById(TestConstants.LIBRARY_ID));
   }
 
+  @Test
+  @SneakyThrows
+  void getConsortiumLocations_shouldReturnAllLocationsWithoutId() {
+    Mockito.when(searchClient.getConsortiumLocations(null))
+        .thenReturn(getJsonNode(TestConstants.LOCATIONS_SEARCH_RESPONSE_PATH));
+    var response = objectMapper.readTree(ecsLocationsService.getConsortiumLocations());
+    assertTrue(response.hasNonNull("locations"));
+  }
+
   @SneakyThrows
   private tools.jackson.databind.JsonNode getJsonNode(String resourcePath) {
     return objectMapper.readTree(TestUtil.readFileContentFromResources(resourcePath));
