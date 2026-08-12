@@ -15,7 +15,7 @@ public interface SearchClient {
   FacetResponse getInstanceFacet(@RequestParam String facet, @RequestParam String query);
 
   @GetExchange("/consortium/locations")
-  JsonNode getConsortiumLocations(@RequestParam String id);
+  JsonNode getConsortiumLocations(@RequestParam(required = false) String id);
 
   @GetExchange("/consortium/libraries")
   JsonNode getConsortiumLibraries(@RequestParam String id);
