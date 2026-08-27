@@ -1,3 +1,6 @@
+## v2.3.3 2026.08.27
+* [EDGEINV-39](https://folio-org.atlassian.net/browse/EDGEINV-39): Make id optional in SearchClient.getConsortiumLocations
+
 ## v2.3.1 2026.07.24
 * [EDGEINV-37](https://folio-org.atlassian.net/browse/EDGEINV-37): Fix ECS endpoints not returning member tenant data by resolving tenant via execution context
 * [EDGEINV-38](https://folio-org.atlassian.net/browse/EDGEINV-38): Upgrade edge-common-spring in edge-inventory
