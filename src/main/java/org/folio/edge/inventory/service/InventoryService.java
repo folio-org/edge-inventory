@@ -17,6 +17,10 @@ public class InventoryService {
     return inventoryClient.getInstance(instanceId, lang).toString();
   }
 
+  public String getInstanceSummary(String instanceId) {
+    return inventoryClient.getInstanceSummary(instanceId).toString();
+  }
+
   public String getInstancesByQuery(RequestQueryParameters requestQueryParameters) {
     var requestQueryParametersMap = requestQueryParametersMapper.toMap(requestQueryParameters);
     return inventoryClient.getInstancesByQuery(requestQueryParametersMap).toString();
