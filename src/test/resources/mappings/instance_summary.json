@@ -1,0 +1,56 @@
+{
+  "mappings": [
+    {
+      "priority": 1,
+      "request": {
+        "method": "GET",
+        "urlPath": "/instance-storage/instances/e6bc03c6-c137-4221-b679-a7c5c31f986c/summary",
+        "headers": {
+          "x-okapi-tenant": {
+            "equalTo": "test1"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "bodyFileName": "responses/instance_summary_member_1_response.json",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "priority": 1,
+      "request": {
+        "method": "GET",
+        "urlPath": "/instance-storage/instances/e6bc03c6-c137-4221-b679-a7c5c31f986c/summary",
+        "headers": {
+          "x-okapi-tenant": {
+            "equalTo": "test2"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "bodyFileName": "responses/instance_summary_member_2_response.json",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "priority": 2,
+      "request": {
+        "method": "GET",
+        "urlPath": "/instance-storage/instances/e6bc03c6-c137-4221-b679-a7c5c31f986c/summary"
+      },
+      "response": {
+        "status": 200,
+        "bodyFileName": "responses/instance_summary_response.json",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    }
+  ]
+}

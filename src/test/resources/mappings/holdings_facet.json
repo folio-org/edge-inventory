@@ -6,6 +6,24 @@
         "urlPath": "/search/instances/facets",
         "queryParameters": {
           "query": {
+            "contains": "e6bc03c6-c137-4221-b679-a7c5c31f986c"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "bodyFileName": "responses/holdings_facet_with_two_tenants_response.json",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "urlPath": "/search/instances/facets",
+        "queryParameters": {
+          "query": {
             "contains": "d41d9172-1869-11eb-adc1-0242ac120002"
           }
         }
