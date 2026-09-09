@@ -37,6 +37,33 @@ paths:
         '500':
           $ref: '#/components/responses/internalServerErrorResponse'
 
+  /inventory/instances/{instanceId}/summary:
+    get:
+      tags:
+        - instances
+      operationId: getInstanceSummary
+      summary: Retrieve inventory instance summary by id from folio mod-inventory-storage
+      description: Retrieve inventory instance summary by id from folio mod-inventory-storage
+      parameters:
+        - $ref: '#/components/parameters/x-okapi-tenant-header'
+        - $ref: '#/components/parameters/x-okapi-token-header'
+        - $ref: '#/components/parameters/instance-id'
+      responses:
+        '200':
+          description: |
+            Calls the mod-inventory-storage GET /instance-storage/instances/{id}/summary API and returns the result as-is. \
+            In ECS central tenant mode, summaries from tenants with holdings are merged into a single response.
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          $ref: '#/components/responses/badRequestResponse'
+        '404':
+          $ref: '#/components/responses/notFoundResponse'
+        '500':
+          $ref: '#/components/responses/internalServerErrorResponse'
+
   /inventory/instances:
     get:
       operationId: getInstancesByQuery

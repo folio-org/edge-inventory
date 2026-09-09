@@ -1,0 +1,50 @@
+{
+  "instance": {
+    "id": "e6bc03c6-c137-4221-b679-a7c5c31f986c",
+    "title": "Sparse central summary"
+  },
+  "isBoundWith": false,
+  "recordCounts": {
+    "holdings": {
+      "total": 1,
+      "suppressedFromDiscovery": 0,
+      "notSuppressedFromDiscovery": 1
+    },
+    "items": {
+      "total": 1,
+      "suppressedFromDiscovery": 0,
+      "suppressedByHoldings": 0,
+      "suppressedFromDiscoveryOrByHoldings": 0,
+      "notSuppressedFromDiscovery": 1
+    }
+  },
+  "aggregates": {
+    "allRecords": {
+      "itemDerivedFields": {},
+      "electronicAccess": [
+        null,
+        {
+          "uri": " ",
+          "linkText": "Blank URI"
+        }
+      ],
+      "referenceValues": {
+        "itemMaterialTypes": [
+          null,
+          {
+            "name": "unknown material"
+          }
+        ]
+      }
+    },
+    "notSuppressedFromDiscoveryRecords": {
+      "itemDerivedFields": {
+        "effectiveShelvingOrder": "CN 020"
+      },
+      "electronicAccess": [],
+      "referenceValues": {
+        "itemMaterialTypes": []
+      }
+    }
+  }
+}

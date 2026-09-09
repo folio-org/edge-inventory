@@ -16,6 +16,7 @@ import static org.folio.edge.inventory.TestConstants.IDENTIFIER_TYPES_RESPONSE_P
 import static org.folio.edge.inventory.TestConstants.INSTANCE_FORMATS_RESPONSE_PATH;
 import static org.folio.edge.inventory.TestConstants.INSTANCE_NOTE_TYPES_RESPONSE_PATH;
 import static org.folio.edge.inventory.TestConstants.INSTANCE_RESPONSE_PATH;
+import static org.folio.edge.inventory.TestConstants.INSTANCE_SUMMARY_RESPONSE_PATH;
 import static org.folio.edge.inventory.TestConstants.INSTANCE_TYPES_RESPONSE_PATH;
 import static org.folio.edge.inventory.TestConstants.INSTITUTION_BY_ID_PATH;
 import static org.folio.edge.inventory.TestConstants.INSTITUTION_ID;
@@ -51,6 +52,7 @@ import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import tools.jackson.databind.JsonNode;
@@ -67,6 +69,7 @@ class InventoryServiceTest {
   private static final String TOTAL_RECORDS = "totalRecords";
   private static final String EFFECTIVE_SHELVING_ORDER = "effectiveShelvingOrder";
 
+  @InjectMocks
   private InventoryService inventoryService;
   @Mock
   private InventoryClient inventoryClient;
@@ -75,7 +78,6 @@ class InventoryServiceTest {
 
   @BeforeEach
   void setUp() {
-    inventoryService = new InventoryService(inventoryClient, requestQueryParametersMapper);
     var emptyQueryMap = Collections.emptyMap();
     lenient().doReturn(emptyQueryMap)
         .when(requestQueryParametersMapper).toMap(any(RequestQueryParameters.class));
@@ -95,6 +97,22 @@ class InventoryServiceTest {
     assertEquals("inst000000000027", actualInstance.get("hrid"));
     assertEquals("Organisations- und Prozessentwicklung Harald Augustin (Hrsg.)", actualInstance.get("title"));
     assertEquals("FOLIO", actualInstance.get(SOURCE));
+  }
+
+  @Test
+  void getInstanceSummaryById_shouldReturnInstanceSummary() throws JSONException {
+    when(inventoryClient
+        .getInstanceSummary(VALID_INSTANCE_ID))
+        .thenReturn(jsonNode(INSTANCE_SUMMARY_RESPONSE_PATH));
+
+    JSONObject actualSummary = new JSONObject(inventoryService.getInstanceSummary(VALID_INSTANCE_ID));
+
+    assertEquals(VALID_INSTANCE_ID, actualSummary.getJSONObject("instance").get(ID));
+    assertEquals(1, actualSummary.getJSONObject("recordCounts").getJSONObject("holdings").get("total"));
+    assertEquals("CN 002", actualSummary.getJSONObject("aggregates")
+        .getJSONObject("allRecords")
+        .getJSONObject("itemDerivedFields")
+        .get(EFFECTIVE_SHELVING_ORDER));
   }
 
   @Test
