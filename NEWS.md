@@ -1,3 +1,6 @@
+## v2.3.4 2026.09.09
+* [EDGEINV-40](https://folio-org.atlassian.net/browse/EDGEINV-40): Create new endpoint to support new inventory instance summary in mod-inventory and mod-inventory storage
+
 ## v2.3.3 2026.08.27
 * [EDGEINV-39](https://folio-org.atlassian.net/browse/EDGEINV-39): Make id optional in SearchClient.getConsortiumLocations
 
