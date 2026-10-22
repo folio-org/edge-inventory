@@ -1,4 +1,5 @@
 ## WIP
+* [EDGEINV-45](https://folio-org.atlassian.net/browse/EDGEINV-45): Add DeployConfig.json to edge-inventory (ADR-0013 Configuration Management)
 * [FOLIO-4553](https://folio-org.atlassian.net/browse/FOLIO-4553): Set "permissions: contents: read" in maven.yml
 
 ## v2.3.0 2026.04.17
