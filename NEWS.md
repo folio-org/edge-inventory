@@ -1,4 +1,5 @@
 ## WIP
+* [EDGEINV-44](https://folio-org.atlassian.net/browse/EDGEINV-44): Upgrade module to Spring Boot 4.1.1
 * [EDGEINV-45](https://folio-org.atlassian.net/browse/EDGEINV-45): Add DeployConfig.json to edge-inventory (ADR-0013 Configuration Management)
 * [FOLIO-4553](https://folio-org.atlassian.net/browse/FOLIO-4553): Set "permissions: contents: read" in maven.yml
 
