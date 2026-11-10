@@ -1,3 +1,7 @@
+## v2.3.5 2026.11.09
+
+* [EDGEINV-44](https://folio-org.atlassian.net/browse/EDGEINV-44): Upgrade module to Spring Boot 4.1.1
+
 ## v2.3.4 2026.09.09
 * [EDGEINV-40](https://folio-org.atlassian.net/browse/EDGEINV-40): Create new endpoint to support new inventory instance summary in mod-inventory and mod-inventory storage
 

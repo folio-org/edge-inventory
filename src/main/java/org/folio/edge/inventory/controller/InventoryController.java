@@ -1,6 +1,6 @@
 package org.folio.edge.inventory.controller;
 
-import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.folio.edge.inventory.service.DataExportService;
@@ -14,7 +14,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
-@Api(tags = "Edge inventory")
+@Tag(name = "Edge inventory")
 @Log4j2
 @RestController
 @RequiredArgsConstructor
