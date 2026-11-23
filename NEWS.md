@@ -1,3 +1,7 @@
+## v2.3.6 2026.11.23
+
+* [EDGEINV-45](https://folio-org.atlassian.net/browse/EDGEINV-45): Add DeployConfig.json to edge-inventory (ADR-0013 Configuration Management)
+
 ## v2.3.5 2026.11.09
 
 * [EDGEINV-44](https://folio-org.atlassian.net/browse/EDGEINV-44): Upgrade module to Spring Boot 4.1.1
